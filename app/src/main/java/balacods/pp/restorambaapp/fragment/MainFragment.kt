@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
-
-
 
 
 class MainFragment : Fragment() {
@@ -35,6 +35,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onClick()
+
         val str: TextView = binding.idInst
 
         mSettings = activity?.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE) ?: return
@@ -52,6 +54,12 @@ class MainFragment : Fragment() {
                 putBoolean(APP_PREFERENCES, true)
                 apply()
             }
+        }
+    }
+
+    private fun onClick() {
+        binding.idButtonNext.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
         }
     }
 }

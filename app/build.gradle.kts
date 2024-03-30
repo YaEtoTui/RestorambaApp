@@ -41,6 +41,12 @@ android {
 
 dependencies {
 
+//    //MapKit / Yandex Map
+//    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
+
+    // Add MapKit SDK full dependency
+    implementation("com.yandex.android:maps.mobile:4.5.1-full")
+
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
