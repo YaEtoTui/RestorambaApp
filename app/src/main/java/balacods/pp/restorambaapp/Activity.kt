@@ -161,7 +161,10 @@ class Activity : AppCompatActivity() {
 
         routes.forEachIndexed { index, route ->
             routesCollection.addPolyline(route.geometry).apply {
-                if (index == 0) styleMainRoute() /*else styleAlternativeRoute()*/
+                if (index == 0) {
+                    styleMainRoute() /*else styleAlternativeRoute()*/
+                    return
+                }
             }
         }
     }
@@ -184,10 +187,10 @@ class Activity : AppCompatActivity() {
 
     companion object {
 
-        private val START_POSITION = CameraPosition(Point(56.797469, 60.614430), 13.0f, 0f, 0f)
+        private val START_POSITION = CameraPosition(Point(56.797469, 60.714430), 13.0f, 0f, 0f)
 
         private val DEFAULT_POINTS = listOf(
-            Point(56.797469, 60.614430),
+            Point(56.797469, 60.714430),
             Point(56.815546, 60.605954),
         )
     }
