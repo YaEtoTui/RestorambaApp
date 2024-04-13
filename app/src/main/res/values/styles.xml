@@ -36,4 +36,18 @@
         <item name="fontFamily">@font/oswald_light</item>
     </style>
 
+    <style name="CustomScrollBar">
+        <item name="android:scrollbarThumbVertical">@drawable/custom_scrollbar_thumb</item>
+        <item name="android:scrollbarSize">10dp</item>
+        <item name="android:scrollbarTrackVertical">@android:color/transparent</item>
+        <item name="android:scrollbarStyle">insideOverlay</item>
+    </style>
+
+    <style name="CustomScrollBar2">
+        <item name="android:scrollbarThumbVertical">@drawable/custom_scrollbar_thumb</item>
+        <item name="android:scrollbarSize">10dp</item>
+        <item name="android:scrollbarTrackVertical">@android:color/transparent</item>
+        <item name="android:scrollbarStyle">insideOverlay</item>
+    </style>
+
 </resources>

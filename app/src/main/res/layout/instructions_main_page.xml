@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
-        android:text="@string/welcome"
         android:gravity="center"
+        android:text="@string/welcome"
         android:textAppearance="@style/welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +21,12 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/idScrollInstructions"
         android:layout_width="0dp"
-        android:layout_marginHorizontal="24dp"
         android:layout_height="301dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="50dp"
+        android:scrollbarSize="6dp"
+        android:scrollbars="vertical"
         android:background="@drawable/rectangle_instructions_scroll"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvWelcomeText"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeText"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeText">
@@ -65,5 +67,31 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tvQuestionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/question_instructions"
+        android:textAppearance="@style/instructions"
+        app:layout_constraintEnd_toEndOf="@+id/idScrollInstructions"
+        app:layout_constraintStart_toStartOf="@+id/idScrollInstructions"
+        app:layout_constraintTop_toBottomOf="@+id/idScrollInstructions" />
+
+    <Button
+        android:id="@+id/idButtonAgree"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@drawable/button_bg_color_instructions"
+        android:text="@string/yes"
+        android:textAppearance="@style/instructions"
+        android:textColor="@drawable/button_text_color_instructions"
+        app:cornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvQuestionText"
+        app:layout_constraintStart_toStartOf="@+id/tvQuestionText"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuestionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
