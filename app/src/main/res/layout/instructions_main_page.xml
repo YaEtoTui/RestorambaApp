@@ -22,8 +22,8 @@
         android:id="@+id/id"
         android:layout_width="0dp"
         android:layout_height="301dp"
-        android:layout_marginTop="50dp"
         android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/rectangle_instructions_scroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeText"
@@ -33,19 +33,31 @@
             android:id="@+id/idLine"
             android:layout_width="6dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="34dp"
             android:layout_marginRight="8.9dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/vertical_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTextInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/instructions"
+            android:textAppearance="@style/instructions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/idScrollInstructions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="12dp"
             android:scrollbarThumbVertical="@drawable/custom_scrollbar_thumb"
@@ -59,18 +71,6 @@
                 android:id="@+id/idTextInstructions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tvTextInstructions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="@string/instructions"
-                    android:textAppearance="@style/instructions"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvTextExample"
