@@ -7,4 +7,9 @@
         <item name="fontFamily">@font/dela_gothic_one_regular</item>
     </style>
 
+    <style name="button_main_page">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/oswald_bold</item>
+    </style>
+
 </resources>

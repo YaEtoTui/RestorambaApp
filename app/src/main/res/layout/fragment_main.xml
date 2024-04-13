@@ -43,18 +43,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Это инструкция"
+        android:textColor="@color/milk"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.387" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/idButtonGetRandomDish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="255dp"
+        android:layout_height="113dp"
         android:text="@string/get_random_dish"
+        android:textAppearance="@style/button_main_page"
+        app:cornerRadius="30dp"
         android:backgroundTint="@drawable/button_bg_color_main_page"
+        android:textColor="@drawable/button_text_color_main_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
