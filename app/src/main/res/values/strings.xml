@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RestorambaApp</string>
+    <string name="app_name">Restoramba</string>
     <string name="about">About</string>/string
     <string name="map">Map</string>/string
     <string name="user_location">User Location</string>
@@ -25,4 +25,8 @@
     <string name="package_name">com.yandex.mapkitdemo</string>
 
     <string name="mapkit_version_label">MapKit version</string>
+
+    //mobile
+    <string name="restoramba">RESTORAMBA</string>
+    <string name="get_random_dish">Получить случайное блюдо</string>
 </resources>

@@ -4,7 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MainFragment">
+    android:background="@color/black_green"
+    tools:context=".fragment.MainPageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idPageHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/idNameApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/restoramba"
+            android:textAppearance="@style/restoramba"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/idInst"
@@ -18,15 +50,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/idButtonNext"
+        android:id="@+id/idButtonGetRandomDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Дальше"
+        android:text="@string/get_random_dish"
+        android:backgroundTint="@drawable/button_bg_color_main_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <Button-->
+<!--        android:id="@+id/btSearchCow"-->
+<!--        android:layout_width="135dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:backgroundTint="@drawable/button_bg_color"-->
+<!--        android:elevation="10dp"-->
+<!--        android:fontFamily="@font/open_sans_semi_bold"-->
+<!--        android:stateListAnimator="@drawable/button_elevation"-->
+<!--        android:text="Добавить место"-->
+<!--        android:textColor="@drawable/button_text_color"-->
+<!--        android:textSize="10sp"-->
+<!--        app:cornerRadius="10dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/tvTextPresent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tvTextPresent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvTextPresent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

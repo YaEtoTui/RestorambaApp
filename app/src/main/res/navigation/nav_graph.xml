@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mainFrag"
-        android:name="balacods.pp.restorambaapp.fragment.MainFragment"
+        android:name="balacods.pp.restorambaapp.fragment.MainPageFragment"
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_main">
         <action
