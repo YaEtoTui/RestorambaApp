@@ -22,6 +22,7 @@
 
     //mobile
     <color name="black_green">#042F1A</color>
+    <color name="white_green">#D4ED6D</color>
     <color name="milk">#FFF6F6</color>
     <color name="pink">#FF73B5</color>
 </resources>

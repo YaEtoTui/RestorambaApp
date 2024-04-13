@@ -18,55 +18,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/idScrollInstructions"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/id"
         android:layout_width="0dp"
         android:layout_height="301dp"
-        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="50dp"
-        android:scrollbarSize="6dp"
-        android:scrollbars="vertical"
+        android:layout_marginHorizontal="24dp"
         android:background="@drawable/rectangle_instructions_scroll"
-        app:layout_constraintEnd_toEndOf="@+id/tvWelcomeText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvWelcomeText"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeText">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/idTextInstructions"
+        <View
+            android:id="@+id/idLine"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="8.9dp"
+            android:background="@drawable/vertical_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/idScrollInstructions"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="12dp"
+            android:scrollbarThumbVertical="@drawable/custom_scrollbar_thumb"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvTextInstructions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/instructions"
-                android:textAppearance="@style/instructions"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/idTextInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvTextExample"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="35dp"
-                android:gravity="center"
-                android:text="@string/example"
-                android:textAppearance="@style/instructions_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTextInstructions" />
+                <TextView
+                    android:id="@+id/tvTextInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/instructions"
+                    android:textAppearance="@style/instructions"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tvTextExample"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="35dp"
+                    android:gravity="center"
+                    android:text="@string/example"
+                    android:textAppearance="@style/instructions_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTextInstructions" />
 
-    </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvQuestionText"
@@ -76,9 +103,9 @@
         android:gravity="center"
         android:text="@string/question_instructions"
         android:textAppearance="@style/instructions"
-        app:layout_constraintEnd_toEndOf="@+id/idScrollInstructions"
-        app:layout_constraintStart_toStartOf="@+id/idScrollInstructions"
-        app:layout_constraintTop_toBottomOf="@+id/idScrollInstructions" />
+        app:layout_constraintEnd_toEndOf="@+id/id"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
     <Button
         android:id="@+id/idButtonAgree"
