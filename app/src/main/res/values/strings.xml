@@ -29,4 +29,9 @@
     //mobile
     <string name="restoramba">RESTORAMBA</string>
     <string name="get_random_dish">Получить случайное блюдо</string>
+    <string name="restaurants">Рестораны</string>
+    <string name="search_nav">Поиск</string>
+    <string name="main_nav">Главная</string>
+    <string name="maps_nav">Карты</string>
+    <string name="question">Вопросы</string>
 </resources>

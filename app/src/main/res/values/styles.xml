@@ -12,4 +12,10 @@
         <item name="fontFamily">@font/oswald_bold</item>
     </style>
 
+    <style name="nav_text">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/milk</item>
+        <item name="fontFamily">@font/oswald_light</item>
+    </style>
+
 </resources>

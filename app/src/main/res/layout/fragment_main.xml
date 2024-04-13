@@ -56,33 +56,95 @@
         android:id="@+id/idButtonGetRandomDish"
         android:layout_width="255dp"
         android:layout_height="113dp"
+        android:backgroundTint="@drawable/button_bg_color_main_page"
         android:text="@string/get_random_dish"
         android:textAppearance="@style/button_main_page"
-        app:cornerRadius="30dp"
-        android:backgroundTint="@drawable/button_bg_color_main_page"
         android:textColor="@drawable/button_text_color_main_page"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/idNavPages"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/idPageHeader" />
 
-    <!--    <Button-->
-<!--        android:id="@+id/btSearchCow"-->
-<!--        android:layout_width="135dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:backgroundTint="@drawable/button_bg_color"-->
-<!--        android:elevation="10dp"-->
-<!--        android:fontFamily="@font/open_sans_semi_bold"-->
-<!--        android:stateListAnimator="@drawable/button_elevation"-->
-<!--        android:text="Добавить место"-->
-<!--        android:textColor="@drawable/button_text_color"-->
-<!--        android:textSize="10sp"-->
-<!--        app:cornerRadius="10dp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/tvTextPresent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/tvTextPresent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tvTextPresent" />-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idNavPages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/idNavRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginBottom="34dp"
+            android:drawableTop="@drawable/food_nav"
+            android:drawablePadding="8dp"
+            android:gravity="bottom"
+            android:text="@string/restaurants"
+            android:textAppearance="@style/nav_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/idNavSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:drawableTop="@drawable/search_nav"
+            android:drawablePadding="10dp"
+            android:text="@string/search_nav"
+            android:textAlignment="center"
+            android:textAppearance="@style/nav_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:drawableTop="@drawable/home"
+            android:drawablePadding="8dp"
+            android:text="@string/main_nav"
+            android:textAlignment="center"
+            android:textAppearance="@style/nav_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:drawableTop="@drawable/place_marker"
+            android:drawablePadding="8dp"
+            android:text="@string/maps_nav"
+            android:textAlignment="center"
+            android:textAppearance="@style/nav_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+        <TextView
+            android:id="@+id/idNavQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="22dp"
+            android:layout_marginBottom="32dp"
+            android:drawableTop="@drawable/ask_question"
+            android:drawablePadding="8dp"
+            android:text="@string/question"
+            android:textAlignment="center"
+            android:textAppearance="@style/nav_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
