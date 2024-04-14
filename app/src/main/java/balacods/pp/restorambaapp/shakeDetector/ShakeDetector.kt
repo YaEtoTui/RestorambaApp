@@ -7,25 +7,22 @@ import android.hardware.SensorManager
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-
+/*
+* Класс, в котором происходит обнаружения тряски телефона.
+* @SHAKE_THRESHOLD - параметр который отвечает за чувствительность тряски
+* */
 class ShakeDetector() : SensorEventListener {
 
     private var onShakeListener: OnShakeListener? = null
     private var lastShakeTimestamp: Long = 0
-    private var shakeCount = 0
 
     companion object {
-        private const val SHAKE_THRESHOLD = 15.0f
+        private const val SHAKE_THRESHOLD = 53.0f
         private const val SHAKE_TIME_INTERVAL = 3000 // Время в миллисекундах между потрясениями
     }
 
     interface OnShakeListener {
         fun onShake()
-    }
-
-    fun ShakeDetector() {
-        shakeCount = 0
-        lastShakeTimestamp = 0
     }
 
     fun setOnShakeListener(onShakeListener: OnShakeListener?) {
