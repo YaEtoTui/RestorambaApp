@@ -17,6 +17,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.Builder
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetector.OnShakeListener
 
+/*
+* Back-сервис, в котором создаются элементы для тряски телефона. Нужен, чтобы
+* Пользователь мог пользоваться другим функционалом приложения, а этот работал на фоне :3
+* */
 class ShakeDetectionService : Service(), SensorEventListener {
 
     private val TAG: String = "ShakeDetectionService"
