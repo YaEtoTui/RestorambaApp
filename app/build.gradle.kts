@@ -41,6 +41,10 @@ android {
 
 dependencies {
 
+    //RxJava
+    implementation("io.reactivex:rxjava:1.1.3")
+    implementation("io.reactivex:rxandroid:1.1.0")
+
 //    //MapKit / Yandex Map
 //    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
 
