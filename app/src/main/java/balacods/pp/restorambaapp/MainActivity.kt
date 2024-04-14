@@ -12,8 +12,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ContentBaseBinding
 
-//    private lateinit var shakeDetector: ShakeDetector
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,12 +20,6 @@ class MainActivity : AppCompatActivity() {
         ContextCompat.startForegroundService(this, shakeDetectionServiceIntent)
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-//        sensorManager.unregisterListener(shakeDetector)
-//    }
-//
 //    private fun showText(text: String) {
 //        val str: TextView = findViewById(R.id.textView)
 //        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()

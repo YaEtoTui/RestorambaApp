@@ -51,7 +51,11 @@ class ShakeDetectionService : Service(), SensorEventListener {
         Log.d(TAG, "onStartCommand: ShakeDetectionService");
 
         if (sensorManager != null && accelerometerSensor != null) {
-            sensorManager!!.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_UI);
+            sensorManager!!.registerListener(
+                this,
+                accelerometerSensor,
+                SensorManager.SENSOR_DELAY_UI
+            );
         }
 
         // Запускаем сервис в переднем плане

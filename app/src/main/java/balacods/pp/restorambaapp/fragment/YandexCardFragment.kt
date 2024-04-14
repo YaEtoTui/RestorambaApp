@@ -118,7 +118,8 @@ class YandexCardFragment : Fragment() {
         placemarksCollection = map.mapObjects.addCollection()
         routesCollection = map.mapObjects.addCollection()
 
-        drivingRouter = DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
+        drivingRouter =
+            DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
 
         binding.buttonClearRoute.setOnClickListener {
             routePoints = emptyList()

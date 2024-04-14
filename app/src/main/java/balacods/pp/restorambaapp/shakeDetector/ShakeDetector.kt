@@ -37,7 +37,9 @@ class ShakeDetector() : SensorEventListener {
                 val y = event.values[1]
                 val z = event.values[2]
 
-                val acceleration = sqrt(x.toDouble().pow(2.0) + y.toDouble().pow(2.0) + z.toDouble().pow(2.0)) - SensorManager.GRAVITY_EARTH
+                val acceleration = sqrt(
+                    x.toDouble().pow(2.0) + y.toDouble().pow(2.0) + z.toDouble().pow(2.0)
+                ) - SensorManager.GRAVITY_EARTH
                 if (acceleration > SHAKE_THRESHOLD) {
                     lastShakeTimestamp = currentTime
                     onShakeListener?.onShake()
