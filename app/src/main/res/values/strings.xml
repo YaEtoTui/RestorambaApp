@@ -43,4 +43,6 @@
     </string>
     <string name="question_instructions">Вы готовы использовать RESTORAMBA?</string>
     <string name="yes">ДА!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
