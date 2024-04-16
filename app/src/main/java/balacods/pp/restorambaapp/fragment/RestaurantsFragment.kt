@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 
 class RestaurantsFragment : Fragment() {
@@ -22,5 +24,15 @@ class RestaurantsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onClick()
+    }
+
+    private fun onClick() {
+        binding.idNav.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_restaurantsFrag_to_mainFrag)
+        }
+        binding.idNav.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_restaurantsFrag_to_yandexCardFrag)
+        }
     }
 }

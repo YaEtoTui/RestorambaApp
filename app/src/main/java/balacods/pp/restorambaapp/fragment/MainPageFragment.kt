@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
 
 
@@ -40,9 +42,15 @@ class MainPageFragment : Fragment() {
     }
 
     private fun onClick() {
-//        binding.idButtonGetRandomDish.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
-//        }
+        binding.idButtonGetRandomDish.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+        }
+        binding.idNav.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
+        }
+        binding.idNav.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+        }
     }
 
     private fun initInstructions() {
