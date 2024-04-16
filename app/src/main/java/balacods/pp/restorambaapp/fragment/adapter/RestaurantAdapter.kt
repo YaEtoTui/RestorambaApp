@@ -10,7 +10,7 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
 
-class RestaurantAdapter: ListAdapter<RestaurantData, RestaurantAdapter.Holder>(Comparator()) {
+class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
 
@@ -18,7 +18,10 @@ class RestaurantAdapter: ListAdapter<RestaurantData, RestaurantAdapter.Holder>(C
 
         private val binding = ItemListRestaurantsBinding.bind(view)
 
-        fun bind(restaurantData: RestaurantData, onButtonClickListener: RestaurantAdapter.OnButtonClickListener) = with(binding) {
+        fun bind(
+            restaurantData: RestaurantData,
+            onButtonClickListener: RestaurantAdapter.OnButtonClickListener
+        ) = with(binding) {
 
         }
     }
