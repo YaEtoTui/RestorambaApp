@@ -18,6 +18,12 @@
         <item name="fontFamily">@font/oswald_light</item>
     </style>
 
+    <style name="show_on_map">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_light</item>
+    </style>
+
     <style name="welcome">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black_green</item>
@@ -36,18 +42,10 @@
         <item name="fontFamily">@font/oswald_light</item>
     </style>
 
-    <style name="CustomScrollBar" parent="">
-        <item name="android:scrollbarThumbVertical">@drawable/custom_scrollbar_thumb</item>
-        <item name="android:scrollbarSize">10dp</item>
-        <item name="android:scrollbarTrackVertical">@android:color/transparent</item>
-        <item name="android:scrollbarStyle">insideOverlay</item>
-    </style>
-
-    <style name="CustomScrollBar2">
-        <item name="android:scrollbarThumbVertical">@drawable/custom_scrollbar_thumb</item>
-        <item name="android:scrollbarSize">10dp</item>
-        <item name="android:scrollbarTrackVertical">@android:color/transparent</item>
-        <item name="android:scrollbarStyle">insideOverlay</item>
+    <style name="title_restaurants">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_regular</item>
     </style>
 
 </resources>

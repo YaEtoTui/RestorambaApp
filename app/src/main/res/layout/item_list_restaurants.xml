@@ -5,6 +5,7 @@
     android:id="@+id/cView"
     android:layout_width="343dp"
     android:layout_height="200dp"
+    android:layout_marginBottom="21dp"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,13 +16,97 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvTitleRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Какой-то ресторан"
+            android:layout_marginTop="16dp"
+            android:text="@string/rest"
+            android:textAppearance="@style/title_restaurants"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imPhoto"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="27dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"
+            app:srcCompat="@drawable/rectangle_fontlist_item_restaurant_photo" />
+
+        <ImageView
+            android:id="@+id/imPhotoIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
+            app:layout_constraintEnd_toEndOf="@+id/imPhoto"
+            app:layout_constraintStart_toStartOf="@+id/imPhoto"
+            app:layout_constraintTop_toTopOf="@+id/imPhoto"
+            app:srcCompat="@drawable/photo_icon_40_40" />
+
+        <TextView
+            android:id="@+id/tvPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/path_to_me"
+            android:textAppearance="@style/instructions_text"
+            app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toEndOf="@+id/imPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/idBtMap"
+            android:layout_width="131dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tvPath"
+            app:layout_constraintTop_toBottomOf="@+id/tvPath"
+            app:srcCompat="@drawable/rectangle_bt_restaurant_show_on_map" />
+
+        <TextView
+            android:id="@+id/idButtonShowTextOnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:drawableRight="@drawable/icon_location_19_19"
+            android:drawablePadding="5dp"
+            android:gravity="center|left"
+            android:text="@string/show_on_map"
+            android:textAppearance="@style/show_on_map"
+            app:layout_constraintBottom_toBottomOf="@+id/idBtMap"
+            app:layout_constraintEnd_toEndOf="@+id/idBtMap"
+            app:layout_constraintStart_toStartOf="@+id/idBtMap"
+            app:layout_constraintTop_toTopOf="@+id/idBtMap" />
+
+        <ImageView
+            android:id="@+id/idBtRandom"
+            android:layout_width="131dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/idBtMap"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvPath"
+            app:layout_constraintTop_toBottomOf="@+id/idBtMap"
+            app:srcCompat="@drawable/rectangle_bt_restaurant_show_on_map" />
+
+        <TextView
+            android:id="@+id/idButtonTextRandom"
+            android:layout_width="90dp"
+            android:layout_height="36dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@string/get_random_dish"
+            android:textAppearance="@style/show_on_map"
+            app:layout_constraintBottom_toBottomOf="@+id/idBtRandom"
+            app:layout_constraintEnd_toEndOf="@+id/idBtRandom"
+            app:layout_constraintStart_toStartOf="@+id/idBtRandom"
+            app:layout_constraintTop_toTopOf="@+id/idBtRandom" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
