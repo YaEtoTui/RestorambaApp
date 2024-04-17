@@ -28,10 +28,10 @@ class RestaurantsFragment : Fragment() {
     }
 
     private fun onClick() {
-        binding.idNav.idNavMain.setOnClickListener {
+        binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantsFrag_to_mainFrag)
         }
-        binding.idNav.idNavMap.setOnClickListener {
+        binding.idNavMap.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantsFrag_to_yandexCardFrag)
         }
     }

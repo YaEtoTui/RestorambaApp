@@ -36,7 +36,6 @@ class MainPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initInstructions()
-
         onClick()
 
     }
@@ -45,10 +44,10 @@ class MainPageFragment : Fragment() {
         binding.idButtonGetRandomDish.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
         }
-        binding.idNav.idNavRestaurants.setOnClickListener {
+        binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
         }
-        binding.idNav.idNavMap.setOnClickListener {
+        binding.idNavMap.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
         }
     }
