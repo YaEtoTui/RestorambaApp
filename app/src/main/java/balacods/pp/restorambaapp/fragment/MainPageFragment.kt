@@ -47,6 +47,9 @@ class MainPageFragment : Fragment() {
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
         }
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_searchFrag)
+        }
 //        binding.idNavMap.setOnClickListener {
 //            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
 //        }

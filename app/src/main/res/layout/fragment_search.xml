@@ -38,13 +38,28 @@
             android:id="@+id/idSearchDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="74dp"
-            android:text="здесь описание"
-            android:textAppearance="@style/restoramba"
+            android:layout_marginTop="21dp"
+            android:text="@string/search_description"
+            android:textAppearance="@style/kcal"
             android:textColor="@color/black_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_compat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:checked="false"
+            android:textOff="Блюдо>"
+            android:textOn="Ресторан"
+            app:layout_constraintEnd_toEndOf="@+id/idSearchDescription"
+            app:layout_constraintStart_toStartOf="@+id/idSearchDescription"
+            app:layout_constraintTop_toBottomOf="@+id/idSearchDescription"
+            app:showText="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
