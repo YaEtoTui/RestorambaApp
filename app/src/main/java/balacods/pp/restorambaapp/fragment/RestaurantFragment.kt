@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
+import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
+import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
 
 class RestaurantFragment : Fragment() {
 
+    private lateinit var adapter: DishAdapter
     private lateinit var binding: FragmentRestaurantBinding
 
     override fun onCreateView(
@@ -25,6 +29,53 @@ class RestaurantFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onClick()
+        initRcView()
+        createListRestaurants() //затычка
+    }
+
+    private fun createListRestaurants() {
+        val listDishes: List<MenuData> = listOf(
+            MenuData(
+                2,
+                1,
+                "Name",
+                "Desc",
+                "Price",
+                0.3f,
+                "type"
+            ),
+            MenuData(
+                2,
+                1,
+                "Name",
+                "Desc",
+                "Price",
+                0.3f,
+                "type"
+            ),
+            MenuData(
+                2,
+                1,
+                "Name",
+                "Desc",
+                "Price",
+                0.3f,
+                "type"
+            )
+        )
+
+        adapter.submitList(listDishes)
+    }
+
+    private fun initRcView() {
+        adapter = DishAdapter()
+        adapter.setOnButtonClickListener(object: DishAdapter.OnButtonClickListener {
+            override fun onClick() {
+//                findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
+            }
+        })
+        binding.idListDishes.layoutManager = LinearLayoutManager(context)
+        binding.idListDishes.adapter = adapter
     }
 
     private fun onClick() {
