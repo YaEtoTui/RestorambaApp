@@ -41,15 +41,15 @@ class MainPageFragment : Fragment() {
     }
 
     private fun onClick() {
-        binding.idButtonGetRandomDish.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
-        }
+//        binding.idButtonGetRandomDish.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+//        }
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
         }
-        binding.idNavMap.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
-        }
+//        binding.idNavMap.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+//        }
     }
 
     private fun initInstructions() {

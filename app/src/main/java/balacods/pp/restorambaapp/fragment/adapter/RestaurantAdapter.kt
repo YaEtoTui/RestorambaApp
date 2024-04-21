@@ -12,7 +12,7 @@ import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
 
 class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(Comparator()) {
 
-    private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
+//    private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -20,7 +20,7 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
 
         fun bind(
             restaurantData: RestaurantData,
-            onButtonClickListener: RestaurantAdapter.OnButtonClickListener
+//            onButtonClickListener: RestaurantAdapter.OnButtonClickListener
         ) = with(binding) {
 
         }
@@ -44,14 +44,14 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position), onButtonClickListener)
+        holder.bind(getItem(position))
     }
 
-    interface OnButtonClickListener {
-        fun onClick(placeId: Int)
-    }
+//    interface OnButtonClickListener {
+//        fun onClick(placeId: Int)
+//    }
 
-    fun setOnButtonClickListener(listener: OnButtonClickListener) {
-        onButtonClickListener = listener
-    }
+//    fun setOnButtonClickListener(listener: OnButtonClickListener) {
+//        onButtonClickListener = listener
+//    }
 }
