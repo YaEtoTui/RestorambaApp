@@ -1,17 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbars="vertical">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/idPage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_green">
+        android:layout_height="match_parent"
+        android:background="@color/white_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/idScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/idNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/idBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/idNav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+                <TextView
+                    android:id="@+id/idNameRestaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:text="@string/rest"
+                    android:textAppearance="@style/title_restaurants"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/idPhoto"
+                    android:layout_width="271dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="31dp"
+                    android:background="@drawable/rectangle_photo"
+                    app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
+                    app:layout_constraintStart_toStartOf="@+id/idNameRestaurant"
+                    app:layout_constraintTop_toBottomOf="@+id/idNameRestaurant">
+
+                    <ImageView
+                        android:id="@+id/imIconPhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/photo_icon_40_40"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/idBtMap"
+                    android:layout_width="131dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="21dp"
+                    app:layout_constraintEnd_toEndOf="@+id/idPhoto"
+                    app:layout_constraintTop_toBottomOf="@+id/idPhoto"
+                    app:srcCompat="@drawable/rectangle_bt_restaurant_show_on_map" />
+
+                <TextView
+                    android:id="@+id/idButtonShowTextOnMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center|left"
+                    android:text="@string/show_on_map"
+                    android:textAppearance="@style/show_on_map"
+                    app:drawableEndCompat="@drawable/icon_location_19_19"
+                    app:layout_constraintBottom_toBottomOf="@+id/idBtMap"
+                    app:layout_constraintEnd_toEndOf="@+id/idBtMap"
+                    app:layout_constraintStart_toStartOf="@+id/idBtMap"
+                    app:layout_constraintTop_toTopOf="@+id/idBtMap" />
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:gravity="center"
+                    android:text="@string/text_restaurant_example"
+                    android:textAppearance="@style/instructions_text"
+                    app:layout_constraintEnd_toEndOf="@+id/idPhoto"
+                    app:layout_constraintStart_toStartOf="@+id/idPhoto"
+                    app:layout_constraintTop_toBottomOf="@+id/idBtMap" />
+
+                <Button
+                    android:id="@+id/idButtonGetRandomDish"
+                    android:layout_width="149dp"
+                    android:layout_height="73dp"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@drawable/button_text_color_restaurant_page"
+                    android:text="@string/get_random_dish"
+                    android:textAppearance="@style/button_restaurant_page"
+                    android:textColor="@drawable/button_text_color_restaurant"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+                    app:layout_constraintStart_toStartOf="@+id/tvDesc"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+                <TextView
+                    android:id="@+id/tvMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="53dp"
+                    android:text="@string/menu"
+                    android:textAppearance="@style/title_restaurants"
+                    app:layout_constraintStart_toStartOf="@+id/tvDesc"
+                    app:layout_constraintTop_toBottomOf="@+id/idButtonGetRandomDish" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/idListDishes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginBottom="72dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMenu"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_list_dishes" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/idPageHeader"
@@ -46,121 +179,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/idBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/idNav"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
-
-            <TextView
-                android:id="@+id/idNameRestaurant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:text="@string/rest"
-                android:textAppearance="@style/title_restaurants"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/idPhoto"
-                android:layout_width="271dp"
-                android:layout_height="130dp"
-                android:layout_marginTop="31dp"
-                android:background="@drawable/rectangle_photo"
-                app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
-                app:layout_constraintStart_toStartOf="@+id/idNameRestaurant"
-                app:layout_constraintTop_toBottomOf="@+id/idNameRestaurant">
-
-                <ImageView
-                    android:id="@+id/imIconPhoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/photo_icon_40_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/idBtMap"
-                android:layout_width="131dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="21dp"
-                app:layout_constraintEnd_toEndOf="@+id/idPhoto"
-                app:layout_constraintTop_toBottomOf="@+id/idPhoto"
-                app:srcCompat="@drawable/rectangle_bt_restaurant_show_on_map" />
-
-            <TextView
-                android:id="@+id/idButtonShowTextOnMap"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:drawablePadding="5dp"
-                android:gravity="center|left"
-                android:text="@string/show_on_map"
-                android:textAppearance="@style/show_on_map"
-                app:drawableEndCompat="@drawable/icon_location_19_19"
-                app:layout_constraintBottom_toBottomOf="@+id/idBtMap"
-                app:layout_constraintEnd_toEndOf="@+id/idBtMap"
-                app:layout_constraintStart_toStartOf="@+id/idBtMap"
-                app:layout_constraintTop_toTopOf="@+id/idBtMap" />
-
-            <TextView
-                android:id="@+id/tvDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:gravity="center"
-                android:text="@string/text_restaurant_example"
-                android:textAppearance="@style/instructions_text"
-                app:layout_constraintEnd_toEndOf="@+id/idPhoto"
-                app:layout_constraintStart_toStartOf="@+id/idPhoto"
-                app:layout_constraintTop_toBottomOf="@+id/idBtMap" />
-
-            <Button
-                android:id="@+id/idButtonGetRandomDish"
-                android:layout_width="149dp"
-                android:layout_height="73dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@drawable/button_text_color_restaurant_page"
-                android:text="@string/get_random_dish"
-                android:textAppearance="@style/button_restaurant_page"
-                android:textColor="@drawable/button_text_color_restaurant"
-                app:cornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/tvDesc"
-                app:layout_constraintStart_toStartOf="@+id/tvDesc"
-                app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
-
-            <TextView
-                android:id="@+id/tvMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="53dp"
-                android:text="@string/menu"
-                android:textAppearance="@style/title_restaurants"
-                app:layout_constraintStart_toStartOf="@+id/tvDesc"
-                app:layout_constraintTop_toBottomOf="@+id/idButtonGetRandomDish" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/idListDishes"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="33dp"
-                android:layout_marginBottom="72dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMenu"
-                tools:listitem="@layout/item_list_dishes" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/idNav"
@@ -168,8 +186,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idBody">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/idNavRestaurants"
@@ -248,4 +265,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

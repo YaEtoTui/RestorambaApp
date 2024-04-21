@@ -74,6 +74,11 @@ class RestaurantsFragment : Fragment() {
 
     private fun initRcView() {
         adapter = RestaurantAdapter()
+        adapter.setOnButtonClickListener(object: RestaurantAdapter.OnButtonClickListener {
+            override fun onClick() {
+                    findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
+            }
+        })
         binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
         binding.idListRestaurants.adapter = adapter
     }

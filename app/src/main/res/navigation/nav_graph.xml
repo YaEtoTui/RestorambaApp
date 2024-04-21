@@ -37,6 +37,25 @@
         <action
             android:id="@+id/action_restaurantsFrag_to_yandexCardFrag"
             app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/restaurantFrag"
+        android:name="balacods.pp.restorambaapp.fragment.RestaurantFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_restaurant">
+        <action
+            android:id="@+id/action_restaurantFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
     </fragment>
 
 </navigation>
