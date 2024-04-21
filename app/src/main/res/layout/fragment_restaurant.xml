@@ -147,6 +147,18 @@
                 app:layout_constraintStart_toStartOf="@+id/tvDesc"
                 app:layout_constraintTop_toBottomOf="@+id/idButtonGetRandomDish" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/idListDishes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="72dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMenu"
+                tools:listitem="@layout/item_list_dishes" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -168,7 +180,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center|top"
                 android:text="@string/restaurants"
-                android:textAppearance="@style/nav_text"
+                android:textAppearance="@style/nav_text_green"
                 android:textColor="@color/orange"
                 app:drawableTint="@color/orange"
                 app:drawableTopCompat="@drawable/food_restaurants"
@@ -182,7 +194,9 @@
                 android:drawablePadding="10dp"
                 android:gravity="center|top"
                 android:text="@string/search_nav"
-                android:textAppearance="@style/nav_text"
+                android:textAppearance="@style/nav_text_green"
+                android:textColor="@color/black_green"
+                app:drawableTint="@color/black_green"
                 app:drawableTopCompat="@drawable/icon_search_41_41"
                 app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
                 app:layout_constraintEnd_toStartOf="@+id/idNavMain"
@@ -195,7 +209,8 @@
                 android:drawablePadding="8dp"
                 android:gravity="center|top"
                 android:text="@string/main_nav"
-                android:textAppearance="@style/nav_text"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
                 app:drawableTopCompat="@drawable/icon_main_home"
                 app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
                 app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
@@ -208,7 +223,8 @@
                 android:drawablePadding="8dp"
                 android:gravity="center|top"
                 android:text="@string/maps_nav"
-                android:textAppearance="@style/nav_text"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
                 app:drawableTopCompat="@drawable/icon_location_41_41"
                 app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
                 app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
@@ -222,7 +238,8 @@
                 android:drawablePadding="8dp"
                 android:gravity="center|top"
                 android:text="@string/question"
-                android:textAppearance="@style/nav_text"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
                 app:drawableTopCompat="@drawable/icon_question_41_41"
                 app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
                 app:layout_constraintEnd_toEndOf="parent" />

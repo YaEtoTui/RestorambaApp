@@ -30,7 +30,7 @@
             android:id="@+id/imPhoto"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginLeft="27dp"
+            android:layout_marginStart="27dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"

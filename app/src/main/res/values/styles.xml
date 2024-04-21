@@ -23,6 +23,12 @@
         <item name="fontFamily">@font/oswald_light</item>
     </style>
 
+    <style name="nav_text_green">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_light</item>
+    </style>
+
     <style name="show_on_map">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black_green</item>
@@ -49,6 +55,12 @@
 
     <style name="title_restaurants">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_regular</item>
+    </style>
+
+    <style name="title_dishes">
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black_green</item>
         <item name="fontFamily">@font/oswald_regular</item>
     </style>
