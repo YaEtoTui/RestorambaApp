@@ -181,8 +181,8 @@
                 android:gravity="center|top"
                 android:text="@string/restaurants"
                 android:textAppearance="@style/nav_text_green"
-                android:textColor="@color/orange"
-                app:drawableTint="@color/orange"
+                android:textColor="@color/red_rose"
+                app:drawableTint="@color/red_rose"
                 app:drawableTopCompat="@drawable/food_restaurants"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
