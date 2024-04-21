@@ -55,6 +55,8 @@ class MainPageFragment : Fragment() {
     private fun initInstructions() {
         binding.idInstructions.idButtonAgree.setOnClickListener {
             binding.idInstructions.root.visibility = View.GONE
+            binding.idNav.visibility = View.VISIBLE
+            binding.idHeader.idPageHeader.visibility = View.VISIBLE
         }
 
         val instructions: ConstraintLayout = binding.idInstructions.root
@@ -70,6 +72,8 @@ class MainPageFragment : Fragment() {
         if (!APP_PREFERENCES_INSTRUCTIONS) {
 
             instructions.visibility = View.VISIBLE
+            binding.idNav.visibility = View.INVISIBLE
+            binding.idHeader.idPageHeader.visibility = View.INVISIBLE
 
             with(mSettings!!.edit()) {
                 putBoolean(APP_PREFERENCES, true)
