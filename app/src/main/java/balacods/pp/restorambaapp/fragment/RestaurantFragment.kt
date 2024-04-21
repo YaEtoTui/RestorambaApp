@@ -69,7 +69,7 @@ class RestaurantFragment : Fragment() {
 
     private fun initRcView() {
         adapter = DishAdapter()
-        adapter.setOnButtonClickListener(object: DishAdapter.OnButtonClickListener {
+        adapter.setOnButtonClickListener(object : DishAdapter.OnButtonClickListener {
             override fun onClick() {
                 findNavController().navigate(R.id.action_restaurantFrag_to_dishFrag)
             }
