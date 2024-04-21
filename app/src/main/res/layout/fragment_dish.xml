@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/rub"
+                    android:text="@string/sum"
                     android:textAppearance="@style/kcal"
                     app:layout_constraintEnd_toEndOf="@+id/tvDesc"
                     app:layout_constraintTop_toTopOf="@+id/tvKcal" />

@@ -22,7 +22,7 @@ class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
             menuData: MenuData,
             onButtonClickListener: DishAdapter.OnButtonClickListener
         ) = with(binding) {
-            binding.cView.setOnClickListener {
+            binding.idButtonAgree.setOnClickListener {
                 onButtonClickListener.onClick()
             }
         }

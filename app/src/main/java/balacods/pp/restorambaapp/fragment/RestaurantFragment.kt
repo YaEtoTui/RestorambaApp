@@ -71,7 +71,7 @@ class RestaurantFragment : Fragment() {
         adapter = DishAdapter()
         adapter.setOnButtonClickListener(object: DishAdapter.OnButtonClickListener {
             override fun onClick() {
-//                findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
+                findNavController().navigate(R.id.action_restaurantFrag_to_dishFrag)
             }
         })
         binding.idListDishes.layoutManager = LinearLayoutManager(context)
