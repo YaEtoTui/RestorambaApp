@@ -11,66 +11,66 @@
         android:id="@+id/idNavRestaurants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
         android:layout_marginBottom="34dp"
-        android:drawableTop="@drawable/food_restaurants"
         android:drawablePadding="8dp"
         android:gravity="center|top"
         android:text="@string/restaurants"
         android:textAppearance="@style/nav_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableTopCompat="@drawable/food_restaurants" />
 
     <TextView
         android:id="@+id/idNavSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_search_41_41"
         android:drawablePadding="10dp"
         android:gravity="center|top"
         android:text="@string/search_nav"
         android:textAppearance="@style/nav_text"
         app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
         app:layout_constraintEnd_toStartOf="@+id/idNavMain"
-        app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+        app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
+        app:drawableTopCompat="@drawable/icon_search_41_41" />
 
     <TextView
         android:id="@+id/idNavMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_main_home"
         android:drawablePadding="8dp"
         android:text="@string/main_nav"
         android:gravity="center|top"
         android:textAppearance="@style/nav_text"
         app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
         app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-        app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+        app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
+        app:drawableTopCompat="@drawable/icon_main_home" />
 
     <TextView
         android:id="@+id/idNavMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_location_41_41"
         android:drawablePadding="8dp"
         android:gravity="center|top"
         android:text="@string/maps_nav"
         android:textAppearance="@style/nav_text"
         app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
         app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-        app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+        app:layout_constraintStart_toEndOf="@+id/idNavMain"
+        app:drawableTopCompat="@drawable/icon_location_41_41" />
 
     <TextView
         android:id="@+id/idNavQuestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="22dp"
-        android:drawableTop="@drawable/icon_question_41_41"
+        android:layout_marginEnd="22dp"
         android:drawablePadding="8dp"
         android:text="@string/question"
         android:gravity="center|top"
         android:textAppearance="@style/nav_text"
         app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:drawableTopCompat="@drawable/icon_question_41_41" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

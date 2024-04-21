@@ -16,19 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/idButtonGetRandomDish"
-        android:layout_width="255dp"
-        android:layout_height="113dp"
-        android:backgroundTint="@drawable/button_bg_color_main_page"
-        android:text="@string/get_random_dish"
-        android:textAppearance="@style/button_main_page"
-        android:textColor="@drawable/button_text_color_main_page"
-        app:cornerRadius="30dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idListRestaurants"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="42dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/idNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/idHeader"
+        tools:listitem="@layout/item_list_restaurants" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/idNav"
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/idNavRestaurants"
@@ -44,13 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginBottom="34dp"
+            android:textColor="@color/orange"
             android:drawablePadding="8dp"
             android:gravity="center|top"
             android:text="@string/restaurants"
             android:textAppearance="@style/nav_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:drawableTopCompat="@drawable/food_restaurants" />
+            app:drawableTopCompat="@drawable/food_restaurants"
+            app:drawableTint="@color/orange" />
 
         <TextView
             android:id="@+id/idNavSearch"
@@ -71,14 +72,12 @@
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
             android:text="@string/main_nav"
-            android:textColor="@color/orange"
             android:gravity="center|top"
             android:textAppearance="@style/nav_text"
             app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
             app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
-            app:drawableTopCompat="@drawable/icon_main_home"
-            app:drawableTint="@color/orange" />
+            app:drawableTopCompat="@drawable/icon_main_home" />
 
         <TextView
             android:id="@+id/idNavMap"
@@ -107,16 +106,5 @@
             app:drawableTopCompat="@drawable/icon_question_41_41" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/idInstructions"
-        layout="@layout/instructions_main_page"
-        android:layout_width="275dp"
-        android:layout_height="568dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/idScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/idNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/idBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/idNav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+                <TextView
+                    android:id="@+id/idNameDish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:text="@string/dish"
+                    android:textAppearance="@style/title_restaurants"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/idNameRestaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:text="@string/rest"
+                    android:textAppearance="@style/button_restaurant_page"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/idNameDish" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/idPhoto"
+                    android:layout_width="271dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/rectangle_photo"
+                    app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
+                    app:layout_constraintStart_toStartOf="@+id/idNameRestaurant"
+                    app:layout_constraintTop_toBottomOf="@+id/idNameRestaurant">
+
+                    <ImageView
+                        android:id="@+id/imIconPhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/photo_icon_40_40"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:gravity="center"
+                    android:text="@string/text_restaurant_example"
+                    android:textAppearance="@style/instructions_text"
+                    app:layout_constraintEnd_toEndOf="@+id/idPhoto"
+                    app:layout_constraintStart_toStartOf="@+id/idPhoto"
+                    app:layout_constraintTop_toBottomOf="@+id/idPhoto" />
+
+                <TextView
+                    android:id="@+id/tvKcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:gravity="center"
+                    android:text="@string/kcal"
+                    android:textAppearance="@style/kcal"
+                    app:layout_constraintStart_toStartOf="@+id/tvDesc"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+                <TextView
+                    android:id="@+id/tvGr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/gr"
+                    android:textAppearance="@style/kcal"
+                    app:layout_constraintEnd_toStartOf="@+id/tvRub"
+                    app:layout_constraintStart_toEndOf="@+id/tvKcal"
+                    app:layout_constraintTop_toTopOf="@+id/tvKcal" />
+
+                <TextView
+                    android:id="@+id/tvRub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/sum"
+                    android:textAppearance="@style/kcal"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+                    app:layout_constraintTop_toTopOf="@+id/tvKcal" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/idPageHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/icon_search_24_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_green" />
+
+            <TextView
+                android:id="@+id/idNameApplication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/restoramba"
+                android:textAppearance="@style/restoramba"
+                android:textColor="@color/white_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/idNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/idNavRestaurants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginBottom="34dp"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/restaurants"
+                android:textAppearance="@style/nav_text_green"
+                android:textColor="@color/white_green"
+                app:drawableTint="@color/white_green"
+                app:drawableTopCompat="@drawable/food_restaurants"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/idNavSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:gravity="center|top"
+                android:text="@string/search_nav"
+                android:textAppearance="@style/nav_text_green"
+                android:textColor="@color/black_green"
+                app:drawableTint="@color/black_green"
+                app:drawableTopCompat="@drawable/icon_search_41_41"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
+                app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+                app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+            <TextView
+                android:id="@+id/idNavMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/main_nav"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
+                app:drawableTopCompat="@drawable/icon_main_home"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
+                app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+                app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+            <TextView
+                android:id="@+id/idNavMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/maps_nav"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
+                app:drawableTopCompat="@drawable/icon_location_41_41"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
+                app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+                app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+            <TextView
+                android:id="@+id/idNavQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/question"
+                android:textAppearance="@style/nav_text_green"
+                app:drawableTint="@color/black_green"
+                app:drawableTopCompat="@drawable/icon_question_41_41"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

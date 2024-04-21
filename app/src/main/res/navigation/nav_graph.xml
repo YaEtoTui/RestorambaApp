@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_mainFrag_to_yandexCardFrag"
             app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
     </fragment>
 
     <fragment
@@ -21,6 +24,54 @@
         android:name="balacods.pp.restorambaapp.fragment.YandexCardFragment"
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_yandex_card">
+    </fragment>
+
+    <fragment
+        android:id="@+id/restaurantsFrag"
+        android:name="balacods.pp.restorambaapp.fragment.RestaurantsFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_restaurants">
+        <action
+            android:id="@+id/action_restaurantsFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/restaurantFrag"
+        android:name="balacods.pp.restorambaapp.fragment.RestaurantFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_restaurant">
+        <action
+            android:id="@+id/action_restaurantFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_dishFrag"
+            app:destination="@id/dishFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dishFrag"
+        android:name="balacods.pp.restorambaapp.fragment.DishFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_dish">
+        <action
+            android:id="@+id/action_dishFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
     </fragment>
 
 </navigation>
