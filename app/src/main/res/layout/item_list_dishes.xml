@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:minWidth="355dp"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="21dp"
+    android:layout_marginBottom="33dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,6 @@
             android:id="@+id/imPhoto"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintBottom_toBottomOf="@+id/idButtonAgree"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/rectangle_fontlist_item_restaurant_photo" />
@@ -49,7 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="17dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="17dp"
             android:gravity="center"
             android:text="@string/text_dish_example"
             android:textAppearance="@style/show_on_map"
@@ -57,16 +57,13 @@
             app:layout_constraintStart_toEndOf="@+id/imPhoto"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant" />
 
-        <Button
+        <TextView
             android:id="@+id/idButtonAgree"
-            android:layout_width="95dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:backgroundTint="@drawable/button_bg_color_instructions"
+            android:layout_marginTop="10dp"
             android:text="@string/sum"
-            android:textAppearance="@style/instructions_text"
-            android:textColor="@drawable/button_text_color_instructions"
-            app:cornerRadius="15dp"
+            android:textAppearance="@style/title_dishes"
             app:layout_constraintEnd_toEndOf="@+id/tvDesc"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
