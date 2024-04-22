@@ -90,6 +90,18 @@
                 android:textColor="@drawable/switch_text_color_search_page" />
         </RadioGroup>
 
+        <SearchView
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/search_view_fon"
+            android:closeIcon="@drawable/icon_close"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/idRadioChange"
+            app:layout_constraintStart_toStartOf="@+id/idRadioChange"
+            app:layout_constraintTop_toBottomOf="@+id/idRadioChange" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
