@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/icon_search_24_24"
+                android:src="@drawable/icon_search_41_41"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/black_green" />
@@ -169,7 +169,7 @@
                 android:id="@+id/idNameApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/restoramba"
                 android:textAppearance="@style/restoramba"
                 android:textColor="@color/black_green"
