@@ -5,7 +5,7 @@
     android:id="@+id/cView"
     android:layout_width="343dp"
     android:layout_height="200dp"
-    android:layout_marginBottom="21dp"
+    android:layout_marginVertical="21dp"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:id="@+id/tvTitleRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:text="@string/rest"
             android:textAppearance="@style/title_restaurants"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,15 +50,15 @@
             android:id="@+id/tvPath"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="2dp"
             android:text="@string/path_to_me"
             android:textAppearance="@style/instructions_text"
             app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.218"
             app:layout_constraintStart_toEndOf="@+id/imPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"
+            app:layout_constraintTop_toTopOf="@+id/imPhoto"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
@@ -89,6 +89,7 @@
             android:layout_width="131dp"
             android:layout_height="47dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
             app:layout_constraintEnd_toEndOf="@+id/idBtMap"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tvPath"
