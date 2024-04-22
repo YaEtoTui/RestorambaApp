@@ -71,4 +71,9 @@
         <item name="fontFamily">@font/oswald_regular</item>
     </style>
 
+    <style name="radio_button">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/oswald_light</item>
+    </style>
+
 </resources>

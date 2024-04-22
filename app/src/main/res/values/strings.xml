@@ -30,6 +30,8 @@
     <string name="restoramba">RESTORAMBA</string>
     <string name="get_random_dish">Получить случайное блюдо</string>
     <string name="restaurants">Рестораны</string>
+    <string name="restaurant">Ресторан</string>
+    <string name="radio_dish">Блюдо</string>
     <string name="search_nav">Поиск</string>
     <string name="main_nav">Главная</string>
     <string name="maps_nav">Карты</string>

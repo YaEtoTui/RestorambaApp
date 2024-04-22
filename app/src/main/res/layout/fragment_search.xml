@@ -46,20 +46,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_compat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="12dp"
-            android:checked="false"
-            android:textOff="Блюдо>"
-            android:textOn="Ресторан"
+        <RadioGroup
+            android:id="@+id/idRadioChange"
+            android:layout_width="244dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/black_green_font"
+            android:checkedButton="@+id/offer"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/idSearchDescription"
             app:layout_constraintStart_toStartOf="@+id/idSearchDescription"
-            app:layout_constraintTop_toBottomOf="@+id/idSearchDescription"
-            app:showText="true" />
+            app:layout_constraintTop_toBottomOf="@+id/idSearchDescription">
+
+            <RadioButton
+                android:id="@+id/idDish"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/switch_bg_color_search_page"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/radio_dish"
+                android:textAppearance="@style/radio_button"
+                android:textColor="@drawable/switch_text_color_search_page" />
+
+            <RadioButton
+                android:id="@+id/idRestaurant"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/switch_bg_color_search_page"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/restaurant"
+                android:checked="true"
+                android:textAppearance="@style/radio_button"
+                android:textColor="@drawable/switch_text_color_search_page" />
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
