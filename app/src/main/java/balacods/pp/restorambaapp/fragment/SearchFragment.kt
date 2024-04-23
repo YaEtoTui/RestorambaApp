@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 
@@ -34,6 +35,16 @@ class SearchFragment : Fragment() {
     private fun init() {
         initSwitch()
         initSearch()
+        initNav()
+    }
+
+    private fun initNav() {
+        binding.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFrag_to_mainFrag)
+        }
+        binding.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFrag_to_restaurantsFrag)
+        }
     }
 
     private fun initSwitch() {

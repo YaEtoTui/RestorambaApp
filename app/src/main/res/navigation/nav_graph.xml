@@ -91,6 +91,15 @@
         android:name="balacods.pp.restorambaapp.fragment.SearchFragment"
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
     </fragment>
 
 </navigation>
