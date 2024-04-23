@@ -90,16 +90,30 @@
                 android:textColor="@drawable/switch_text_color_search_page" />
         </RadioGroup>
 
-        <SearchView
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/idSearchView"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
+            android:paddingStart="15dp"
             android:background="@drawable/search_view_fon"
-            android:closeIcon="@drawable/icon_close"
             android:inputType="text"
+            android:hint="@string/hint_restaurant"
+            android:textAppearance="@style/hint"
             app:layout_constraintEnd_toEndOf="@+id/idRadioChange"
             app:layout_constraintStart_toStartOf="@+id/idRadioChange"
             app:layout_constraintTop_toBottomOf="@+id/idRadioChange" />
+
+        <ImageView
+            android:id="@+id/imIconClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/idSearchView"
+            app:layout_constraintEnd_toEndOf="@+id/idSearchView"
+            app:layout_constraintTop_toTopOf="@+id/idSearchView"
+            app:srcCompat="@drawable/icon_close" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

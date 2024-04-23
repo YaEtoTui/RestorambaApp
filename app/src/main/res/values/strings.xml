@@ -61,6 +61,8 @@
     <string name="kcal">1000 ккал</string>
     <string name="gr">300 гр</string>
     <string name="rub">650 руб</string>
+    <string name="hint_restaurant">Введите название ресторана…</string>
+    <string name="hint_dish">Введите название блюда…</string>
     <string name="search_description">Воспользуйтесь поиском, чтобы найти блюдо или ресторан</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
