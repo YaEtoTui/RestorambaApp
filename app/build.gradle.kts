@@ -41,7 +41,10 @@ android {
 
 dependencies {
 
-//    //MapKit / Yandex Map
+    // ViewPager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+//    // MapKit / Yandex Map
 //    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
 
     // Add MapKit SDK full dependency
@@ -52,12 +55,12 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // OkHttp
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
-    implementation ("com.squareup.okhttp3:okhttp:4.7.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+    implementation("com.squareup.okhttp3:okhttp:4.7.2")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
