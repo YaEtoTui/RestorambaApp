@@ -50,9 +50,9 @@ class MainPageFragment : Fragment() {
         binding.idNavSearch.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_searchFrag)
         }
-//        binding.idNavMap.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
-//        }
+        binding.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+        }
     }
 
     private fun initInstructions() {

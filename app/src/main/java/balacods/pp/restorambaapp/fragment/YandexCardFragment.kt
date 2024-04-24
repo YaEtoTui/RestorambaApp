@@ -121,9 +121,9 @@ class YandexCardFragment : Fragment() {
         drivingRouter =
             DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
 
-        binding.buttonClearRoute.setOnClickListener {
-            routePoints = emptyList()
-        }
+//        binding.buttonClearRoute.setOnClickListener {
+//            routePoints = emptyList()
+//        }
 
         val map = mapView.mapWindow.map
         map.move(START_POSITION)
