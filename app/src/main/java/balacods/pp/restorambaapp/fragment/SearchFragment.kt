@@ -13,17 +13,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
+import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
 import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
 import java.util.stream.Collectors
 
 
 class SearchFragment : Fragment() {
 
-    private lateinit var adapter: RestaurantSearchAdapter
+    private lateinit var adapterRestaurant: RestaurantSearchAdapter
+    private lateinit var adapterDish: DishSearchAdapter
     private lateinit var binding: FragmentSearchBinding
 
     private var searchText: String = ""
+    private var isRestaurant: Boolean = true
     private val listRestaurants: List<RestaurantData> = listOf(
         RestaurantData(
             1,
@@ -59,6 +63,35 @@ class SearchFragment : Fragment() {
             "type"
         )
     )
+    private val listDishes: List<MenuData> = listOf(
+        MenuData(
+            2,
+            1,
+            "Name",
+            "Desc",
+            "Price",
+            0.3f,
+            "type"
+        ),
+        MenuData(
+            2,
+            1,
+            "Name",
+            "Desc",
+            "Price",
+            0.3f,
+            "type"
+        ),
+        MenuData(
+            2,
+            1,
+            "Name",
+            "Desc",
+            "Price",
+            0.3f,
+            "type"
+        )
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,11 +105,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        adapter.setOnButtonClickListener(object : RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick() {
-                findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
-            }
-        })
     }
 
     private fun init() {
@@ -87,9 +115,23 @@ class SearchFragment : Fragment() {
     }
 
     private fun initRcView() {
-        adapter = RestaurantSearchAdapter()
+        adapterRestaurant = RestaurantSearchAdapter()
+        adapterRestaurant.setOnButtonClickListener(object : RestaurantSearchAdapter.OnButtonClickListener {
+            override fun onClick() {
+                findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
+            }
+        })
         binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
-        binding.idListRestaurants.adapter = adapter
+        binding.idListRestaurants.adapter = adapterRestaurant
+
+        adapterDish = DishSearchAdapter()
+        adapterDish.setOnButtonClickListener(object : DishSearchAdapter.OnButtonClickListener {
+            override fun onClick() {
+                findNavController().navigate(R.id.action_searchFrag_to_dishFrag)
+            }
+        })
+        binding.idListDishes.layoutManager = LinearLayoutManager(context)
+        binding.idListDishes.adapter = adapterDish
     }
 
     private fun initNav() {
@@ -107,11 +149,13 @@ class SearchFragment : Fragment() {
             binding.idSearchView.setHint(R.string.hint_restaurant)
             searchText = ""
             binding.idSearchView.setText(searchText)
+            isRestaurant = true
         }
         binding.idDish.setOnClickListener {
             binding.idSearchView.setHint(R.string.hint_dish)
             searchText = ""
             binding.idSearchView.setText(searchText)
+            isRestaurant = false
         }
     }
 
@@ -137,15 +181,28 @@ class SearchFragment : Fragment() {
 
 
                 if (searchText.isNotEmpty()) {
-                    binding.idListRestaurants.visibility = View.VISIBLE
-                    adapter.submitList(listRestaurants.stream().filter { restaurantData ->
-                        restaurantData.restaurantName.lowercase().contains(
-                            searchText
-                        )
-                    }.collect(Collectors.toList()))
+                    if (isRestaurant) {
+                        binding.idListRestaurants.visibility = View.VISIBLE
+                        adapterRestaurant.submitList(listRestaurants.stream().filter { restaurantData ->
+                            restaurantData.restaurantName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList()))
+                    } else {
+                        binding.idListDishes.visibility = View.VISIBLE
+                        adapterDish.submitList(listDishes.stream().filter { dishData ->
+                            dishData.dishName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList()))
+                    }
+
                 } else {
                     binding.idListRestaurants.visibility = View.GONE
-                    adapter.submitList(emptyList())
+                    adapterRestaurant.submitList(emptyList())
+
+                    binding.idListDishes.visibility = View.GONE
+                    adapterDish.submitList(emptyList())
                 }
             }
 

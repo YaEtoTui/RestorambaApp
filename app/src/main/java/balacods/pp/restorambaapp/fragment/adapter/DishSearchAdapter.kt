@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.databinding.ItemListRestaurantsSearchWhiteGreenBinding
-import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
+import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBinding
+import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
 
-class RestaurantSearchAdapter : ListAdapter<RestaurantData, RestaurantSearchAdapter.Holder>(Comparator()) {
+class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Comparator()) {
 
-    private lateinit var onButtonClickListener: RestaurantSearchAdapter.OnButtonClickListener
+    private lateinit var onButtonClickListener: DishSearchAdapter.OnButtonClickListener
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = ItemListRestaurantsSearchWhiteGreenBinding.bind(view)
+        private val binding = ItemListDishesSearchWhiteGreenBinding.bind(view)
 
         fun bind(
-            restaurantData: RestaurantData,
-            onButtonClickListener: RestaurantSearchAdapter.OnButtonClickListener
+            menuData: MenuData,
+            onButtonClickListener: DishSearchAdapter.OnButtonClickListener
         ) = with(binding) {
             binding.cView.setOnClickListener {
                 onButtonClickListener.onClick()
@@ -28,12 +28,12 @@ class RestaurantSearchAdapter : ListAdapter<RestaurantData, RestaurantSearchAdap
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<RestaurantData>() {
-        override fun areItemsTheSame(oldItem: RestaurantData, newItem: RestaurantData): Boolean {
+    class Comparator : DiffUtil.ItemCallback<MenuData>() {
+        override fun areItemsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: RestaurantData, newItem: RestaurantData): Boolean {
+        override fun areContentsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
             return oldItem == newItem
         }
 
@@ -41,7 +41,7 @@ class RestaurantSearchAdapter : ListAdapter<RestaurantData, RestaurantSearchAdap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_restaurants_search_white_green, parent, false)
+            .inflate(R.layout.item_list_dishes_search_white_green, parent, false)
         return Holder(view)
     }
 

@@ -29,6 +29,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/idNav"
@@ -83,9 +84,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/switch_bg_color_search_page"
                 android:button="@null"
+                android:checked="true"
                 android:gravity="center"
                 android:text="@string/restaurant"
-                android:checked="true"
                 android:textAppearance="@style/radio_button"
                 android:textColor="@drawable/switch_text_color_search_page" />
         </RadioGroup>
@@ -95,10 +96,10 @@
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
-            android:paddingStart="15dp"
             android:background="@drawable/search_view_fon"
-            android:inputType="text"
             android:hint="@string/hint_restaurant"
+            android:inputType="text"
+            android:paddingStart="15dp"
             android:textAppearance="@style/hint"
             app:layout_constraintEnd_toEndOf="@+id/idRadioChange"
             app:layout_constraintStart_toStartOf="@+id/idRadioChange"
@@ -121,13 +122,27 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="30dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idSearchView"
             tools:listitem="@layout/item_list_restaurants_search_white_green" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idListDishes"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idSearchView"
+            tools:listitem="@layout/item_list_dishes_search_white_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,7 +152,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <TextView
             android:id="@+id/idNavRestaurants"
@@ -145,15 +161,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginBottom="34dp"
-            android:textColor="@color/black_green"
             android:drawablePadding="8dp"
             android:gravity="center|top"
             android:text="@string/restaurants"
             android:textAppearance="@style/nav_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
             app:drawableTopCompat="@drawable/food_restaurants"
-            app:drawableTint="@color/black_green" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/idNavSearch"
@@ -162,28 +178,28 @@
             android:drawablePadding="10dp"
             android:gravity="center|top"
             android:text="@string/search_nav"
-            android:textColor="@color/orange"
             android:textAppearance="@style/nav_text"
+            android:textColor="@color/orange"
+            app:drawableTint="@color/orange"
+            app:drawableTopCompat="@drawable/icon_search_41_41"
             app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
             app:layout_constraintEnd_toStartOf="@+id/idNavMain"
-            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
-            app:drawableTopCompat="@drawable/icon_search_41_41"
-            app:drawableTint="@color/orange" />
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
 
         <TextView
             android:id="@+id/idNavMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
-            android:text="@string/main_nav"
-            android:textColor="@color/black_green"
             android:gravity="center|top"
+            android:text="@string/main_nav"
             android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_main_home"
             app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
-            app:drawableTopCompat="@drawable/icon_main_home"
-            app:drawableTint="@color/black_green" />
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
 
         <TextView
             android:id="@+id/idNavMap"
@@ -192,13 +208,13 @@
             android:drawablePadding="8dp"
             android:gravity="center|top"
             android:text="@string/maps_nav"
-            android:textColor="@color/black_green"
             android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_location_41_41"
             app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-            app:layout_constraintStart_toEndOf="@+id/idNavMain"
-            app:drawableTopCompat="@drawable/icon_location_41_41"
-            app:drawableTint="@color/black_green"/>
+            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
 
         <TextView
             android:id="@+id/idNavQuestions"
@@ -206,14 +222,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="22dp"
             android:drawablePadding="8dp"
-            android:text="@string/question"
-            android:textColor="@color/black_green"
             android:gravity="center|top"
+            android:text="@string/question"
             android:textAppearance="@style/nav_text"
-            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
             app:drawableTopCompat="@drawable/icon_question_41_41"
-            app:drawableTint="@color/black_green"/>
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
