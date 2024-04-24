@@ -15,6 +15,7 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
 import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
+import java.util.stream.Collectors
 
 
 class SearchFragment : Fragment() {
@@ -23,6 +24,41 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
 
     private var searchText: String = ""
+    private val listRestaurants: List<RestaurantData> = listOf(
+        RestaurantData(
+            1,
+            "Name 1",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Name 1",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Name 1",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        )
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +72,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        createListRestaurants()
-        adapter.setOnButtonClickListener(object: RestaurantSearchAdapter.OnButtonClickListener {
+        adapter.setOnButtonClickListener(object : RestaurantSearchAdapter.OnButtonClickListener {
             override fun onClick() {
                 findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
             }
@@ -49,46 +84,6 @@ class SearchFragment : Fragment() {
         initSearch()
         initNav()
         initRcView()
-    }
-
-    private fun createListRestaurants() {
-        val listRestaurants: List<RestaurantData> = listOf(
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            ),
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            ),
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            )
-        )
-
-        adapter.submitList(listRestaurants)
     }
 
     private fun initRcView() {
@@ -133,8 +128,25 @@ class SearchFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+                searchText = s.toString().lowercase()
+
                 // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
-                clearButton.visibility = if (s.isNotEmpty()) View.VISIBLE else View.GONE
+                clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
+
+
+
+                if (searchText.isNotEmpty()) {
+                    binding.idListRestaurants.visibility = View.VISIBLE
+                    adapter.submitList(listRestaurants.stream().filter { restaurantData ->
+                        restaurantData.restaurantName.lowercase().contains(
+                            searchText
+                        )
+                    }.collect(Collectors.toList()))
+                } else {
+                    binding.idListRestaurants.visibility = View.GONE
+                    adapter.submitList(emptyList())
+                }
             }
 
             override fun afterTextChanged(s: Editable) {
