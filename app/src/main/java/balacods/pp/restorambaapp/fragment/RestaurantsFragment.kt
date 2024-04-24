@@ -84,6 +84,9 @@ class RestaurantsFragment : Fragment() {
     }
 
     private fun onClick() {
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_restaurantsFrag_to_searchFrag)
+        }
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantsFrag_to_mainFrag)
         }

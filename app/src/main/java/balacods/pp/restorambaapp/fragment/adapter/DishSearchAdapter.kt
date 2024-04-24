@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.databinding.ItemListDishesBinding
+import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBinding
 import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
 
-class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
+class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Comparator()) {
 
-    private lateinit var onButtonClickListener: DishAdapter.OnButtonClickListener
+    private lateinit var onButtonClickListener: DishSearchAdapter.OnButtonClickListener
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = ItemListDishesBinding.bind(view)
+        private val binding = ItemListDishesSearchWhiteGreenBinding.bind(view)
 
         fun bind(
             menuData: MenuData,
-            onButtonClickListener: DishAdapter.OnButtonClickListener
+            onButtonClickListener: DishSearchAdapter.OnButtonClickListener
         ) = with(binding) {
             binding.cView.setOnClickListener {
                 onButtonClickListener.onClick()
@@ -41,7 +41,7 @@ class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_dishes, parent, false)
+            .inflate(R.layout.item_list_dishes_search_white_green, parent, false)
         return Holder(view)
     }
 

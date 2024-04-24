@@ -3,34 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cView"
-    android:layout_width="match_parent"
-    android:minWidth="355dp"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="33dp"
-    app:cardElevation="0dp">
+    android:layout_width="343dp"
+    android:layout_height="200dp"
+    android:layout_marginVertical="21dp"
+    app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rectangle_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_green">
+        android:background="@drawable/rectangle_fontlist_item_restaurants_white_green">
+
+
+        <TextView
+            android:id="@+id/tvTitleDish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/dish"
+            android:textAppearance="@style/title_restaurants"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTitleRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_dish"
+            android:text="@string/rest"
             android:textAppearance="@style/title_dishes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imPhoto"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/imPhoto" />
 
         <ImageView
             android:id="@+id/imPhoto"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="27dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleDish"
             app:srcCompat="@drawable/rectangle_fontlist_item_restaurant_photo" />
 
         <ImageView
@@ -47,13 +60,13 @@
             android:id="@+id/tvDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="17dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="23dp"
             android:gravity="center"
             android:text="@string/text_dish_example"
             android:textAppearance="@style/show_on_map"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/imPhoto"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant" />
 
@@ -61,9 +74,10 @@
             android:id="@+id/idButtonAgree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:text="@string/sum"
             android:textAppearance="@style/title_dishes"
+            app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
             app:layout_constraintEnd_toEndOf="@+id/tvDesc"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvDesc" />

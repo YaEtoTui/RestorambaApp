@@ -30,6 +30,8 @@
     <string name="restoramba">RESTORAMBA</string>
     <string name="get_random_dish">Получить случайное блюдо</string>
     <string name="restaurants">Рестораны</string>
+    <string name="restaurant">Ресторан</string>
+    <string name="radio_dish">Блюдо</string>
     <string name="search_nav">Поиск</string>
     <string name="main_nav">Главная</string>
     <string name="maps_nav">Карты</string>
@@ -59,6 +61,9 @@
     <string name="kcal">1000 ккал</string>
     <string name="gr">300 гр</string>
     <string name="rub">650 руб</string>
+    <string name="hint_restaurant">Введите название ресторана…</string>
+    <string name="hint_dish">Введите название блюда…</string>
+    <string name="search_description">Воспользуйтесь поиском, чтобы найти блюдо или ресторан</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -59,8 +59,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/idPhoto"
-                    android:layout_width="271dp"
-                    android:layout_height="130dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_height="221dp"
                     android:layout_marginTop="11dp"
                     android:background="@drawable/rectangle_photo"
                     app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
@@ -83,7 +84,7 @@
                     android:id="@+id/tvDesc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
+                    android:layout_marginTop="19dp"
                     android:gravity="center"
                     android:text="@string/text_restaurant_example"
                     android:textAppearance="@style/instructions_text"
@@ -92,36 +93,28 @@
                     app:layout_constraintTop_toBottomOf="@+id/idPhoto" />
 
                 <TextView
-                    android:id="@+id/tvKcal"
+                    android:id="@+id/tvGr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginStart="107dp"
                     android:gravity="center"
-                    android:text="@string/kcal"
+                    android:text="@string/gr"
                     android:textAppearance="@style/kcal"
                     app:layout_constraintStart_toStartOf="@+id/tvDesc"
                     app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
                 <TextView
-                    android:id="@+id/tvGr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/gr"
-                    android:textAppearance="@style/kcal"
-                    app:layout_constraintEnd_toStartOf="@+id/tvRub"
-                    app:layout_constraintStart_toEndOf="@+id/tvKcal"
-                    app:layout_constraintTop_toTopOf="@+id/tvKcal" />
-
-                <TextView
                     android:id="@+id/tvRub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="107dp"
                     android:gravity="center"
                     android:text="@string/sum"
                     android:textAppearance="@style/kcal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvGr"
                     app:layout_constraintEnd_toEndOf="@+id/tvDesc"
-                    app:layout_constraintTop_toTopOf="@+id/tvKcal" />
+                    app:layout_constraintTop_toTopOf="@+id/tvGr" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/icon_search_24_24"
+                android:src="@drawable/icon_search_41_41"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white_green" />
@@ -151,7 +144,7 @@
                 android:id="@+id/idNameApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/restoramba"
                 android:textAppearance="@style/restoramba"
                 android:textColor="@color/white_green"

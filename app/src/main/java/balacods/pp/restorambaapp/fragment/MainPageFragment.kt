@@ -47,6 +47,9 @@ class MainPageFragment : Fragment() {
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
         }
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_searchFrag)
+        }
 //        binding.idNavMap.setOnClickListener {
 //            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
 //        }
@@ -55,6 +58,8 @@ class MainPageFragment : Fragment() {
     private fun initInstructions() {
         binding.idInstructions.idButtonAgree.setOnClickListener {
             binding.idInstructions.root.visibility = View.GONE
+            binding.idNav.visibility = View.VISIBLE
+            binding.idHeader.idPageHeader.visibility = View.VISIBLE
         }
 
         val instructions: ConstraintLayout = binding.idInstructions.root
@@ -70,6 +75,8 @@ class MainPageFragment : Fragment() {
         if (!APP_PREFERENCES_INSTRUCTIONS) {
 
             instructions.visibility = View.VISIBLE
+            binding.idNav.visibility = View.INVISIBLE
+            binding.idHeader.idPageHeader.visibility = View.INVISIBLE
 
             with(mSettings!!.edit()) {
                 putBoolean(APP_PREFERENCES, true)

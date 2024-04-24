@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/milk">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idPageHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/idNameApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="74dp"
+            android:text="@string/restoramba"
+            android:textAppearance="@style/restoramba"
+            android:textColor="@color/black_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/idNav"
+        app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+        <TextView
+            android:id="@+id/idSearchDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="@string/search_description"
+            android:textAppearance="@style/kcal"
+            android:textColor="@color/black_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/idRadioChange"
+            android:layout_width="244dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/black_green_font"
+            android:checkedButton="@+id/offer"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/idSearchDescription"
+            app:layout_constraintStart_toStartOf="@+id/idSearchDescription"
+            app:layout_constraintTop_toBottomOf="@+id/idSearchDescription">
+
+            <RadioButton
+                android:id="@+id/idDish"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/switch_bg_color_search_page"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/radio_dish"
+                android:textAppearance="@style/radio_button"
+                android:textColor="@drawable/switch_text_color_search_page" />
+
+            <RadioButton
+                android:id="@+id/idRestaurant"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/switch_bg_color_search_page"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/restaurant"
+                android:textAppearance="@style/radio_button"
+                android:textColor="@drawable/switch_text_color_search_page" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/idSearchView"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/search_view_fon"
+            android:hint="@string/hint_restaurant"
+            android:inputType="text"
+            android:paddingStart="15dp"
+            android:textAppearance="@style/hint"
+            app:layout_constraintEnd_toEndOf="@+id/idRadioChange"
+            app:layout_constraintStart_toStartOf="@+id/idRadioChange"
+            app:layout_constraintTop_toBottomOf="@+id/idRadioChange" />
+
+        <ImageView
+            android:id="@+id/imIconClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/idSearchView"
+            app:layout_constraintEnd_toEndOf="@+id/idSearchView"
+            app:layout_constraintTop_toTopOf="@+id/idSearchView"
+            app:srcCompat="@drawable/icon_close" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idListRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idSearchView"
+            tools:listitem="@layout/item_list_restaurants_search_white_green" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idListDishes"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idSearchView"
+            tools:listitem="@layout/item_list_dishes_search_white_green" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <TextView
+            android:id="@+id/idNavRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="34dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/restaurants"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/food_restaurants"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/idNavSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center|top"
+            android:text="@string/search_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/orange"
+            app:drawableTint="@color/orange"
+            app:drawableTopCompat="@drawable/icon_search_41_41"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
+            app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/main_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_main_home"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/maps_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_location_41_41"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+        <TextView
+            android:id="@+id/idNavQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/question"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_question_41_41"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

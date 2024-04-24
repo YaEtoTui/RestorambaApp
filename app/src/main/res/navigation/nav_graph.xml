@@ -5,7 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainFrag">
 
-
     <fragment
         android:id="@+id/mainFrag"
         android:name="balacods.pp.restorambaapp.fragment.MainPageFragment"
@@ -17,6 +16,9 @@
         <action
             android:id="@+id/action_mainFrag_to_restaurantsFrag"
             app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
     </fragment>
 
     <fragment
@@ -40,6 +42,9 @@
         <action
             android:id="@+id/action_restaurantsFrag_to_restaurantFrag"
             app:destination="@id/restaurantFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
     </fragment>
 
     <fragment
@@ -59,6 +64,12 @@
         <action
             android:id="@+id/action_restaurantFrag_to_dishFrag"
             app:destination="@id/dishFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_searchFrag2"
+            app:destination="@id/searchFrag" />
     </fragment>
 
     <fragment
@@ -72,6 +83,34 @@
         <action
             android:id="@+id/action_dishFrag_to_mainFrag"
             app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_searchFrag2"
+            app:destination="@id/searchFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFrag"
+        android:name="balacods.pp.restorambaapp.fragment.SearchFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_dishFrag"
+            app:destination="@id/dishFrag" />
     </fragment>
 
 </navigation>

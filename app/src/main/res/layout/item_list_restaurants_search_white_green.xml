@@ -12,7 +12,7 @@
         android:id="@+id/rectangle_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rectangle_fontlist_item_restaurants">
+        android:background="@drawable/rectangle_fontlist_item_restaurants_white_green">
 
 
         <TextView

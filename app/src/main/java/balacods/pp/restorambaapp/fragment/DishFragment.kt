@@ -28,6 +28,9 @@ class DishFragment : Fragment() {
     }
 
     private fun onClick() {
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_dishFrag_to_searchFrag)
+        }
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_dishFrag_to_mainFrag)
         }

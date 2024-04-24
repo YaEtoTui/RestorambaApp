@@ -113,6 +113,7 @@
         layout="@layout/instructions_main_page"
         android:layout_width="275dp"
         android:layout_height="568dp"
+        android:layout_marginTop="60dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
