@@ -10,13 +10,19 @@ import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
+import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
 
 
 class SearchFragment : Fragment() {
 
+    private lateinit var adapter: RestaurantSearchAdapter
     private lateinit var binding: FragmentSearchBinding
+
+    private var searchText: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +36,65 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
+        createListRestaurants()
+        adapter.setOnButtonClickListener(object: RestaurantSearchAdapter.OnButtonClickListener {
+            override fun onClick() {
+                findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
+            }
+        })
     }
 
     private fun init() {
         initSwitch()
         initSearch()
         initNav()
+        initRcView()
+    }
+
+    private fun createListRestaurants() {
+        val listRestaurants: List<RestaurantData> = listOf(
+            RestaurantData(
+                1,
+                "Name 1",
+                "Location",
+                0.45f,
+                0.45f,
+                "Desc",
+                "Telephone",
+                0f,
+                "type"
+            ),
+            RestaurantData(
+                1,
+                "Name 1",
+                "Location",
+                0.45f,
+                0.45f,
+                "Desc",
+                "Telephone",
+                0f,
+                "type"
+            ),
+            RestaurantData(
+                1,
+                "Name 1",
+                "Location",
+                0.45f,
+                0.45f,
+                "Desc",
+                "Telephone",
+                0f,
+                "type"
+            )
+        )
+
+        adapter.submitList(listRestaurants)
+    }
+
+    private fun initRcView() {
+        adapter = RestaurantSearchAdapter()
+        binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
+        binding.idListRestaurants.adapter = adapter
     }
 
     private fun initNav() {
@@ -51,9 +110,13 @@ class SearchFragment : Fragment() {
 
         binding.idRestaurant.setOnClickListener {
             binding.idSearchView.setHint(R.string.hint_restaurant)
+            searchText = ""
+            binding.idSearchView.setText(searchText)
         }
         binding.idDish.setOnClickListener {
             binding.idSearchView.setHint(R.string.hint_dish)
+            searchText = ""
+            binding.idSearchView.setText(searchText)
         }
     }
 

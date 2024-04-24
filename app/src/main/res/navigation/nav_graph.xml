@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_restaurantFrag_to_searchFrag"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_searchFrag2"
+            app:destination="@id/searchFrag" />
     </fragment>
 
     <fragment
@@ -82,6 +85,9 @@
             app:destination="@id/mainFrag" />
         <action
             android:id="@+id/action_dishFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_searchFrag2"
             app:destination="@id/searchFrag" />
     </fragment>
 
@@ -99,6 +105,12 @@
         <action
             android:id="@+id/action_searchFrag_to_restaurantsFrag"
             app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_dishFrag"
+            app:destination="@id/dishFrag" />
     </fragment>
 
 </navigation>
