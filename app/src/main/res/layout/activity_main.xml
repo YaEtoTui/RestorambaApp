@@ -10,7 +10,18 @@
         android:id="@+id/include"
         layout="@layout/content_base" />
 
-<!--    <androidx.viewpager2.widget.ViewPager2-->
+    <include
+        layout="@layout/fragment_shake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--    <androidx.viewpager2.widget.ViewPager2-->
 <!--        android:id="@+id/viewPager"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="0dp"-->

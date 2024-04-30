@@ -1,4 +1,4 @@
-package balacods.pp.restorambaapp.fragment
+package balacods.pp.restorambaapp.app.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,8 +26,6 @@ import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.map.PolylineMapObject
 import com.yandex.mapkit.mapview.MapView
-import balacods.pp.restorambaapp.data.api.retrofit.common.CommonColors
-import balacods.pp.restorambaapp.data.api.retrofit.common.showToast
 import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
@@ -36,7 +34,7 @@ class YandexCardFragment : Fragment() {
 
     private lateinit var binding: FragmentYandexCardBinding
 
-    lateinit var mapView: MapView
+    private lateinit var mapView: MapView
     private lateinit var map: Map
 
     private lateinit var drivingRouter: DrivingRouter

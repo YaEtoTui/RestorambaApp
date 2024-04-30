@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         bindingActivity = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivity.root)
 
+        init()
+
         // здесь сервис по обработки тряски телефона
         val shakeDetectionServiceIntent = Intent(this, ShakeDetectionService::class.java)
         ContextCompat.startForegroundService(this, shakeDetectionServiceIntent)
@@ -56,10 +58,11 @@ class MainActivity : AppCompatActivity() {
 //        })
     }
 
-//    private fun showText(text: String) {
-//        val str: TextView = findViewById(R.id.textView)
-//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-//        str.visibility = View.VISIBLE
-//        Thread.sleep(10000000)
-//    }
+    private fun init() {
+        initShakeFragment()
+    }
+
+    private fun initShakeFragment() {
+        TODO("Not yet implemented")
+    }
 }

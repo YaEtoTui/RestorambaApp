@@ -24,8 +24,10 @@ class ShakeDetector() : SensorEventListener {
     companion object {
         private const val SHAKE_THRESHOLD = 35.0f
         private const val SHAKE_TIME_INTERVAL = 5000 // Время в миллисекундах между потрясениями
-        private const val MAX_TILT_ANGLE = 45.0f // Максимальный угол наклона для обнаружения потрясения
-        private const val MIN_SHAKE_DURATION = 6000 // Минимальная длительность тряски в миллисекундах
+        private const val MAX_TILT_ANGLE =
+            45.0f // Максимальный угол наклона для обнаружения потрясения
+        private const val MIN_SHAKE_DURATION =
+            6000 // Минимальная длительность тряски в миллисекундах
     }
 
     interface OnShakeListener {
@@ -47,12 +49,21 @@ class ShakeDetector() : SensorEventListener {
                 val y = event.values[1]
                 val z = event.values[2]
 
-                val tiltAngle = abs(Math.toDegrees(atan2(x.toDouble(), sqrt(y.toDouble().pow(2.0) + z.toDouble().pow(2.0)))))
+                val tiltAngle = abs(
+                    Math.toDegrees(
+                        atan2(
+                            x.toDouble(),
+                            sqrt(y.toDouble().pow(2.0) + z.toDouble().pow(2.0))
+                        )
+                    )
+                )
                 val tiltAngleDiff = abs(tiltAngle - lastTiltAngle)
                 lastTiltAngle = tiltAngle.toFloat()
 
                 if (tiltAngleDiff <= MAX_TILT_ANGLE) {
-                    val acceleration = sqrt(x.toDouble().pow(2.0) + y.toDouble().pow(2.0) + z.toDouble().pow(2.0)) - SensorManager.GRAVITY_EARTH
+                    val acceleration = sqrt(
+                        x.toDouble().pow(2.0) + y.toDouble().pow(2.0) + z.toDouble().pow(2.0)
+                    ) - SensorManager.GRAVITY_EARTH
                     if (acceleration > SHAKE_THRESHOLD) {
                         shakeDuration = currentTime - lastShakeTime
 

@@ -1,4 +1,4 @@
-package balacods.pp.restorambaapp.data.api.retrofit.common
+package balacods.pp.restorambaapp.app.common
 
 import android.content.Context
 import android.widget.Toast
