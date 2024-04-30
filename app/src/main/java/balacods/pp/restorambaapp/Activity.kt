@@ -5,6 +5,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import balacods.pp.restorambaapp.data.api.retrofit.common.CommonColors
+import balacods.pp.restorambaapp.data.api.retrofit.common.showToast
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint
 import com.yandex.mapkit.RequestPointType
@@ -24,8 +26,6 @@ import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.map.PolylineMapObject
 import com.yandex.mapkit.mapview.MapView
-import com.yandex.mapkitdemo.common.CommonColors
-import com.yandex.mapkitdemo.common.showToast
 import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
@@ -89,7 +89,8 @@ class Activity : AppCompatActivity() {
         placemarksCollection = map.mapObjects.addCollection()
         routesCollection = map.mapObjects.addCollection()
 
-        drivingRouter = DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
+        drivingRouter =
+            DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
 
         findViewById<Button>(R.id.button_clear_route).setOnClickListener {
             routePoints = emptyList()
