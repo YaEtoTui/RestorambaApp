@@ -1,4 +1,4 @@
-package balacods.pp.restorambaapp.retrofit.domain.dto
+package balacods.pp.restorambaapp.data.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsSearchWhiteGreenBinding
-import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
+import balacods.pp.restorambaapp.data.model.RestaurantData
 
 class RestaurantSearchAdapter : ListAdapter<RestaurantData, RestaurantSearchAdapter.Holder>(Comparator()) {
 

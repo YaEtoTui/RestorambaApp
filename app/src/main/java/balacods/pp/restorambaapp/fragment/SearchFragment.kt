@@ -15,8 +15,8 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
-import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
-import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
+import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantData
 import java.util.stream.Collectors
 
 

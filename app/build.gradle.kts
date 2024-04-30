@@ -41,6 +41,15 @@ android {
 
 dependencies {
 
+    val koin_version = "3.3.2"
+
+    // rxandroid
+    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
+
+    //Koin DI
+    implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-android:$koin_version")
+
     // ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
@@ -54,9 +63,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
-    // Retrofit
+    // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     // OkHttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
