@@ -62,8 +62,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBt() {
+
+        // Pop up 1
         bindingActivity.idShake.btClose.setOnClickListener {
             bindingActivity.idShake.shakePopUp.visibility = View.GONE
+            bindingActivity.include.root.visibility = View.VISIBLE
+        }
+
+        // Pop up 2
+        bindingActivity.idShake.btContinue.setOnClickListener {
+            bindingActivity.idShake.shakePopUp.visibility = View.GONE
+            bindingActivity.idShake2.shakePopUp2.visibility = View.VISIBLE
+        }
+        bindingActivity.idShake2.btClose.setOnClickListener {
+            bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
             bindingActivity.include.root.visibility = View.VISIBLE
         }
     }

@@ -5,8 +5,7 @@
     android:id="@+id/shakePopUp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_green"
-    tools:context=".shakeDetector.fragmentShake.ShakeFragment">
+    android:background="@color/black_green">
 
     <View
         android:id="@+id/idRect"
@@ -36,5 +35,17 @@
         android:text="Закрыть"
         app:layout_constraintEnd_toEndOf="@+id/idRect"
         app:layout_constraintTop_toTopOf="@+id/idRect" />
+
+    <Button
+        android:id="@+id/btContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Далее"
+        app:layout_constraintBottom_toBottomOf="@+id/idRect"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleRestaurant"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleRestaurant"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

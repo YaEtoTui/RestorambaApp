@@ -1,4 +1,4 @@
-package balacods.pp.restorambaapp.app.common
+package balacods.pp.restorambaapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.common.CommonColors
+import balacods.pp.restorambaapp.app.common.showToast
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint

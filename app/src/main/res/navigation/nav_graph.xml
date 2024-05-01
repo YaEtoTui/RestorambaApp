@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/yandexCardFrag"
-        android:name="balacods.pp.restorambaapp.app.common.YandexCardFragment"
+        android:name="balacods.pp.restorambaapp.fragment.YandexCardFragment"
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_yandex_card">
     </fragment>

@@ -12,7 +12,6 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.Builder
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -48,11 +47,6 @@ class ShakeDetectionService : Service(), SensorEventListener {
                 LocalBroadcastManager.getInstance(this@ShakeDetectionService).sendBroadcast(intent)
             }
         })
-    }
-
-    //убрать костыль, так как надо будет походу работать с Activity, и пытаться этот pop up кидать во фрагменты, иначе мы не сможем работать с фрагментами((
-    private fun showText(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
