@@ -43,6 +43,9 @@ dependencies {
 
     val koin_version = "3.3.2"
 
+    // LocalBroadcastManager
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+
     // rxandroid
     implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
 
