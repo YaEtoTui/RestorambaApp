@@ -31,7 +31,7 @@ class SearchFragment : Fragment() {
     private val listRestaurants: List<RestaurantData> = listOf(
         RestaurantData(
             1,
-            "Name 1",
+            "Ресторан 1",
             "Location",
             0.45f,
             0.45f,
@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
         ),
         RestaurantData(
             1,
-            "Name 1",
+            "Ресторан 2",
             "Location",
             0.45f,
             0.45f,
@@ -53,7 +53,7 @@ class SearchFragment : Fragment() {
         ),
         RestaurantData(
             1,
-            "Name 1",
+            "Ресторан 3",
             "Location",
             0.45f,
             0.45f,
@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
         MenuData(
             2,
             1,
-            "Name",
+            "Блюдо 1",
             "Desc",
             "Price",
             0.3f,
@@ -76,7 +76,7 @@ class SearchFragment : Fragment() {
         MenuData(
             2,
             1,
-            "Name",
+            "Блюдо 2",
             "Desc",
             "Price",
             0.3f,
@@ -85,7 +85,7 @@ class SearchFragment : Fragment() {
         MenuData(
             2,
             1,
-            "Name",
+            "Блюдо 3",
             "Desc",
             "Price",
             0.3f,
