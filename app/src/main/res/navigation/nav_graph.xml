@@ -26,6 +26,15 @@
         android:name="balacods.pp.restorambaapp.fragment.YandexCardFragment"
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_yandex_card">
+        <action
+            android:id="@+id/action_yandexCardFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_yandexCardFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_yandexCardFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
     </fragment>
 
     <fragment

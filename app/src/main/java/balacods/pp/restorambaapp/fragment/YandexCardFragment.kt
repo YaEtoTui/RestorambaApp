@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.app.common.CommonColors
 import balacods.pp.restorambaapp.app.common.showToast
@@ -92,6 +93,8 @@ class YandexCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+
         pointStart = Point(56.797469, 60.714430)
 
         mapView = binding.imCarteGeo
@@ -99,6 +102,22 @@ class YandexCardFragment : Fragment() {
         map.addInputListener(inputListener)
         showCardYandex()
 
+    }
+
+    private fun init() {
+        initBtNav()
+    }
+
+    private fun initBtNav() {
+        binding.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_restaurantsFrag)
+        }
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_searchFrag)
+        }
+        binding.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_mainFrag)
+        }
     }
 
     override fun onStop() {

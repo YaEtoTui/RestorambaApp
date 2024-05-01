@@ -1,6 +1,7 @@
 package balacods.pp.restorambaapp.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
@@ -35,15 +37,25 @@ class MainPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initInstructions()
-        onClick()
-
+        init()
     }
 
-    private fun onClick() {
-//        binding.idButtonGetRandomDish.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
-//        }
+    private fun init() {
+        initBtNav()
+        initInstructions()
+        initBtFragment()
+    }
+
+    private fun initBtFragment() {
+        binding.idButtonGetRandomDish.setOnClickListener {
+
+            // Отправка сообщения с помощью LocalBroadcastManager
+            val intent = Intent("shake_event")
+            LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
+        }
+    }
+
+    private fun initBtNav() {
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_restaurantsFrag)
         }

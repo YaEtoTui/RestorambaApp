@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
-import balacods.pp.restorambaapp.data.model.MenuData
-import balacods.pp.restorambaapp.data.model.RestaurantData
 import java.util.stream.Collectors
 
 
@@ -140,6 +140,9 @@ class SearchFragment : Fragment() {
         }
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_searchFrag_to_restaurantsFrag)
+        }
+        binding.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFrag_to_yandexCardFrag)
         }
     }
 
