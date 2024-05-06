@@ -46,7 +46,7 @@
             android:gravity="center|top"
             android:text="@string/restaurants"
             android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/food_restaurants"
+            app:drawableTopCompat="@drawable/food_restaurants_25_25"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,7 +58,7 @@
             android:gravity="center|top"
             android:text="@string/search_nav"
             android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_search_41_41"
+            app:drawableTopCompat="@drawable/icon_search_25_25"
             app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
             app:layout_constraintEnd_toStartOf="@+id/idNavMain"
             app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
@@ -71,7 +71,7 @@
             android:gravity="center|top"
             android:text="@string/main_nav"
             android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_main_home"
+            app:drawableTopCompat="@drawable/icon_main_home_25_25"
             app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
             app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
@@ -86,7 +86,7 @@
             android:textAppearance="@style/nav_text"
             android:textColor="@color/orange"
             app:drawableTint="@color/orange"
-            app:drawableTopCompat="@drawable/icon_location_41_41"
+            app:drawableTopCompat="@drawable/icon_location_25_25"
             app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
             app:layout_constraintStart_toEndOf="@+id/idNavMain" />
@@ -100,7 +100,7 @@
             android:gravity="center|top"
             android:text="@string/question"
             android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_question_41_41"
+            app:drawableTopCompat="@drawable/icon_question_25_25"
             app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
             app:layout_constraintEnd_toEndOf="parent" />
 

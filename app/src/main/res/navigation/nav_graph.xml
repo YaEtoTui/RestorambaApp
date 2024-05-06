@@ -38,6 +38,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/mapFrag"
+        android:name="balacods.pp.restorambaapp.fragment.MapFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_yandex_card">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/restaurantsFrag"
         android:name="balacods.pp.restorambaapp.fragment.RestaurantsFragment"
         android:animateLayoutChanges="true"
@@ -54,6 +62,9 @@
         <action
             android:id="@+id/action_restaurantsFrag_to_searchFrag"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
     </fragment>
 
     <fragment
