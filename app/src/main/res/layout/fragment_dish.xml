@@ -144,7 +144,7 @@
                 android:id="@+id/idNameApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="31dp"
                 android:text="@string/restoramba"
                 android:textAppearance="@style/restoramba"
                 android:textColor="@color/white_green"

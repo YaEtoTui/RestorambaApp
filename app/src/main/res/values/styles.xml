@@ -88,4 +88,10 @@
         <item name="fontFamily">@font/oswald_light</item>
     </style>
 
+    <style name="hint_10_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_light</item>
+    </style>
+
 </resources>
