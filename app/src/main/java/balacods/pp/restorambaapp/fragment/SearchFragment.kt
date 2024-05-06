@@ -215,7 +215,7 @@ class SearchFragment : Fragment() {
         })
 
 
-        // Добавьте OnClickListener для ImageView
+        // Добавляет OnClickListener для ImageView
         clearButton.setOnClickListener { // Очистите текст в AppCompatEditText
             editText.setText("")
         }
