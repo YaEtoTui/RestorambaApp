@@ -71,6 +71,12 @@
         <item name="fontFamily">@font/oswald_regular</item>
     </style>
 
+    <style name="title_sum">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/red_rose</item>
+        <item name="fontFamily">@font/oswald_medium</item>
+    </style>
+
     <style name="radio_button">
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/oswald_light</item>
