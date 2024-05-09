@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
 
     private var searchText: String = ""
     private var isRestaurant: Boolean = true
-    private val listRestaurants: List<RestaurantData> = listOf(
+    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
         RestaurantData(
             1,
             "Ресторан 1",
@@ -63,7 +63,7 @@ class SearchFragment : Fragment() {
             "type"
         )
     )
-    private val listDishes: List<MenuData> = listOf(
+    private val listDishesGlobal: List<MenuData> = listOf(
         MenuData(
             2,
             1,
@@ -164,8 +164,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun initSearch() {
-        // Инициализируйте ваши элементы управления
-        // Инициализируйте ваши элементы управления
+        // Инициализируем элементы управления
+        // Инициализируем элементы управления
         val editText: AppCompatEditText = binding.idSearchView
         val clearButton: ImageView = binding.imIconClose
 
@@ -182,28 +182,41 @@ class SearchFragment : Fragment() {
                 // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
 
-
+                var listRestaurants: List<RestaurantData> = ArrayList()
+                var listDishes: List<MenuData> = ArrayList()
                 // Если пользователь что-то ввел в поиск (сверху)
                 if (searchText.isNotEmpty()) {
                     if (isRestaurant) {
+
+                        listRestaurants = listRestaurantsGlobal.stream().filter { restaurantData ->
+                            restaurantData.restaurantName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList())
+
                         binding.idListRestaurants.visibility = View.VISIBLE
-                        adapterRestaurant.submitList(
-                            listRestaurants.stream().filter { restaurantData ->
-                                restaurantData.restaurantName.lowercase().contains(
-                                    searchText
-                                )
-                            }.collect(Collectors.toList())
-                        )
+                        adapterRestaurant.submitList(listRestaurants)
                     } else {
-                        binding.idListDishes.visibility = View.VISIBLE
-                        adapterDish.submitList(listDishes.stream().filter { dishData ->
+
+                        listDishes = listDishesGlobal.stream().filter { dishData ->
                             dishData.dishName.lowercase().contains(
                                 searchText
                             )
-                        }.collect(Collectors.toList()))
+                        }.collect(Collectors.toList())
+
+                        binding.idListDishes.visibility = View.VISIBLE
+                        adapterDish.submitList(listDishes)
+                    }
+
+                    if (listRestaurants.isEmpty() && listDishes.isEmpty()) {
+                        binding.tvEmptySearchResult.visibility = View.VISIBLE
+                    } else {
+                        binding.tvEmptySearchResult.visibility = View.GONE
                     }
 
                 } else {
+                    binding.tvEmptySearchResult.visibility = View.GONE
+
                     binding.idListRestaurants.visibility = View.GONE
                     adapterRestaurant.submitList(emptyList())
 

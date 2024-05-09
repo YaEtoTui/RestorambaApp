@@ -128,9 +128,8 @@ class MainPageFragment : Fragment() {
     }
 
     private fun initSearch() {
-
-        // Инициализируйте ваши элементы управления
-        // Инициализируйте ваши элементы управления
+        // Инициализируем элементы управления
+        // Инициализируем элементы управления
         val editText: AppCompatEditText = binding.idHeader.idSearchView
         val clearButton: ImageView = binding.idHeader.imIconClose
 
