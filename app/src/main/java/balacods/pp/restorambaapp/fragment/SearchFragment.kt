@@ -116,7 +116,8 @@ class SearchFragment : Fragment() {
 
     private fun initRcView() {
         adapterRestaurant = RestaurantSearchAdapter()
-        adapterRestaurant.setOnButtonClickListener(object : RestaurantSearchAdapter.OnButtonClickListener {
+        adapterRestaurant.setOnButtonClickListener(object :
+            RestaurantSearchAdapter.OnButtonClickListener {
             override fun onClick() {
                 findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
             }
@@ -186,11 +187,13 @@ class SearchFragment : Fragment() {
                 if (searchText.isNotEmpty()) {
                     if (isRestaurant) {
                         binding.idListRestaurants.visibility = View.VISIBLE
-                        adapterRestaurant.submitList(listRestaurants.stream().filter { restaurantData ->
-                            restaurantData.restaurantName.lowercase().contains(
-                                searchText
-                            )
-                        }.collect(Collectors.toList()))
+                        adapterRestaurant.submitList(
+                            listRestaurants.stream().filter { restaurantData ->
+                                restaurantData.restaurantName.lowercase().contains(
+                                    searchText
+                                )
+                            }.collect(Collectors.toList())
+                        )
                     } else {
                         binding.idListDishes.visibility = View.VISIBLE
                         adapterDish.submitList(listDishes.stream().filter { dishData ->
