@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.common.CommonColors
+import balacods.pp.restorambaapp.app.common.showToast
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint
@@ -26,8 +29,6 @@ import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.map.PolylineMapObject
 import com.yandex.mapkit.mapview.MapView
-import com.yandex.mapkitdemo.common.CommonColors
-import com.yandex.mapkitdemo.common.showToast
 import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
@@ -36,7 +37,7 @@ class YandexCardFragment : Fragment() {
 
     private lateinit var binding: FragmentYandexCardBinding
 
-    lateinit var mapView: MapView
+    private lateinit var mapView: MapView
     private lateinit var map: Map
 
     private lateinit var drivingRouter: DrivingRouter
@@ -92,6 +93,8 @@ class YandexCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+
         pointStart = Point(56.797469, 60.714430)
 
         mapView = binding.imCarteGeo
@@ -99,6 +102,22 @@ class YandexCardFragment : Fragment() {
         map.addInputListener(inputListener)
         showCardYandex()
 
+    }
+
+    private fun init() {
+        initBtNav()
+    }
+
+    private fun initBtNav() {
+        binding.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_restaurantsFrag)
+        }
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_searchFrag)
+        }
+        binding.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_mainFrag)
+        }
     }
 
     override fun onStop() {
@@ -121,9 +140,9 @@ class YandexCardFragment : Fragment() {
         drivingRouter =
             DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
 
-        binding.buttonClearRoute.setOnClickListener {
-            routePoints = emptyList()
-        }
+//        binding.buttonClearRoute.setOnClickListener {
+//            routePoints = emptyList()
+//        }
 
         val map = mapView.mapWindow.map
         map.move(START_POSITION)

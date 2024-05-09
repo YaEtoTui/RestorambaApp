@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
-import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
 
 class RestaurantsFragment : Fragment() {
 
@@ -90,8 +90,8 @@ class RestaurantsFragment : Fragment() {
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantsFrag_to_mainFrag)
         }
-//        binding.idNavMap.setOnClickListener {
-//            findNavController().navigate(R.id.action_restaurantsFrag_to_yandexCardFrag)
-//        }
+        binding.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_restaurantsFrag_to_mapFrag)
+        }
     }
 }

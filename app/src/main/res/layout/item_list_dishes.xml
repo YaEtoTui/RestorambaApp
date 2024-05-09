@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/sum"
-            android:textAppearance="@style/title_dishes"
+            android:textAppearance="@style/title_sum"
             app:layout_constraintEnd_toEndOf="@+id/tvDesc"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvDesc" />

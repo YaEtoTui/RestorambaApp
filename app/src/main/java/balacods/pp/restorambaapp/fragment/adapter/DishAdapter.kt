@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.ItemListDishesBinding
-import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
+import balacods.pp.restorambaapp.data.model.MenuData
 
 class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
 

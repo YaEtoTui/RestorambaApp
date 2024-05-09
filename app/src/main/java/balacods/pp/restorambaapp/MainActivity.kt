@@ -1,9 +1,14 @@
 package balacods.pp.restorambaapp
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import balacods.pp.restorambaapp.databinding.ActivityMainBinding
 import balacods.pp.restorambaapp.databinding.ContentBaseBinding
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetectionService
@@ -23,7 +28,61 @@ class MainActivity : AppCompatActivity() {
         val shakeDetectionServiceIntent = Intent(this, ShakeDetectionService::class.java)
         ContextCompat.startForegroundService(this, shakeDetectionServiceIntent)
 
+        // Регистрация BroadcastReceiver для получения сообщений от LocalBroadcastManager
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(shakeReceiver, IntentFilter("shake_event"));
+
+        init()
+    }
+
+    private val shakeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == "shake_event") {
+                // Вызываете нужный метод в Activity
+                showShake()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Отмена регистрации BroadcastReceiver для предотвращения утечек памяти
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(shakeReceiver)
+    }
+
+    fun showShake() {
+        bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
+        bindingActivity.include.root.visibility = View.GONE
+    }
+
+    private fun init() {
+        initSwipe()
+        initBt()
+    }
+
+    private fun initBt() {
+
+        // Pop up 1
+        bindingActivity.idShake.btClose.setOnClickListener {
+            bindingActivity.idShake.shakePopUp.visibility = View.GONE
+            bindingActivity.include.root.visibility = View.VISIBLE
+        }
+
+        // Pop up 2
+        bindingActivity.idShake.btContinue.setOnClickListener {
+            bindingActivity.idShake.shakePopUp.visibility = View.GONE
+            bindingActivity.idShake2.shakePopUp2.visibility = View.VISIBLE
+        }
+        bindingActivity.idShake2.btClose.setOnClickListener {
+            bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
+            bindingActivity.include.root.visibility = View.VISIBLE
+        }
+    }
+
+    private fun initSwipe() {
         // Здесь код для свайпа, но пока все сыро((
+
 //        val viewPager = bindingActivity.viewPager
 //        val tabLayout = bindingActivity.tabLayout
 //
@@ -55,11 +114,4 @@ class MainActivity : AppCompatActivity() {
 //            override fun onTabReselected(tab: TabLayout.Tab?) {}
 //        })
     }
-
-//    private fun showText(text: String) {
-//        val str: TextView = findViewById(R.id.textView)
-//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-//        str.visibility = View.VISIBLE
-//        Thread.sleep(10000000)
-//    }
 }

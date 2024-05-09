@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
-import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
+import balacods.pp.restorambaapp.data.model.MenuData
 
 class RestaurantFragment : Fragment() {
 

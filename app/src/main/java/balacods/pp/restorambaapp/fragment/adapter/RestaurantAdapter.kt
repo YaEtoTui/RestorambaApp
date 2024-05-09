@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
-import balacods.pp.restorambaapp.retrofit.domain.dto.RestaurantData
+import balacods.pp.restorambaapp.data.model.RestaurantData
 
 class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(Comparator()) {
 

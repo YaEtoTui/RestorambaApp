@@ -4,33 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.YandexCardFragment">
+    android:background="@color/black_green"
+    tools:context=".fragment.MainPageFragment">
+
+    <TextView
+        android:id="@+id/idNameApplication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/restoramba"
+        android:textAppearance="@style/restoramba"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/imCarteGeo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/idNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idNameApplication" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/idNavRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="34dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/restaurants"
+            android:textAppearance="@style/nav_text"
+            app:drawableTopCompat="@drawable/food_restaurants_25_25"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/idNavSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center|top"
+            android:text="@string/search_nav"
+            android:textAppearance="@style/nav_text"
+            app:drawableTopCompat="@drawable/icon_search_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
+            app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/main_nav"
+            android:textAppearance="@style/nav_text"
+            app:drawableTopCompat="@drawable/icon_main_home_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/maps_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/orange"
+            app:drawableTint="@color/orange"
+            app:drawableTopCompat="@drawable/icon_location_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+        <TextView
+            android:id="@+id/idNavQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/question"
+            android:textAppearance="@style/nav_text"
+            app:drawableTopCompat="@drawable/icon_question_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/idInstructions"
+        layout="@layout/instructions_main_page"
+        android:layout_width="275dp"
+        android:layout_height="568dp"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_clear_route"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="276dp"
-            android:layout_marginBottom="12dp"
-            android:text="Clear routes"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </com.yandex.mapkit.mapview.MapView>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

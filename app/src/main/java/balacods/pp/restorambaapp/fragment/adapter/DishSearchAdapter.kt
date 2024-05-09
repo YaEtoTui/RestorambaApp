@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBinding
-import balacods.pp.restorambaapp.retrofit.domain.dto.MenuData
 
 class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Comparator()) {
 
@@ -22,6 +22,9 @@ class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Compar
             menuData: MenuData,
             onButtonClickListener: DishSearchAdapter.OnButtonClickListener
         ) = with(binding) {
+
+            binding.tvTitleDish.text = menuData.dishName
+
             binding.cView.setOnClickListener {
                 onButtonClickListener.onClick()
             }

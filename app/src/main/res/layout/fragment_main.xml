@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idMainPageFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_green"
@@ -50,7 +51,7 @@
             android:textAppearance="@style/nav_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:drawableTopCompat="@drawable/food_restaurants" />
+            app:drawableTopCompat="@drawable/food_restaurants_25_25" />
 
         <TextView
             android:id="@+id/idNavSearch"
@@ -63,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
             app:layout_constraintEnd_toStartOf="@+id/idNavMain"
             app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
-            app:drawableTopCompat="@drawable/icon_search_41_41" />
+            app:drawableTopCompat="@drawable/icon_search_25_25" />
 
         <TextView
             android:id="@+id/idNavMain"
@@ -77,7 +78,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
             app:layout_constraintStart_toEndOf="@+id/idNavRestaurants"
-            app:drawableTopCompat="@drawable/icon_main_home"
+            app:drawableTopCompat="@drawable/icon_main_home_25_25"
             app:drawableTint="@color/orange" />
 
         <TextView
@@ -91,7 +92,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
             app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
             app:layout_constraintStart_toEndOf="@+id/idNavMain"
-            app:drawableTopCompat="@drawable/icon_location_41_41" />
+            app:drawableTopCompat="@drawable/icon_location_25_25" />
 
         <TextView
             android:id="@+id/idNavQuestions"
@@ -104,7 +105,7 @@
             android:textAppearance="@style/nav_text"
             app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
             app:layout_constraintEnd_toEndOf="parent"
-            app:drawableTopCompat="@drawable/icon_question_41_41" />
+            app:drawableTopCompat="@drawable/icon_question_25_25" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

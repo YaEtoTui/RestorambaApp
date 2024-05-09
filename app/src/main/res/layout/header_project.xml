@@ -7,24 +7,51 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="30dp"
-        android:src="@drawable/icon_search_41_41"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/icon_search_25_25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/idSearchView"
+        android:layout_width="345dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/search_view_fon_radius_10_10"
+        android:drawableStart="@drawable/icon_search_14_14"
+        android:drawablePadding="6dp"
+        android:inputType="text"
+        android:visibility="gone"
+        android:paddingStart="6dp"
+        android:textAppearance="@style/hint_10_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imIconClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/idSearchView"
+        app:layout_constraintEnd_toEndOf="@+id/idSearchView"
+        app:layout_constraintTop_toTopOf="@+id/idSearchView"
+        app:srcCompat="@drawable/icon_close_15_15" />
 
     <TextView
         android:id="@+id/idNameApplication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="31dp"
         android:text="@string/restoramba"
         android:textAppearance="@style/restoramba"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

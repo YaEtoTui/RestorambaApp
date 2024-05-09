@@ -12,9 +12,9 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.Builder
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetector.OnShakeListener
 
 /*
@@ -40,15 +40,13 @@ class ShakeDetectionService : Service(), SensorEventListener {
         shakeDetector!!.setOnShakeListener(object : OnShakeListener {
             override fun onShake() {
                 Log.d(TAG, "onShake: Telephone shaken!")
-                // Выполните здесь действия, которые должны происходить при тряске
-                showText("Тряска")
+                // Здесь действия, которые должны происходить при тряске
+
+                // Отправка сообщения с помощью LocalBroadcastManager
+                val intent = Intent("shake_event")
+                LocalBroadcastManager.getInstance(this@ShakeDetectionService).sendBroadcast(intent)
             }
         })
-    }
-
-    //убрать костыль, так как надо будет походу работать с Activity, и пытаться этот pop up кидать во фрагменты, иначе мы не сможем работать с фрагментами((
-    private fun showText(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
