@@ -44,6 +44,18 @@
         app:layout_constraintTop_toBottomOf="@+id/idHeader"
         tools:listitem="@layout/item_list_restaurants_search_white_green" />
 
+    <TextView
+        android:id="@+id/tvEmptySearchResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:visibility="gone"
+        android:textAppearance="@style/empty_result_search"
+        android:text="@string/empty_result_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idHeader" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/idNav"
         android:layout_width="match_parent"

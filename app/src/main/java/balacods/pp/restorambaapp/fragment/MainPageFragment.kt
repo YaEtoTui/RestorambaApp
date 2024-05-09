@@ -34,7 +34,7 @@ class MainPageFragment : Fragment() {
     private var searchText: String = ""
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
 
-    private val listRestaurants: List<RestaurantData> = listOf(
+    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
         RestaurantData(
             1,
             "Restaurant 1",
@@ -143,6 +143,7 @@ class MainPageFragment : Fragment() {
             binding.idHeader.idSearchView.visibility = View.GONE
             binding.idHeader.imSearch.visibility = View.VISIBLE
             binding.idListRestaurants.visibility = View.GONE
+            binding.tvEmptySearchResult.visibility = View.GONE
             editText.setText("")
         }
 
@@ -159,15 +160,27 @@ class MainPageFragment : Fragment() {
                 // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
 
+                // Если пользователь что-то ввел в поиск (сверху)
                 if (searchText.isNotEmpty()) {
                     binding.idListRestaurants.visibility = View.VISIBLE
                     binding.idButtonGetRandomDish.visibility = View.GONE
-                    adapterRestaurant.submitList(listRestaurants.stream().filter { restaurantData ->
-                        restaurantData.restaurantName.lowercase().contains(
-                            searchText
-                        )
-                    }.collect(Collectors.toList()))
+
+                    val listRestaurants: List<RestaurantData> =
+                        listRestaurantsGlobal.stream().filter { restaurantData ->
+                            restaurantData.restaurantName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList())
+
+                    if (listRestaurants.isEmpty()) {
+                        binding.tvEmptySearchResult.visibility = View.VISIBLE
+                    } else {
+                        binding.tvEmptySearchResult.visibility = View.GONE
+                    }
+
+                    adapterRestaurant.submitList(listRestaurants)
                 } else {
+                    binding.tvEmptySearchResult.visibility = View.GONE
                     binding.idListRestaurants.visibility = View.GONE
                     binding.idButtonGetRandomDish.visibility = View.VISIBLE
                     adapterRestaurant.submitList(emptyList())

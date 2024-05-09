@@ -183,7 +183,7 @@ class SearchFragment : Fragment() {
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
 
 
-
+                // Если пользователь что-то ввел в поиск (сверху)
                 if (searchText.isNotEmpty()) {
                     if (isRestaurant) {
                         binding.idListRestaurants.visibility = View.VISIBLE
