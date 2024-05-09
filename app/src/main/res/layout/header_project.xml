@@ -19,7 +19,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/idSearchView"
         android:layout_width="345dp"
-        android:layout_height="27dp"
+        android:layout_height="30dp"
         android:layout_marginTop="21dp"
         android:background="@drawable/search_view_fon_radius_10_10"
         android:drawableStart="@drawable/icon_search_14_14"
