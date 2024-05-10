@@ -5,7 +5,8 @@
     android:id="@+id/idRestaurantsPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_green">
+    android:background="@color/black_green"
+    tools:context=".fragment.RestaurantsFragment">
 
     <include
         android:id="@+id/idHeader"
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="45dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="30dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/idNav"
         app:layout_constraintEnd_toEndOf="parent"

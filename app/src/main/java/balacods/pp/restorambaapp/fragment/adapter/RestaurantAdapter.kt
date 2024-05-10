@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 
 class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(Comparator()) {
 
@@ -22,6 +22,9 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
             restaurantData: RestaurantData,
             onButtonClickListener: RestaurantAdapter.OnButtonClickListener
         ) = with(binding) {
+
+            binding.tvTitleRestaurant.text = restaurantData.restaurantName
+
             binding.cView.setOnClickListener {
                 onButtonClickListener.onClick()
             }
