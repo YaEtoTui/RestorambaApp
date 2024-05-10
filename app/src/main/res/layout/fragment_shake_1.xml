@@ -3,38 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shakePopUp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black_green">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="17dp"
+    android:minWidth="372dp"
+    android:minHeight="370dp">
 
     <View
         android:id="@+id/idRect"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/rectangle_fontlist_item_restaurants"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rect_pop_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTitleRestaurant"
+        android:id="@+id/tvTitleDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Текст pop up"
+        android:layout_marginTop="10dp"
+        android:text="@string/dish"
         android:textAppearance="@style/title_restaurants"
         app:layout_constraintEnd_toEndOf="@+id/idRect"
         app:layout_constraintStart_toStartOf="@+id/idRect"
-        app:layout_constraintTop_toBottomOf="@+id/btClose" />
+        app:layout_constraintTop_toTopOf="@+id/btClose" />
 
-    <Button
+    <TextView
+        android:id="@+id/tvTitleRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleDish"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleDish"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDish" />
+
+    <ImageView
         android:id="@+id/btClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Закрыть"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="@+id/idRect"
-        app:layout_constraintTop_toTopOf="@+id/idRect" />
+        app:layout_constraintTop_toTopOf="@+id/idRect"
+        app:srcCompat="@drawable/icon_close_20_20" />
 
     <Button
         android:id="@+id/btContinue"
@@ -43,9 +57,9 @@
         android:layout_marginTop="28dp"
         android:text="Далее"
         app:layout_constraintBottom_toBottomOf="@+id/idRect"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitleRestaurant"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleDish"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleRestaurant"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant" />
+        app:layout_constraintStart_toStartOf="@+id/tvTitleDish"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
