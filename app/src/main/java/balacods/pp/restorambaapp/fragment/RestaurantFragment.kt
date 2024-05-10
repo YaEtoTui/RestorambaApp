@@ -1,16 +1,18 @@
 package balacods.pp.restorambaapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
-import balacods.pp.restorambaapp.data.model.MenuData
 
 class RestaurantFragment : Fragment() {
 
@@ -28,12 +30,27 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onClick()
-        initRcView()
-        createListRestaurants() //затычка
+        init()
     }
 
-    private fun createListRestaurants() {
+    private fun init() {
+        initBtNav()
+        initRcView()
+        createListDishes() //затычка
+        initBtPage()
+    }
+
+    private fun initBtPage() {
+        binding.idButtonGetRandomDish.setOnClickListener {
+            // Отправка сообщения с помощью LocalBroadcastManager
+            val intent = Intent("shake_event")
+            LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
+            // А тут бэк, в котором зарандомим блюдо для своего ресторана, у которого нажмем кнопку
+            // ...
+        }
+    }
+
+    private fun createListDishes() {
         val listDishes: List<MenuData> = listOf(
             MenuData(
                 2,
@@ -78,7 +95,7 @@ class RestaurantFragment : Fragment() {
         binding.idListDishes.adapter = adapter
     }
 
-    private fun onClick() {
+    private fun initBtNav() {
         binding.idNavSearch.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantFrag_to_searchFrag)
         }

@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     fun showShake() {
         bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
-        bindingActivity.include.root.visibility = View.GONE
     }
 
     private fun init() {
@@ -63,20 +62,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBt() {
 
-        // Pop up 1
+        // Pop up 1 start
         bindingActivity.idShake.btClose.setOnClickListener {
             bindingActivity.idShake.shakePopUp.visibility = View.GONE
-            bindingActivity.include.root.visibility = View.VISIBLE
         }
 
+        bindingActivity.idShake.idButtonContinue.setOnClickListener {
+            // Тут рандом блюдо из бэка
+            // Думаем как брать рандом из ближайших ресторанов
+        }
+        // end
+
         // Pop up 2
-        bindingActivity.idShake.btContinue.setOnClickListener {
+        bindingActivity.idShake.idButtonMoreDetails.setOnClickListener {
             bindingActivity.idShake.shakePopUp.visibility = View.GONE
-            bindingActivity.idShake2.shakePopUp2.visibility = View.VISIBLE
+            bindingActivity.idShake2.shakePopUp2.visibility = View.VISIBLE // Не заверстан
         }
         bindingActivity.idShake2.btClose.setOnClickListener {
             bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
-            bindingActivity.include.root.visibility = View.VISIBLE
         }
     }
 

@@ -1,5 +1,6 @@
 package balacods.pp.restorambaapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
@@ -118,8 +121,20 @@ class SearchFragment : Fragment() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick() {
-                findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
+            override fun onClick(text: String) {
+                when (text) {
+                    StatusRequest.LIST_RESTAURANTS.statusRequest -> {
+                        findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
+                    }
+
+                    StatusRequest.DISH.statusRequest -> {
+                        // Отправка сообщения с помощью LocalBroadcastManager
+                        val intent = Intent("shake_event")
+                        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+                        // А тут бэк, в котором зарандомим блюдо для своего ресторана, у которого нажмем кнопку
+                        // ...
+                    }
+                }
             }
         })
         binding.idListRestaurants.layoutManager = LinearLayoutManager(context)

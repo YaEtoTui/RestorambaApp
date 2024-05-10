@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 
@@ -26,7 +27,11 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
             binding.tvTitleRestaurant.text = restaurantData.restaurantName
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick()
+                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest)
+            }
+
+            binding.idBtRandom.setOnClickListener {
+                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest)
             }
         }
     }
@@ -53,7 +58,7 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
     }
 
     interface OnButtonClickListener {
-        fun onClick()
+        fun onClick(text: String)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {
