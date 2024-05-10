@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFrag_to_searchFrag"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
     </fragment>
 
     <fragment

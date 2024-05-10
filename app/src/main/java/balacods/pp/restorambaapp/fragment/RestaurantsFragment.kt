@@ -1,9 +1,13 @@
 package balacods.pp.restorambaapp.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,11 +15,49 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
+import java.util.stream.Collectors
 
 class RestaurantsFragment : Fragment() {
 
     private lateinit var adapter: RestaurantAdapter
     private lateinit var binding: FragmentRestaurantsBinding
+    private var searchText: String = ""
+
+    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
+        RestaurantData(
+            1,
+            "Restaurant 1",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Restaurant 2",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Restaurant 3",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        )
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,56 +69,25 @@ class RestaurantsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRcView()
-        createListRestaurants() //заглушка
-        onClick()
+        init()
+        searchListRestaurants()
     }
 
-    private fun createListRestaurants() {
-        val listRestaurants: List<RestaurantData> = listOf(
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            ),
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            ),
-            RestaurantData(
-                1,
-                "Name 1",
-                "Location",
-                0.45f,
-                0.45f,
-                "Desc",
-                "Telephone",
-                0f,
-                "type"
-            )
-        )
+    private fun searchListRestaurants() {
+        adapter.submitList(listRestaurantsGlobal)
+    }
 
-        adapter.submitList(listRestaurants)
+    private fun init() {
+        initRcView()
+        onClick()
+        initSearch()
     }
 
     private fun initRcView() {
         adapter = RestaurantAdapter()
-        adapter.setOnButtonClickListener(object: RestaurantAdapter.OnButtonClickListener {
+        adapter.setOnButtonClickListener(object : RestaurantAdapter.OnButtonClickListener {
             override fun onClick() {
-                    findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
+                findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
             }
         })
         binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
@@ -92,6 +103,76 @@ class RestaurantsFragment : Fragment() {
         }
         binding.idNavMap.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantsFrag_to_mapFrag)
+        }
+    }
+
+    private fun initSearch() {
+        // Инициализируем элементы управления
+        // Инициализируем элементы управления
+        val editText: AppCompatEditText = binding.idHeader.idSearchView
+        val clearButton: ImageView = binding.idHeader.imIconClose
+
+        binding.idHeader.imSearch.setOnClickListener {
+            binding.idHeader.imSearch.visibility = View.INVISIBLE
+            binding.idHeader.idSearchView.visibility = View.VISIBLE
+        }
+
+        binding.idRestaurantsPage.setOnClickListener {
+            binding.idHeader.idSearchView.visibility = View.GONE
+            binding.idHeader.imSearch.visibility = View.VISIBLE
+            binding.tvEmptySearchResult.visibility = View.GONE
+            editText.setText("")
+            adapter.submitList(listRestaurantsGlobal)
+        }
+
+        // Добавьте обработчик текстовых изменений для AppCompatEditText
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // Пустой метод
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+                searchText = s.toString().lowercase()
+
+                // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
+                clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
+
+                // Если пользователь что-то ввел в поиск (сверху)
+                if (searchText.isNotEmpty()) {
+                    binding.idListRestaurants.visibility = View.VISIBLE
+
+                    val listRestaurants: List<RestaurantData> =
+                        listRestaurantsGlobal.stream().filter { restaurantData ->
+                            restaurantData.restaurantName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList())
+
+                    if (listRestaurants.isEmpty()) {
+                        binding.tvEmptySearchResult.visibility = View.VISIBLE
+                    } else {
+                        binding.tvEmptySearchResult.visibility = View.GONE
+                    }
+
+                    adapter.submitList(listRestaurants)
+                } else {
+                    binding.tvEmptySearchResult.visibility = View.GONE
+                    adapter.submitList(emptyList())
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                // Пустой метод
+            }
+        })
+
+
+        // Добавляет OnClickListener для ImageView
+        clearButton.setOnClickListener { // Очистите текст в AppCompatEditText
+            editText.setText("")
+            adapter.submitList(listRestaurantsGlobal)
         }
     }
 }

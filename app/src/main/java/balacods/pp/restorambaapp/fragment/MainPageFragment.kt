@@ -16,8 +16,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
+import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import java.util.stream.Collectors
 
 
 class MainPageFragment : Fragment() {
@@ -28,6 +32,43 @@ class MainPageFragment : Fragment() {
     private val APP_PREFERENCES: String = "instructions"
     private var APP_PREFERENCES_INSTRUCTIONS: Boolean = false
     private var searchText: String = ""
+    private lateinit var adapterRestaurant: RestaurantSearchAdapter
+
+    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
+        RestaurantData(
+            1,
+            "Restaurant 1",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Restaurant 2",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        ),
+        RestaurantData(
+            1,
+            "Restaurant 3",
+            "Location",
+            0.45f,
+            0.45f,
+            "Desc",
+            "Telephone",
+            0f,
+            "type"
+        )
+    )
 
     var mSettings: SharedPreferences? = null
 
@@ -50,6 +91,7 @@ class MainPageFragment : Fragment() {
         initInstructions()
         initBtFragment()
         initSearch()
+        initRcView()
     }
 
     private fun initBtFragment() {
@@ -73,7 +115,23 @@ class MainPageFragment : Fragment() {
         }
     }
 
+    private fun initRcView() {
+        adapterRestaurant = RestaurantSearchAdapter()
+        adapterRestaurant.setOnButtonClickListener(object :
+            RestaurantSearchAdapter.OnButtonClickListener {
+            override fun onClick() {
+                findNavController().navigate(R.id.action_mainFrag_to_restaurantFrag)
+            }
+        })
+        binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
+        binding.idListRestaurants.adapter = adapterRestaurant
+    }
+
     private fun initSearch() {
+        // Инициализируем элементы управления
+        // Инициализируем элементы управления
+        val editText: AppCompatEditText = binding.idHeader.idSearchView
+        val clearButton: ImageView = binding.idHeader.imIconClose
 
         binding.idHeader.imSearch.setOnClickListener {
             binding.idHeader.imSearch.visibility = View.INVISIBLE
@@ -83,12 +141,10 @@ class MainPageFragment : Fragment() {
         binding.idMainPageFragment.setOnClickListener {
             binding.idHeader.idSearchView.visibility = View.GONE
             binding.idHeader.imSearch.visibility = View.VISIBLE
+            binding.idListRestaurants.visibility = View.GONE
+            binding.tvEmptySearchResult.visibility = View.GONE
+            editText.setText("")
         }
-
-        // Инициализируйте ваши элементы управления
-        // Инициализируйте ваши элементы управления
-        val editText: AppCompatEditText = binding.idHeader.idSearchView
-        val clearButton: ImageView = binding.idHeader.imIconClose
 
         // Добавьте обработчик текстовых изменений для AppCompatEditText
         editText.addTextChangedListener(object : TextWatcher {
@@ -102,6 +158,33 @@ class MainPageFragment : Fragment() {
 
                 // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
+
+                // Если пользователь что-то ввел в поиск (сверху)
+                if (searchText.isNotEmpty()) {
+                    binding.idListRestaurants.visibility = View.VISIBLE
+                    binding.idButtonGetRandomDish.visibility = View.GONE
+
+                    val listRestaurants: List<RestaurantData> =
+                        listRestaurantsGlobal.stream().filter { restaurantData ->
+                            restaurantData.restaurantName.lowercase().contains(
+                                searchText
+                            )
+                        }.collect(Collectors.toList())
+
+                    if (listRestaurants.isEmpty()) {
+                        binding.tvEmptySearchResult.visibility = View.VISIBLE
+                    } else {
+                        binding.tvEmptySearchResult.visibility = View.GONE
+                    }
+
+                    adapterRestaurant.submitList(listRestaurants)
+                } else {
+                    binding.tvEmptySearchResult.visibility = View.GONE
+                    binding.idListRestaurants.visibility = View.GONE
+                    binding.idButtonGetRandomDish.visibility = View.VISIBLE
+                    adapterRestaurant.submitList(emptyList())
+                }
+
             }
 
             override fun afterTextChanged(s: Editable) {
