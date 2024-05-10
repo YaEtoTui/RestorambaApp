@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shakePopUp2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black_green">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="17dp"
+    android:minWidth="372dp"
+    android:minHeight="370dp">
 
     <View
         android:id="@+id/idRect"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/rectangle_fontlist_item_restaurants"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rect_pop_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,12 +30,14 @@
         app:layout_constraintStart_toStartOf="@+id/idRect"
         app:layout_constraintTop_toBottomOf="@+id/btClose" />
 
-    <Button
+    <ImageView
         android:id="@+id/btClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Закрыть"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="@+id/idRect"
-        app:layout_constraintTop_toTopOf="@+id/idRect" />
+        app:layout_constraintTop_toTopOf="@+id/idRect"
+        app:srcCompat="@drawable/icon_close_20_20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,10 +62,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBt() {
 
-        // Pop up 1
+        // Pop up 1 start
         bindingActivity.idShake.btClose.setOnClickListener {
             bindingActivity.idShake.shakePopUp.visibility = View.GONE
         }
+
+        bindingActivity.idShake.idButtonContinue.setOnClickListener {
+            // Тут рандом блюдо из бэка
+            // Думаем как брать рандом из ближайших ресторанов
+        }
+        // end
 
         // Pop up 2
         bindingActivity.idShake.idButtonMoreDetails.setOnClickListener {
