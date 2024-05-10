@@ -52,6 +52,7 @@
     <string name="question_instructions">Вы готовы использовать RESTORAMBA?</string>
     <string name="yes">ДА!</string>
     <string name="sum">400 руб</string>
+    <string name="price_sum">Цена: 650 руб</string>
     <string name="rest">Какой-то ресторан</string>
     <string name="dish">Какое-то блюдо</string>
     <string name="path_to_me">Расстояние до вас: 700м</string>
@@ -65,6 +66,8 @@
     <string name="hint_dish">Введите название блюда…</string>
     <string name="search_description">Воспользуйтесь поиском, чтобы найти блюдо или ресторан</string>
     <string name="empty_result_search">Извините, ничего не найдено</string>
+    <string name="another">Ещё одно!</string>
+    <string name="more_details">Подробнее</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -35,10 +35,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="TextView"
+        android:text="@string/rest"
+        android:textAppearance="@style/title_dishes"
         app:layout_constraintEnd_toEndOf="@+id/tvTitleDish"
         app:layout_constraintStart_toStartOf="@+id/tvTitleDish"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleDish" />
+
+    <ImageView
+        android:id="@+id/imPhoto"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleRestaurant"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleRestaurant"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"
+        app:srcCompat="@drawable/rectangle_fontlist_item_restaurant_photo" />
+
+    <ImageView
+        android:id="@+id/imPhotoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/imPhoto"
+        app:layout_constraintStart_toStartOf="@+id/imPhoto"
+        app:layout_constraintTop_toTopOf="@+id/imPhoto"
+        app:srcCompat="@drawable/photo_icon_56_56" />
 
     <ImageView
         android:id="@+id/btClose"
@@ -50,16 +71,42 @@
         app:layout_constraintTop_toTopOf="@+id/idRect"
         app:srcCompat="@drawable/icon_close_20_20" />
 
-    <Button
-        android:id="@+id/btContinue"
+    <TextView
+        android:id="@+id/idSumDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Далее"
-        app:layout_constraintBottom_toBottomOf="@+id/idRect"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitleDish"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleDish"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleDish" />
+        android:layout_marginTop="8dp"
+        android:text="@string/price_sum"
+        android:textAppearance="@style/title_sum"
+        app:layout_constraintEnd_toEndOf="@+id/imPhoto"
+        app:layout_constraintStart_toStartOf="@+id/imPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/imPhoto" />
+
+    <Button
+        android:id="@+id/idButtonContinue"
+        android:layout_width="102dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@drawable/button_bg_color_instructions"
+        android:text="@string/another"
+        android:textAppearance="@style/title_dishes"
+        android:textColor="@drawable/button_text_color_instructions"
+        app:cornerRadius="15dp"
+        app:layout_constraintStart_toEndOf="@+id/idButtonMoreDetails"
+        app:layout_constraintTop_toBottomOf="@+id/idSumDish" />
+
+    <Button
+        android:id="@+id/idButtonMoreDetails"
+        android:layout_width="107dp"
+        android:layout_height="39dp"
+        android:backgroundTint="@drawable/button_bg_color_instructions"
+        android:text="@string/more_details"
+        android:textAppearance="@style/title_dishes"
+        android:textColor="@drawable/button_text_color_instructions"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/idButtonContinue"
+        app:layout_constraintEnd_toStartOf="@+id/idSumDish"
+        app:layout_constraintTop_toTopOf="@+id/idButtonContinue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
