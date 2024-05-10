@@ -217,10 +217,10 @@ class YandexCardFragment : Fragment() {
 
     companion object {
 
-        private val START_POSITION = CameraPosition(Point(56.797469, 60.714430), 13.0f, 0f, 0f)
+        private val START_POSITION = CameraPosition(Point(56.840823, 60.650763), 13.0f, 0f, 0f)
 
         private val DEFAULT_POINTS = listOf(
-            Point(56.797469, 60.714430),
+            Point(56.840823, 60.650763),
             Point(56.815546, 60.605954),
         )
     }
