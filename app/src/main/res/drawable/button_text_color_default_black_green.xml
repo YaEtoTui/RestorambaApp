@@ -3,7 +3,7 @@
     <!--When the button is not enabled-->
 <!--    <item android:state_enabled="true" android:color="#6A6D79"/>-->
 <!--    <item android:state_enabled="false" android:color="#991B1F3B"/>-->
-    <item android:state_pressed="true" android:color="@color/black_green"/>
+    <item android:state_pressed="true" android:color="@color/milk"/>
     <!--Default Text Color-->
-    <item android:color="@color/milk" />
+    <item android:color="@color/black_green" />
 </selector>
