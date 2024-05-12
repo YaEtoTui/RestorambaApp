@@ -14,19 +14,25 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 
 class RestaurantsFragment : Fragment() {
 
     private lateinit var adapter: RestaurantAdapter
     private lateinit var binding: FragmentRestaurantsBinding
+    private lateinit var restorambaApiService: RestorambaApiService
     private var searchText: String = ""
 
-    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
+    private var listRestaurantsGlobal: List<RestaurantData> = listOf(
         RestaurantData(
             1,
             "Restaurant 1",
@@ -72,13 +78,20 @@ class RestaurantsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        restorambaApiService = Common.retrofitService
+
         init()
         searchListRestaurants()
     }
 
     private fun searchListRestaurants() {
-        // Тут бэк
-        adapter.submitList(listRestaurantsGlobal)
+        CoroutineScope(Dispatchers.IO).launch {
+            listRestaurantsGlobal = restorambaApiService.getListRestaurants()
+            requireActivity().runOnUiThread {
+                // Тут бэк
+                adapter.submitList(listRestaurantsGlobal)
+            }
+        }
     }
 
     private fun init() {

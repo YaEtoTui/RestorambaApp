@@ -3,22 +3,22 @@ package balacods.pp.restorambaapp.data.model
 import com.google.gson.annotations.SerializedName
 
 data class RestaurantData(
-    @SerializedName("customer_id")
+    @SerializedName("id")
     val customerId: Int,
-    @SerializedName("restaurant_name")
+    @SerializedName("name")
     val restaurantName: String,
-    @SerializedName("restaurant_location")
+    @SerializedName("location")
     val restaurantLocation: String,
-    @SerializedName("restaurant_coordinate_x")
+    @SerializedName("coordinate_X")
     val restaurantCoordinateX: Float,
-    @SerializedName("restaurant_coordinate_y")
+    @SerializedName("coordinate_Y")
     val restaurantCoordinateY: Float,
-    @SerializedName("restaurant_description")
+    @SerializedName("description")
     val restaurantDescription: String,
-    @SerializedName("restaurant_contact_phone")
+    @SerializedName("contact_phone")
     val restaurantContactPhone: String,
-    @SerializedName("restaurant_rating")
+    @SerializedName("rating")
     val restaurantRating: Float,
-    @SerializedName("restaurant_type")
+    @SerializedName("type")
     val restaurantType: String
 )
