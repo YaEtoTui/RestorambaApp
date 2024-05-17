@@ -32,41 +32,7 @@ class RestaurantsFragment : Fragment() {
     private lateinit var restorambaApiService: RestorambaApiService
     private var searchText: String = ""
 
-    private var listRestaurantsGlobal: List<RestaurantData> = listOf(
-        RestaurantData(
-            1,
-            "Restaurant 1",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Restaurant 2",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Restaurant 3",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        )
-    )
+    private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
