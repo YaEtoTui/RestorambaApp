@@ -83,6 +83,12 @@
         <item name="fontFamily">@font/oswald_medium</item>
     </style>
 
+    <style name="style_14sp_black_green_medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_green</item>
+        <item name="fontFamily">@font/oswald_medium</item>
+    </style>
+
     <style name="radio_button">
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/oswald_light</item>

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.databinding.ItemListDishesBinding
 import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.databinding.ItemListDishesBinding
 
 class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
 
@@ -22,8 +22,12 @@ class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
             menuData: MenuData,
             onButtonClickListener: DishAdapter.OnButtonClickListener
         ) = with(binding) {
+            tvTitleRestaurant.text = menuData.dishName
+            tvDesc.text = menuData.dishDescription
+            idButtonAgree.text = String.format("%s руб", menuData.dishPrice)
+
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick()
+                onButtonClickListener.onClick(menuData.dishesId, menuData.restaurantId)
             }
         }
     }
@@ -50,7 +54,7 @@ class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
     }
 
     interface OnButtonClickListener {
-        fun onClick()
+        fun onClick(dishId: Long, restaurantId: Long)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {

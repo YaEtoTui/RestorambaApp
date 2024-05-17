@@ -6,18 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.DishViewModel
+import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RestaurantFragment : Fragment() {
 
     private lateinit var adapter: DishAdapter
     private lateinit var binding: FragmentRestaurantBinding
+
+    private lateinit var restorambaApiService: RestorambaApiService
+    private val restaurantViewModel: RestaurantViewModel by activityViewModels()
+    private val dishViewModel: DishViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,14 +43,33 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        restorambaApiService = Common.retrofitService
+
         init()
     }
 
     private fun init() {
+        initRetrofitData()
         initBtNav()
         initRcView()
-        createListDishes() //затычка
         initBtPage()
+    }
+
+    private fun initRetrofitData() {
+        restaurantViewModel.restaurantId.observe(viewLifecycleOwner) {restaurantId ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val restaurantDataList: List<RestaurantData> = restorambaApiService.getRestaurantById(restaurantId)
+                val menuDataList: List<MenuData> = restorambaApiService.getDishesByRestaurantId(restaurantId)
+                requireActivity().runOnUiThread {
+                    val restaurantData: RestaurantData = restaurantDataList[0]
+                    binding.apply {
+                        idNameRestaurant.text = restaurantData.restaurantName
+                        tvDesc.text = restaurantData.restaurantDescription
+                    }
+                    adapter.submitList(menuDataList)
+                }
+            }
+        }
     }
 
     private fun initBtPage() {
@@ -50,44 +82,11 @@ class RestaurantFragment : Fragment() {
         }
     }
 
-    private fun createListDishes() {
-        val listDishes: List<MenuData> = listOf(
-            MenuData(
-                2,
-                1,
-                "Name",
-                "Desc",
-                "Price",
-                0.3f,
-                "type"
-            ),
-            MenuData(
-                2,
-                1,
-                "Name",
-                "Desc",
-                "Price",
-                0.3f,
-                "type"
-            ),
-            MenuData(
-                2,
-                1,
-                "Name",
-                "Desc",
-                "Price",
-                0.3f,
-                "type"
-            )
-        )
-
-        adapter.submitList(listDishes)
-    }
-
     private fun initRcView() {
         adapter = DishAdapter()
         adapter.setOnButtonClickListener(object : DishAdapter.OnButtonClickListener {
-            override fun onClick() {
+            override fun onClick(dishId: Long, restaurantId: Long) {
+                dishViewModel.ids.value = listOf(dishId, restaurantId)
                 findNavController().navigate(R.id.action_restaurantFrag_to_dishFrag)
             }
         })

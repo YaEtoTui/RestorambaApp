@@ -13,7 +13,7 @@
         android:id="@+id/idRect"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/rect_pop_up"
+        android:background="@drawable/rect_pop_up_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +46,11 @@
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginTop="24dp"
+        android:stateListAnimator="@drawable/photo_elevation"
         app:layout_constraintEnd_toEndOf="@+id/tvTitleRestaurant"
         app:layout_constraintStart_toStartOf="@+id/tvTitleRestaurant"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant"
-        app:srcCompat="@drawable/rectangle_fontlist_item_restaurant_photo" />
+        app:srcCompat="@drawable/rectangle_photo_fon" />
 
     <ImageView
         android:id="@+id/imPhotoIcon"
@@ -77,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/price_sum"
-        android:textAppearance="@style/title_sum"
+        android:textAppearance="@style/style_14sp_black_green_medium"
         app:layout_constraintEnd_toEndOf="@+id/imPhoto"
         app:layout_constraintStart_toStartOf="@+id/imPhoto"
         app:layout_constraintTop_toBottomOf="@+id/imPhoto" />
@@ -88,10 +89,10 @@
         android:layout_height="39dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@drawable/button_bg_color_instructions"
+        android:backgroundTint="@drawable/button_bg_color_main_page"
         android:text="@string/another"
         android:textAppearance="@style/title_dishes"
-        android:textColor="@drawable/button_text_color_instructions"
+        android:textColor="@drawable/button_text_color_main_page"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toEndOf="@+id/idButtonMoreDetails"
         app:layout_constraintTop_toBottomOf="@+id/idSumDish" />

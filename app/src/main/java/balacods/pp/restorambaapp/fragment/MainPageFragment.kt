@@ -119,7 +119,7 @@ class MainPageFragment : Fragment() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick() {
+            override fun onClick(text: String) {
                 findNavController().navigate(R.id.action_mainFrag_to_restaurantFrag)
             }
         })
