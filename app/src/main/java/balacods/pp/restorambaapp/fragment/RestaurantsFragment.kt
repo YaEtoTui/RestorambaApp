@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +30,7 @@ import java.util.stream.Collectors
 class RestaurantsFragment : Fragment() {
 
     private lateinit var adapter: RestaurantAdapter
+    private val restaurantViewModel: RestaurantViewModel by activityViewModels()
     private lateinit var binding: FragmentRestaurantsBinding
     private lateinit var restorambaApiService: RestorambaApiService
     private var searchText: String = ""
@@ -69,9 +72,10 @@ class RestaurantsFragment : Fragment() {
     private fun initRcView() {
         adapter = RestaurantAdapter()
         adapter.setOnButtonClickListener(object : RestaurantAdapter.OnButtonClickListener {
-            override fun onClick(text: String) {
+            override fun onClick(text: String, restaurantId: Long?) {
                 when (text) {
                     StatusRequest.LIST_RESTAURANTS.statusRequest -> {
+                        restaurantViewModel.restaurantId.value = restaurantId
                         findNavController().navigate(R.id.action_restaurantsFrag_to_restaurantFrag)
                     }
 

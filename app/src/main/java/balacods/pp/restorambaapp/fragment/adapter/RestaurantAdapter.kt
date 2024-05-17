@@ -27,11 +27,11 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
             binding.tvTitleRestaurant.text = restaurantData.restaurantName
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest)
+                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest, restaurantData.customerId)
             }
 
             binding.idBtRandom.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest)
+                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, null)
             }
         }
     }
@@ -58,7 +58,7 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
     }
 
     interface OnButtonClickListener {
-        fun onClick(text: String)
+        fun onClick(text: String, restaurantId: Long?)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {

@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class MenuData(
     @SerializedName("id")
-    val dishesId: Int,
+    val dishesId: Long,
     @SerializedName("restaurant_id")
-    val restaurantId: Int,
+    val restaurantId: Long,
     @SerializedName("name")
     val dishName: String,
     @SerializedName("description")

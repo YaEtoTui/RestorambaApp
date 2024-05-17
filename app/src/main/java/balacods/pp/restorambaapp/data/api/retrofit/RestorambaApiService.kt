@@ -11,16 +11,16 @@ interface RestorambaApiService {
     suspend fun getListRestaurants(): List<RestaurantData>
 
     @GET("api/v1/restaurants/{restaurant_id}")
-    suspend fun getRestaurantById(@Path("restaurant_id") restaurantId: Long): RestaurantData
+    suspend fun getRestaurantById(@Path("restaurant_id") restaurantId: Long): List<RestaurantData>
 
     @GET("api/v1/restaurants/{restaurant_id}/dishes")
     suspend fun getDishesByRestaurantId(@Path("restaurant_id") restaurantId: Long): List<MenuData>
 
     @GET("api/v1/restaurants/{restaurant_id}/dishes/{dish_id}")
-    suspend fun getDishesByRestaurantId(
+    suspend fun getDishByRestaurantAndDishId(
         @Path("restaurant_id") restaurantId: Long,
         @Path("dish_id") dishId: Long
-    ): MenuData
+    ): List<MenuData>
 
     @GET("api/v1/dishes")
     suspend fun getAllDishes(): List<MenuData>
