@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == "shake_event") {
                 // Вызываете нужный метод в Activity
-                showShake()
+                showShake(intent.action.toString())
             }
         }
     }
@@ -66,31 +67,40 @@ class MainActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(shakeReceiver)
     }
 
-    fun showShake() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
-            val message = response.errorBody()?.string()?.let {
-                JSONObject(it).getString("detail")
-            }
-            val responseRest: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
-            val messageRest = responseRest.errorBody()?.string()?.let {
-                JSONObject(it).getString("detail")
-            }
-            withContext(Dispatchers.Main) {
-                if (message.equals(null) && messageRest.equals(null)) {
-                    val menuData: MenuData = response.body()!![0]
-                    val mapRest: Map<Long, String> = responseRest.body()!!.stream()
-                        .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
-                    bindingActivity.apply {
-                        idShake.apply {
-                            tvTitleDish.text = menuData.dishName
-                            tvTitleRestaurant.text = mapRest.getOrDefault(menuData.restaurantId, null)
-                            idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
+    fun showShake(code: String) {
+        when (code) {
+            StatusCodeShakeRequest.All.code -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
+                    val message = response.errorBody()?.string()?.let {
+                        JSONObject(it).getString("detail")
+                    }
+                    val responseRest: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+                    val messageRest = responseRest.errorBody()?.string()?.let {
+                        JSONObject(it).getString("detail")
+                    }
+                    withContext(Dispatchers.Main) {
+                        if (message.equals(null) && messageRest.equals(null)) {
+                            val menuData: MenuData = response.body()!![0]
+                            val mapRest: Map<Long, String> = responseRest.body()!!.stream()
+                                .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
+                            bindingActivity.apply {
+                                idShake.apply {
+                                    tvTitleDish.text = menuData.dishName
+                                    tvTitleRestaurant.text = mapRest.getOrDefault(menuData.restaurantId, null)
+                                    idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
+                                }
+                            }
                         }
                     }
                 }
             }
+
+            StatusCodeShakeRequest.ONLYONERESTAURANT.code -> {
+
+            }
         }
+
         bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
     }
 

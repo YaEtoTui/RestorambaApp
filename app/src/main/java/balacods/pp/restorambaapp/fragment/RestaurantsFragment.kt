@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
@@ -88,7 +89,7 @@ class RestaurantsFragment : Fragment() {
 
                     StatusRequest.DISH.statusRequest -> {
                         // Отправка сообщения с помощью LocalBroadcastManager
-                        val intent = Intent("shake_event")
+                        val intent = Intent(StatusCodeShakeRequest.ONLYONERESTAURANT.code)
                         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
                         // А тут бэк, в котором зарандомим блюдо для своего ресторана, у которого нажмем кнопку
                         // ...
