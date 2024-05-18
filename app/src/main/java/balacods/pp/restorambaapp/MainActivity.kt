@@ -177,6 +177,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
             }
         }
 
+        code = ""
         bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
     }
 

@@ -1,5 +1,6 @@
 package balacods.pp.restorambaapp.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
@@ -33,6 +36,7 @@ class RestaurantFragment : Fragment() {
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
     private val restaurantAndDishViewModel: RestaurantAndDishViewModel by activityViewModels()
+    private var dataPassListener: OnDataPassListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,15 @@ class RestaurantFragment : Fragment() {
         restorambaApiService = Common.retrofitService
 
         init()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dataPassListener = try {
+            context as OnDataPassListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement OnDataPassListener")
+        }
     }
 
     private fun init() {
@@ -74,6 +87,12 @@ class RestaurantFragment : Fragment() {
                         binding.apply {
                             idNameRestaurant.text = restaurantData.restaurantName
                             tvDesc.text = restaurantData.restaurantDescription
+                            idButtonGetRandomDish.setOnClickListener {
+                                val intent = Intent("shake_event")
+                                val code: String = String.format("%s:%s", StatusCodeShakeRequest.ONLYONERESTAURANT.code, restaurantId)
+                                dataPassListener!!.onDataPass(code)
+                                LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+                            }
                         }
                     }
                     if (messageMenu.equals(null)) {
