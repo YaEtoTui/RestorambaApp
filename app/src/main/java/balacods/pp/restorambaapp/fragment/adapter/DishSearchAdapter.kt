@@ -29,7 +29,7 @@ class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapt
             idButtonAgree.text = String.format("%s руб", menuData.dishPrice)
 
             cView.setOnClickListener {
-                onButtonClickListener.onClick()
+                onButtonClickListener.onClick(menuData.dishesId, menuData.restaurantId)
             }
         }
     }
@@ -56,7 +56,7 @@ class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapt
     }
 
     interface OnButtonClickListener {
-        fun onClick()
+        fun onClick(dishesId: Long, restaurantId: Long)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {

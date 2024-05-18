@@ -21,7 +21,7 @@ import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
-import balacods.pp.restorambaapp.data.viewModel.DishViewModel
+import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
@@ -47,7 +47,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
-    private val dishViewModel: DishViewModel by activityViewModels()
+    private val restaurantAndDishViewModel: RestaurantAndDishViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,7 +134,8 @@ class SearchFragment : Fragment() {
 
         adapterDish = DishSearchAdapter()
         adapterDish.setOnButtonClickListener(object : DishSearchAdapter.OnButtonClickListener {
-            override fun onClick() {
+            override fun onClick(dishesId: Long, restaurantId: Long) {
+                restaurantAndDishViewModel.ids.value = arrayOf(dishesId, restaurantId)
                 findNavController().navigate(R.id.action_searchFrag_to_dishFrag)
             }
         })
