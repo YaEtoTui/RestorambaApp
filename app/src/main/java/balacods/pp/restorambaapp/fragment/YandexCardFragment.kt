@@ -118,6 +118,9 @@ class YandexCardFragment : Fragment() {
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_yandexCardFrag_to_mainFrag)
         }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_yandexCardFrag_to_questionsFrag)
+        }
     }
 
     override fun onStop() {

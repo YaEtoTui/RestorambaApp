@@ -130,6 +130,9 @@
         <action
             android:id="@+id/action_dishFrag_to_questionsFrag"
             app:destination="@id/questionsFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
     </fragment>
 
     <fragment

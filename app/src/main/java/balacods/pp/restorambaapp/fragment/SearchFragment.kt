@@ -144,14 +144,17 @@ class SearchFragment : Fragment() {
     }
 
     private fun initNav() {
-        binding.idNavMain.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFrag_to_mainFrag)
-        }
         binding.idNavRestaurants.setOnClickListener {
             findNavController().navigate(R.id.action_searchFrag_to_restaurantsFrag)
         }
+        binding.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFrag_to_mainFrag)
+        }
         binding.idNavMap.setOnClickListener {
             findNavController().navigate(R.id.action_searchFrag_to_yandexCardFrag)
+        }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFrag_to_questionsFrag)
         }
     }
 

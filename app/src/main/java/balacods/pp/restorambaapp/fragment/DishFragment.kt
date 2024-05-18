@@ -73,14 +73,20 @@ class DishFragment : Fragment() {
     }
 
     private fun onClick() {
+        binding.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_dishFrag_to_restaurantsFrag)
+        }
         binding.idNavSearch.setOnClickListener {
             findNavController().navigate(R.id.action_dishFrag_to_searchFrag)
         }
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_dishFrag_to_mainFrag)
         }
-        binding.idNavRestaurants.setOnClickListener {
-            findNavController().navigate(R.id.action_dishFrag_to_restaurantsFrag)
+        binding.idNavMap.setOnClickListener {
+            findNavController().navigate(R.id.action_dishFrag_to_yandexCardFrag)
+        }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_dishFrag_to_questionsFrag)
         }
     }
 }

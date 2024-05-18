@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentQuestionsBinding
 
 class QuestionsFragment : Fragment() {
@@ -26,8 +28,25 @@ class QuestionsFragment : Fragment() {
     }
 
     private fun init() {
-//        initBtNav()
+        initBtNav()
         initCheckBox()
+    }
+
+    private fun initBtNav() {
+        binding.apply {
+            idNavRestaurants.setOnClickListener {
+                findNavController().navigate(R.id.action_questionsFrag_to_restaurantsFrag)
+            }
+            idNavSearch.setOnClickListener {
+                findNavController().navigate(R.id.action_questionsFrag_to_searchFrag)
+            }
+            idNavMain.setOnClickListener {
+                findNavController().navigate(R.id.action_questionsFrag_to_mainFrag)
+            }
+            idNavMap.setOnClickListener {
+                findNavController().navigate(R.id.action_questionsFrag_to_yandexCardFrag)
+            }
+        }
     }
 
     private fun initCheckBox() {
