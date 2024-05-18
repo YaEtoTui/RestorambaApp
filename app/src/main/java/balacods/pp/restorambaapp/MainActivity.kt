@@ -9,9 +9,20 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.databinding.ActivityMainBinding
 import balacods.pp.restorambaapp.databinding.ContentBaseBinding
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetectionService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import retrofit2.Response
+import java.util.stream.Collectors
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +30,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ContentBaseBinding
     private lateinit var bindingActivity: ActivityMainBinding
 
+    private lateinit var restorambaApiService: RestorambaApiService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingActivity = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivity.root)
+
+        restorambaApiService = Common.retrofitService
 
         // здесь сервис по обработки тряски телефона
         val shakeDetectionServiceIntent = Intent(this, ShakeDetectionService::class.java)
@@ -52,6 +67,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showShake() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
+            val message = response.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
+            val responseRest: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val messageRest = responseRest.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
+            withContext(Dispatchers.Main) {
+                if (message.equals(null) && messageRest.equals(null)) {
+                    val menuData: MenuData = response.body()!![0]
+                    val mapRest: Map<Long, String> = responseRest.body()!!.stream()
+                        .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
+                    bindingActivity.apply {
+                        idShake.apply {
+                            tvTitleDish.text = menuData.dishName
+                            tvTitleRestaurant.text = mapRest.getOrDefault(menuData.restaurantId, null)
+                            idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
+                        }
+                    }
+                }
+            }
+        }
         bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
     }
 
