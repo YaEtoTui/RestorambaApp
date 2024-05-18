@@ -21,7 +21,7 @@ interface RestorambaApiService {
     suspend fun getDishByRestaurantAndDishId(
         @Path("restaurant_id") restaurantId: Long,
         @Path("dish_id") dishId: Long
-    ): List<MenuData>
+    ): Response<List<MenuData>>
 
     @GET("api/v1/dishes")
     suspend fun getAllDishes(): List<MenuData>

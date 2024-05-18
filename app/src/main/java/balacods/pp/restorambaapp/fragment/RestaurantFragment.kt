@@ -99,7 +99,7 @@ class RestaurantFragment : Fragment() {
         adapter = DishAdapter()
         adapter.setOnButtonClickListener(object : DishAdapter.OnButtonClickListener {
             override fun onClick(dishId: Long, restaurantId: Long) {
-                dishViewModel.ids.value = listOf(dishId, restaurantId)
+                dishViewModel.ids.value = arrayOf(dishId, restaurantId)
                 findNavController().navigate(R.id.action_restaurantFrag_to_dishFrag)
             }
         })

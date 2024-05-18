@@ -10,12 +10,15 @@ import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.DishViewModel
 import balacods.pp.restorambaapp.databinding.FragmentDishBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 
 class DishFragment : Fragment() {
 
@@ -42,13 +45,27 @@ class DishFragment : Fragment() {
     }
 
     private fun initRetrofitData() {
-        dishViewModel.ids.observe(viewLifecycleOwner) {ids->
+        dishViewModel.ids.observe(viewLifecycleOwner) { ids ->
             CoroutineScope(Dispatchers.IO).launch {
-                val menuDataList: List<MenuData> = restorambaApiService.getDishByRestaurantAndDishId(ids[0], ids[1])
+                val responseMenuData: Response<List<MenuData>> = restorambaApiService.getDishByRestaurantAndDishId(ids[0], ids[1])
+                val messageMenuData = responseMenuData.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                val responseRestaurant: Response<List<RestaurantData>> = restorambaApiService.getRestaurantById(ids[1])
+                val messageRestaurant = responseRestaurant.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
                 requireActivity().runOnUiThread {
-                    val menuData: MenuData = menuDataList[0]
-                    binding.apply {
-                        idNameDish.text = menuData.dishName
+                    if (messageMenuData.equals(null) && messageRestaurant.equals(null)) {
+                        val menuData: MenuData = responseMenuData.body()!![0]
+                        val restaurantData: RestaurantData = responseRestaurant.body()!![0]
+                        binding.apply {
+                            idNameDish.text = menuData.dishName
+                            idNameRestaurant.text = restaurantData.restaurantName
+                            tvDesc.text = menuData.dishDescription
+                            tvGr.text = String.format("%s гр", menuData.dishWeight.toInt())
+                            tvRub.text = String.format("%s руб", menuData.dishPrice)
+                        }
                     }
                 }
             }
