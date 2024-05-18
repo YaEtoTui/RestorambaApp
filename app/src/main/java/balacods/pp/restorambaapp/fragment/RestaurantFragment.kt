@@ -22,6 +22,8 @@ import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 
 class RestaurantFragment : Fragment() {
 
@@ -58,15 +60,26 @@ class RestaurantFragment : Fragment() {
     private fun initRetrofitData() {
         restaurantViewModel.restaurantId.observe(viewLifecycleOwner) {restaurantId ->
             CoroutineScope(Dispatchers.IO).launch {
-                val restaurantDataList: List<RestaurantData> = restorambaApiService.getRestaurantById(restaurantId)
-                val menuDataList: List<MenuData> = restorambaApiService.getDishesByRestaurantId(restaurantId)
+                val responseRestaurant: Response<List<RestaurantData>> = restorambaApiService.getRestaurantById(restaurantId)
+                val messageRestaurant = responseRestaurant.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                val responseMenu: Response<List<MenuData>> = restorambaApiService.getDishesByRestaurantId(restaurantId)
+                val messageMenu = responseMenu.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
                 requireActivity().runOnUiThread {
-                    val restaurantData: RestaurantData = restaurantDataList[0]
-                    binding.apply {
-                        idNameRestaurant.text = restaurantData.restaurantName
-                        tvDesc.text = restaurantData.restaurantDescription
+                    if (messageRestaurant.equals(null)) {
+                        val restaurantData: RestaurantData = responseRestaurant.body()!![0]
+                        binding.apply {
+                            idNameRestaurant.text = restaurantData.restaurantName
+                            tvDesc.text = restaurantData.restaurantDescription
+                        }
                     }
-                    adapter.submitList(menuDataList)
+                    if (messageMenu.equals(null)) {
+                        val menuDataList: List<MenuData> = responseMenu.body()!!
+                        adapter.submitList(menuDataList)
+                    }
                 }
             }
         }
