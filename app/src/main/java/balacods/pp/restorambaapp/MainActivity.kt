@@ -105,6 +105,9 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     mapRest.getOrDefault(menuData.restaurantId, null)
                                 idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
                             }
+                            idShake2.apply {
+                                tvText.text = menuData.dishDescription
+                            }
                         }
                     }
                 }
@@ -139,6 +142,9 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     mapRest.getOrDefault(menuData.restaurantId, null)
                                 idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
                             }
+                            idShake2.apply {
+                                tvText.text = menuData.dishDescription
+                            }
                         }
                     }
                 }
@@ -171,13 +177,14 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     mapRest.getOrDefault(menuData.restaurantId, null)
                                 idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
                             }
+                            idShake2.apply {
+                                tvText.text = menuData.dishDescription
+                            }
                         }
                     }
                 }
             }
         }
-
-        code = ""
         bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
     }
 
@@ -190,21 +197,24 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
 
         // Pop up 1 start
         bindingActivity.idShake.btClose.setOnClickListener {
+            code = ""
             bindingActivity.idShake.shakePopUp.visibility = View.GONE
         }
 
         bindingActivity.idShake.idButtonContinue.setOnClickListener {
-            // Тут рандом блюдо из бэка
-            // Думаем как брать рандом из ближайших ресторанов
+            showShake()
         }
         // end
 
         // Pop up 2
         bindingActivity.idShake.idButtonMoreDetails.setOnClickListener {
-            bindingActivity.idShake.shakePopUp.visibility = View.GONE
-            bindingActivity.idShake2.shakePopUp2.visibility = View.VISIBLE // Не заверстан
+            bindingActivity.apply {
+                idShake.shakePopUp.visibility = View.GONE
+                idShake2.shakePopUp2.visibility = View.VISIBLE // Не заверстан
+            }
         }
         bindingActivity.idShake2.btClose.setOnClickListener {
+            code = ""
             bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
         }
     }
