@@ -110,11 +110,18 @@ class MainPageFragment : Fragment() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick(text: String, restId: Long) {
+            override fun onClick(text: String, restaurantId: Long) {
                 when (text) {
                     StatusRequest.LIST_RESTAURANTS.statusRequest -> {
-                        restaurantViewModel.restaurantId.value = restId
+                        restaurantViewModel.restaurantId.value = restaurantId
                         findNavController().navigate(R.id.action_mainFrag_to_restaurantFrag)
+                    }
+
+                    StatusRequest.DISH.statusRequest -> {
+                        val intent = Intent("shake_event")
+                        val code: String = String.format("%s:%s", StatusCodeShakeRequest.ONLYONERESTAURANT.code, restaurantId)
+                        dataPassListener!!.onDataPass(code)
+                        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
                     }
                 }
             }
