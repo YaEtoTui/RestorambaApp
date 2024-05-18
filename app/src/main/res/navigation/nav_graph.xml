@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFrag_to_restaurantFrag"
             app:destination="@id/restaurantFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -38,6 +41,9 @@
         <action
             android:id="@+id/action_yandexCardFrag_to_restaurantsFrag"
             app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_yandexCardFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -46,6 +52,9 @@
         android:animateLayoutChanges="true"
         tools:layout="@layout/fragment_yandex_card">
 
+        <action
+            android:id="@+id/action_mapFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -68,6 +77,9 @@
         <action
             android:id="@+id/action_restaurantsFrag_to_mapFrag"
             app:destination="@id/mapFrag" />
+        <action
+            android:id="@+id/action_restaurantsFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -93,6 +105,9 @@
         <action
             android:id="@+id/action_restaurantFrag_to_searchFrag2"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -112,6 +127,9 @@
         <action
             android:id="@+id/action_dishFrag_to_searchFrag2"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
     </fragment>
 
     <fragment
@@ -133,6 +151,38 @@
             app:destination="@id/restaurantFrag" />
         <action
             android:id="@+id/action_searchFrag_to_dishFrag"
+            app:destination="@id/dishFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_questionsFrag"
+            app:destination="@id/questionsFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/questionsFrag"
+        android:name="balacods.pp.restorambaapp.fragment.QuestionsFragment"
+        android:animateLayoutChanges="true"
+        tools:layout="@layout/fragment_questions">
+
+        <action
+            android:id="@+id/action_questionsFrag_to_yandexCardFrag"
+            app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_restaurantFrag"
+            app:destination="@id/restaurantFrag" />
+        <action
+            android:id="@+id/action_questionsFrag_to_dishFrag"
             app:destination="@id/dishFrag" />
     </fragment>
 

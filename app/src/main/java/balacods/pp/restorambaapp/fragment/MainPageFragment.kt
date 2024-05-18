@@ -104,6 +104,9 @@ class MainPageFragment : Fragment() {
         binding.idNavMap.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
         }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFrag_to_questionsFrag)
+        }
     }
 
     private fun initRcView() {

@@ -68,6 +68,16 @@
     <string name="empty_result_search">Извините, ничего не найдено</string>
     <string name="another">Ещё одно!</string>
     <string name="more_details">Подробнее</string>
+    <string name="desc_question">Ответы на популярные вопросы</string>
+    <string name="question_1">Как пользоваться нашим приложением?</string>
+    <string name="question_2">Что еще я могу сделать?</string>
+    <string name="question_3">Как найти меню ресторана?</string>
+    <string name="question_4">Как предложить добавление нового ресторана или блюда?</string>
+    <string name="answer_1">Чтобы получить случайное блюдо – просто встряхните телефон!</string>
+    <string name="answer_2">Вы можете посмотреть список ресторанов города Екатеринбург на карте, а так же меню этих ресторанов!</string>
+    <string name="answer_3">Чтобы найти меню ресторана, откройте карточку этого ресторана и пролистайте вниз. Там вы найдете раздел с меню, где будут перечислены все доступные блюда.</string>
+    <string name="answer_4">Если вы хотите добавить новый ресторан или блюдо в наше приложение – перейдите на страницу "Вопросы" и выберите опцию "Предложить новый ресторан или новое блюдо". Заполните форму с необходимой информацией, и мы рассмотрим ваше предложение.</string>
+    <string name="bt_form">Предложить новый ресторан или новое блюдо</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

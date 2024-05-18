@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/milk">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idPageHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/idNameApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="74dp"
+            android:text="@string/restoramba"
+            android:textAppearance="@style/restoramba"
+            android:textColor="@color/black_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/idNav"
+        app:layout_constraintTop_toBottomOf="@+id/idPageHeader">
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@string/desc_question"
+            android:textAppearance="@style/style_16sp_pink_oswald_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/idConstrQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="42dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc">
+
+            <TextView
+                android:id="@+id/idQuestion1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/question_1"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/black_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/btCheckBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:button="@drawable/check_box_questions"
+                android:theme="@style/MyRadioButton"
+                app:layout_constraintBottom_toBottomOf="@+id/idQuestion1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/idQuestion1" />
+
+            <TextView
+                android:id="@+id/idAnswer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="36dp"
+                android:text="@string/answer_1"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/pink"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion1"
+                app:layout_constraintTop_toBottomOf="@+id/idQuestion1" />
+
+            <TextView
+                android:id="@+id/idQuestion2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="11dp"
+                android:text="@string/question_2"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/black_green"
+                app:layout_constraintEnd_toEndOf="@+id/idQuestion1"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion1"
+                app:layout_constraintTop_toBottomOf="@+id/idAnswer1" />
+
+            <CheckBox
+                android:id="@+id/btCheckBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:button="@drawable/check_box_questions"
+                android:theme="@style/MyRadioButton"
+                app:layout_constraintBottom_toBottomOf="@+id/idQuestion2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/idQuestion2" />
+
+            <TextView
+                android:id="@+id/idAnswer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="36dp"
+                android:text="@string/answer_2"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/pink"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion2"
+                app:layout_constraintTop_toBottomOf="@+id/idQuestion2" />
+
+            <TextView
+                android:id="@+id/idQuestion3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="11dp"
+                android:text="@string/question_3"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/black_green"
+                app:layout_constraintEnd_toEndOf="@+id/idQuestion2"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion2"
+                app:layout_constraintTop_toBottomOf="@+id/idAnswer2" />
+
+            <CheckBox
+                android:id="@+id/btCheckBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:button="@drawable/check_box_questions"
+                android:theme="@style/MyRadioButton"
+                app:layout_constraintBottom_toBottomOf="@+id/idQuestion3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/idQuestion3" />
+
+            <TextView
+                android:id="@+id/idAnswer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="36dp"
+                android:text="@string/answer_3"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/pink"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion3"
+                app:layout_constraintTop_toBottomOf="@+id/idQuestion3" />
+
+            <TextView
+                android:id="@+id/idQuestion4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="11dp"
+                android:text="@string/question_4"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/black_green"
+                app:layout_constraintEnd_toEndOf="@+id/idQuestion3"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion3"
+                app:layout_constraintTop_toBottomOf="@+id/idAnswer3" />
+
+            <CheckBox
+                android:id="@+id/btCheckBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:button="@drawable/check_box_questions"
+                android:theme="@style/MyRadioButton"
+                app:layout_constraintBottom_toBottomOf="@+id/idQuestion4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/idQuestion4" />
+
+            <TextView
+                android:id="@+id/idAnswer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="36dp"
+                android:text="@string/answer_4"
+                android:textAppearance="@style/button_restaurant_page"
+                android:textColor="@color/pink"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/idQuestion4"
+                app:layout_constraintTop_toBottomOf="@+id/idQuestion4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btAddForm"
+            android:layout_width="296dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@drawable/button_bg_color_main_page"
+            android:text="@string/bt_form"
+            android:textAppearance="@style/style_14sp_oswald_regular"
+            android:textColor="@drawable/button_text_color_main_page"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idConstrQuestions" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <TextView
+            android:id="@+id/idNavRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="34dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/restaurants"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/food_restaurants_25_25"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/idNavSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center|top"
+            android:text="@string/search_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_search_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
+            app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/main_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_main_home_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+        <TextView
+            android:id="@+id/idNavMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/maps_nav"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/black_green"
+            app:drawableTint="@color/black_green"
+            app:drawableTopCompat="@drawable/icon_location_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
+            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+        <TextView
+            android:id="@+id/idNavQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|top"
+            android:text="@string/question"
+            android:textAppearance="@style/nav_text"
+            android:textColor="@color/orange"
+            app:drawableTint="@color/orange"
+            app:drawableTopCompat="@drawable/icon_question_25_25"
+            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
