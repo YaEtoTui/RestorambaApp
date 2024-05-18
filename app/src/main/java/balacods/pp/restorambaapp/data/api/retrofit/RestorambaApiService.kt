@@ -27,7 +27,7 @@ interface RestorambaApiService {
     suspend fun getAllDishes(): Response<List<MenuData>>
 
     @GET("api/v1/dishes/random_dish")
-    suspend fun getRandomDish(): MenuData
+    suspend fun getRandomDish(): Response<List<MenuData>>
 
     @GET("api/v1/dishes/random_dish/{restaurant_id}")
     suspend fun getRandomDishByRestaurantId(@Path("restaurant_id") restaurantId: Long): MenuData
