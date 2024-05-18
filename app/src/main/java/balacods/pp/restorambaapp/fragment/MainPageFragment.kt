@@ -14,13 +14,23 @@ import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 import java.util.stream.Collectors
 
 
@@ -34,43 +44,11 @@ class MainPageFragment : Fragment() {
     private var searchText: String = ""
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
 
-    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
-        RestaurantData(
-            1,
-            "Restaurant 1",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Restaurant 2",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Restaurant 3",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        )
-    )
+    private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
+    private lateinit var restorambaApiService: RestorambaApiService
+    private val restaurantViewModel: RestaurantViewModel by activityViewModels()
 
-    var mSettings: SharedPreferences? = null
+    private var mSettings: SharedPreferences? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +60,8 @@ class MainPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        restorambaApiService = Common.retrofitService
 
         init()
     }
@@ -119,8 +99,13 @@ class MainPageFragment : Fragment() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick(text: String) {
-                findNavController().navigate(R.id.action_mainFrag_to_restaurantFrag)
+            override fun onClick(text: String, restId: Long) {
+                when (text) {
+                    StatusRequest.LIST_RESTAURANTS.statusRequest -> {
+                        restaurantViewModel.restaurantId.value = restId
+                        findNavController().navigate(R.id.action_mainFrag_to_restaurantFrag)
+                    }
+                }
             }
         })
         binding.idListRestaurants.layoutManager = LinearLayoutManager(context)
@@ -136,6 +121,7 @@ class MainPageFragment : Fragment() {
         binding.idHeader.imSearch.setOnClickListener {
             binding.idHeader.imSearch.visibility = View.INVISIBLE
             binding.idHeader.idSearchView.visibility = View.VISIBLE
+            initSearchListRestaurant()
         }
 
         binding.idMainPageFragment.setOnClickListener {
@@ -196,6 +182,20 @@ class MainPageFragment : Fragment() {
         // Добавляет OnClickListener для ImageView
         clearButton.setOnClickListener { // Очистите текст в AppCompatEditText
             editText.setText("")
+        }
+    }
+
+    private fun initSearchListRestaurant() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val message = response.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
+            requireActivity().runOnUiThread {
+                if (message.equals(null)) {
+                    listRestaurantsGlobal = response.body()!!
+                }
+            }
         }
     }
 
