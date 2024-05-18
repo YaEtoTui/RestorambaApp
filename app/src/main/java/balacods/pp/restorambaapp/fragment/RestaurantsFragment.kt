@@ -25,6 +25,8 @@ import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 import java.util.stream.Collectors
 
 class RestaurantsFragment : Fragment() {
@@ -55,10 +57,15 @@ class RestaurantsFragment : Fragment() {
 
     private fun searchListRestaurants() {
         CoroutineScope(Dispatchers.IO).launch {
-            listRestaurantsGlobal = restorambaApiService.getListRestaurants()
+            val response: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val message = response.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
             requireActivity().runOnUiThread {
-                // Тут бэк
-                adapter.submitList(listRestaurantsGlobal)
+                if (message.equals(null)) {
+                    listRestaurantsGlobal = response.body()!!
+                    adapter.submitList(listRestaurantsGlobal)
+                }
             }
         }
     }

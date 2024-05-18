@@ -10,16 +10,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusRequest
+import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
+import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 import java.util.stream.Collectors
 
 
@@ -31,70 +42,12 @@ class SearchFragment : Fragment() {
 
     private var searchText: String = ""
     private var isRestaurant: Boolean = true
-    private val listRestaurantsGlobal: List<RestaurantData> = listOf(
-        RestaurantData(
-            1,
-            "Ресторан 1",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Ресторан 2",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        ),
-        RestaurantData(
-            1,
-            "Ресторан 3",
-            "Location",
-            0.45f,
-            0.45f,
-            "Desc",
-            "Telephone",
-            0f,
-            "type"
-        )
-    )
-    private val listDishesGlobal: List<MenuData> = listOf(
-        MenuData(
-            2,
-            1,
-            "Блюдо 1",
-            "Desc",
-            "Price",
-            0.3f,
-            "type"
-        ),
-        MenuData(
-            2,
-            1,
-            "Блюдо 2",
-            "Desc",
-            "Price",
-            0.3f,
-            "type"
-        ),
-        MenuData(
-            2,
-            1,
-            "Блюдо 3",
-            "Desc",
-            "Price",
-            0.3f,
-            "type"
-        )
-    )
+    private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
+    private var listDishesGlobal: List<MenuAndNameRestaurantData> = emptyList()
+
+    private lateinit var restorambaApiService: RestorambaApiService
+    private val restaurantViewModel: RestaurantViewModel by activityViewModels()
+    private val restaurantAndDishViewModel: RestaurantAndDishViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,6 +60,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        restorambaApiService = Common.retrofitService
+
         init()
     }
 
@@ -115,15 +70,52 @@ class SearchFragment : Fragment() {
         initSearch()
         initNav()
         initRcView()
+        searchListRestaurantsAndMenu()
+    }
+
+    private fun searchListRestaurantsAndMenu() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val responseRestaurants: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val messageRestaurants = responseRestaurants.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
+            val responseMenu: Response<List<MenuData>> = restorambaApiService.getAllDishes()
+            val messageMenu = responseRestaurants.errorBody()?.string()?.let {
+                JSONObject(it).getString("detail")
+            }
+            requireActivity().runOnUiThread {
+                if (messageRestaurants.equals(null)) {
+                    listRestaurantsGlobal = responseRestaurants.body()!!
+                }
+                if (messageMenu.equals(null)) {
+                    val mapRestaurantData: Map<Long, String> = responseRestaurants.body()!!.stream()
+                        .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
+                    val listDishes: List<MenuData> = responseMenu.body()!!
+                    listDishesGlobal = listDishes.stream()
+                        .map { dish -> MenuAndNameRestaurantData(
+                            dish.dishesId,
+                            dish.restaurantId,
+                            mapRestaurantData.getOrDefault(dish.restaurantId, null)!!,
+                            dish.dishName,
+                            dish.dishDescription,
+                            dish.dishPrice,
+                            dish.dishWeight,
+                            dish.dishType
+                        )}
+                        .collect(Collectors.toList())
+                }
+            }
+        }
     }
 
     private fun initRcView() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick(text: String) {
+            override fun onClick(text: String, restId: Long) {
                 when (text) {
                     StatusRequest.LIST_RESTAURANTS.statusRequest -> {
+                        restaurantViewModel.restaurantId.value = restId
                         findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
                     }
 
@@ -142,7 +134,8 @@ class SearchFragment : Fragment() {
 
         adapterDish = DishSearchAdapter()
         adapterDish.setOnButtonClickListener(object : DishSearchAdapter.OnButtonClickListener {
-            override fun onClick() {
+            override fun onClick(dishesId: Long, restaurantId: Long) {
+                restaurantAndDishViewModel.ids.value = arrayOf(dishesId, restaurantId)
                 findNavController().navigate(R.id.action_searchFrag_to_dishFrag)
             }
         })
@@ -198,7 +191,7 @@ class SearchFragment : Fragment() {
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
 
                 var listRestaurants: List<RestaurantData> = ArrayList()
-                var listDishes: List<MenuData> = ArrayList()
+                var listDishes: List<MenuAndNameRestaurantData> = ArrayList()
                 // Если пользователь что-то ввел в поиск (сверху)
                 if (searchText.isNotEmpty()) {
                     if (isRestaurant) {
