@@ -24,7 +24,7 @@ interface RestorambaApiService {
     ): Response<List<MenuData>>
 
     @GET("api/v1/dishes")
-    suspend fun getAllDishes(): List<MenuData>
+    suspend fun getAllDishes(): Response<List<MenuData>>
 
     @GET("api/v1/dishes/random_dish")
     suspend fun getRandomDish(): MenuData

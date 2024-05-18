@@ -15,7 +15,7 @@ import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
-import balacods.pp.restorambaapp.data.viewModel.DishViewModel
+import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
@@ -32,7 +32,7 @@ class RestaurantFragment : Fragment() {
 
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
-    private val dishViewModel: DishViewModel by activityViewModels()
+    private val restaurantAndDishViewModel: RestaurantAndDishViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,7 +99,7 @@ class RestaurantFragment : Fragment() {
         adapter = DishAdapter()
         adapter.setOnButtonClickListener(object : DishAdapter.OnButtonClickListener {
             override fun onClick(dishId: Long, restaurantId: Long) {
-                dishViewModel.ids.value = arrayOf(dishId, restaurantId)
+                restaurantAndDishViewModel.ids.value = arrayOf(dishId, restaurantId)
                 findNavController().navigate(R.id.action_restaurantFrag_to_dishFrag)
             }
         })

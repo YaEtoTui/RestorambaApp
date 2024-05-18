@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
 import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBinding
 
-class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Comparator()) {
+class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: DishSearchAdapter.OnButtonClickListener
 
@@ -19,24 +19,27 @@ class DishSearchAdapter : ListAdapter<MenuData, DishSearchAdapter.Holder>(Compar
         private val binding = ItemListDishesSearchWhiteGreenBinding.bind(view)
 
         fun bind(
-            menuData: MenuData,
+            menuData: MenuAndNameRestaurantData,
             onButtonClickListener: DishSearchAdapter.OnButtonClickListener
         ) = with(binding) {
 
-            binding.tvTitleDish.text = menuData.dishName
+            tvTitleDish.text = menuData.dishName
+            tvTitleRestaurant.text = menuData.restaurantName
+            tvDesc.text = menuData.dishDescription
+            idButtonAgree.text = String.format("%s руб", menuData.dishPrice)
 
-            binding.cView.setOnClickListener {
+            cView.setOnClickListener {
                 onButtonClickListener.onClick()
             }
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<MenuData>() {
-        override fun areItemsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
+    class Comparator : DiffUtil.ItemCallback<MenuAndNameRestaurantData>() {
+        override fun areItemsTheSame(oldItem: MenuAndNameRestaurantData, newItem: MenuAndNameRestaurantData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
+        override fun areContentsTheSame(oldItem: MenuAndNameRestaurantData, newItem: MenuAndNameRestaurantData): Boolean {
             return oldItem == newItem
         }
 

@@ -12,7 +12,7 @@ import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.MenuData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
-import balacods.pp.restorambaapp.data.viewModel.DishViewModel
+import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.databinding.FragmentDishBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ class DishFragment : Fragment() {
     private lateinit var binding: FragmentDishBinding
 
     private lateinit var restorambaApiService: RestorambaApiService
-    private val dishViewModel: DishViewModel by activityViewModels()
+    private val restaurantAndDishViewModel: RestaurantAndDishViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class DishFragment : Fragment() {
     }
 
     private fun initRetrofitData() {
-        dishViewModel.ids.observe(viewLifecycleOwner) { ids ->
+        restaurantAndDishViewModel.ids.observe(viewLifecycleOwner) { ids ->
             CoroutineScope(Dispatchers.IO).launch {
                 val responseMenuData: Response<List<MenuData>> = restorambaApiService.getDishByRestaurantAndDishId(ids[0], ids[1])
                 val messageMenuData = responseMenuData.errorBody()?.string()?.let {
