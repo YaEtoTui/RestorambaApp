@@ -19,7 +19,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
@@ -47,6 +49,7 @@ class MainPageFragment : Fragment() {
     private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
+    private var dataPassListener: OnDataPassListener? = null
 
     private var mSettings: SharedPreferences? = null
 
@@ -66,6 +69,15 @@ class MainPageFragment : Fragment() {
         init()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dataPassListener = try {
+            context as OnDataPassListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement OnDataPassListener")
+        }
+    }
+
     private fun init() {
         initBtNav()
         initInstructions()
@@ -76,9 +88,8 @@ class MainPageFragment : Fragment() {
 
     private fun initBtFragment() {
         binding.idButtonGetRandomDish.setOnClickListener {
-
-            // Отправка сообщения с помощью LocalBroadcastManager
             val intent = Intent("shake_event")
+            dataPassListener!!.onDataPass(StatusCodeShakeRequest.All.code)
             LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
         }
     }

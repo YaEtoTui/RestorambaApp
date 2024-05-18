@@ -31,7 +31,7 @@ class RestaurantAdapter : ListAdapter<RestaurantData, RestaurantAdapter.Holder>(
             }
 
             binding.idBtRandom.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, null)
+                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, restaurantData.customerId)
             }
         }
     }

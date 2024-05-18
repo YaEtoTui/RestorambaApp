@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.model.MenuData
@@ -26,12 +28,13 @@ import retrofit2.Response
 import java.util.stream.Collectors
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnDataPassListener {
 
     private lateinit var binding: ContentBaseBinding
     private lateinit var bindingActivity: ActivityMainBinding
 
     private lateinit var restorambaApiService: RestorambaApiService
+    private var code: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +56,11 @@ class MainActivity : AppCompatActivity() {
 
     private val shakeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            Log.i("shakeReceiver", intent.action.toString())
             if (intent.action == "shake_event") {
-                // Вызываете нужный метод в Activity
-                showShake(intent.action.toString())
+                Log.i("shakeReceiver", code)
+                // Действия после получения данных
+                showShake()
             }
         }
     }
@@ -67,37 +72,108 @@ class MainActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(shakeReceiver)
     }
 
-    fun showShake(code: String) {
-        when (code) {
-            StatusCodeShakeRequest.All.code -> {
-                CoroutineScope(Dispatchers.IO).launch {
-                    val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
-                    val message = response.errorBody()?.string()?.let {
-                        JSONObject(it).getString("detail")
-                    }
-                    val responseRest: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
-                    val messageRest = responseRest.errorBody()?.string()?.let {
-                        JSONObject(it).getString("detail")
-                    }
-                    withContext(Dispatchers.Main) {
-                        if (message.equals(null) && messageRest.equals(null)) {
-                            val menuData: MenuData = response.body()!![0]
-                            val mapRest: Map<Long, String> = responseRest.body()!!.stream()
-                                .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
-                            bindingActivity.apply {
-                                idShake.apply {
-                                    tvTitleDish.text = menuData.dishName
-                                    tvTitleRestaurant.text = mapRest.getOrDefault(menuData.restaurantId, null)
-                                    idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
-                                }
+    override fun onDataPass(data: String?) {
+        code = data!!
+    }
+
+    private fun showShake() {
+        if (code == StatusCodeShakeRequest.All.code) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
+                val message = response.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                val responseRest: Response<List<RestaurantData>> =
+                    restorambaApiService.getListRestaurants()
+                val messageRest = responseRest.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                withContext(Dispatchers.Main) {
+                    if (message.equals(null) && messageRest.equals(null)) {
+                        val menuData: MenuData = response.body()!![0]
+                        val mapRest: Map<Long, String> = responseRest.body()!!.stream()
+                            .collect(
+                                Collectors.toMap(
+                                    RestaurantData::customerId,
+                                    RestaurantData::restaurantName
+                                )
+                            )
+                        bindingActivity.apply {
+                            idShake.apply {
+                                tvTitleDish.text = menuData.dishName
+                                tvTitleRestaurant.text =
+                                    mapRest.getOrDefault(menuData.restaurantId, null)
+                                idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
                             }
                         }
                     }
                 }
             }
-
-            StatusCodeShakeRequest.ONLYONERESTAURANT.code -> {
-
+        } else if (code.split(':')[0] == StatusCodeShakeRequest.ONLYONERESTAURANT.code) {
+            val restaurantId: Long = code.split(':')[1].toLong()
+            CoroutineScope(Dispatchers.IO).launch {
+                val response: Response<List<MenuData>> =
+                    restorambaApiService.getRandomDishByRestaurantId(restaurantId)
+                val message = response.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                val responseRest: Response<List<RestaurantData>> =
+                    restorambaApiService.getListRestaurants()
+                val messageRest = responseRest.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                withContext(Dispatchers.Main) {
+                    if (message.equals(null) && messageRest.equals(null)) {
+                        val menuData: MenuData = response.body()!![0]
+                        val mapRest: Map<Long, String> = responseRest.body()!!.stream()
+                            .collect(
+                                Collectors.toMap(
+                                    RestaurantData::customerId,
+                                    RestaurantData::restaurantName
+                                )
+                            )
+                        bindingActivity.apply {
+                            idShake.apply {
+                                tvTitleDish.text = menuData.dishName
+                                tvTitleRestaurant.text =
+                                    mapRest.getOrDefault(menuData.restaurantId, null)
+                                idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response: Response<List<MenuData>> = restorambaApiService.getRandomDish()
+                val message = response.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                val responseRest: Response<List<RestaurantData>> =
+                    restorambaApiService.getListRestaurants()
+                val messageRest = responseRest.errorBody()?.string()?.let {
+                    JSONObject(it).getString("detail")
+                }
+                withContext(Dispatchers.Main) {
+                    if (message.equals(null) && messageRest.equals(null)) {
+                        val menuData: MenuData = response.body()!![0]
+                        val mapRest: Map<Long, String> = responseRest.body()!!.stream()
+                            .collect(
+                                Collectors.toMap(
+                                    RestaurantData::customerId,
+                                    RestaurantData::restaurantName
+                                )
+                            )
+                        bindingActivity.apply {
+                            idShake.apply {
+                                tvTitleDish.text = menuData.dishName
+                                tvTitleRestaurant.text =
+                                    mapRest.getOrDefault(menuData.restaurantId, null)
+                                idSumDish.text = String.format("Цена: %s руб", menuData.dishPrice)
+                            }
+                        }
+                    }
+                }
             }
         }
 
