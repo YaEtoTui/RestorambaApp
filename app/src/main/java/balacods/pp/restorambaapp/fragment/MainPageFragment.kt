@@ -23,7 +23,7 @@ import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
-import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
@@ -46,7 +46,7 @@ class MainPageFragment : Fragment() {
     private var searchText: String = ""
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
 
-    private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
+    private var listRestaurantsGlobal: List<RestaurantAndPhotoData> = emptyList()
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
     private var dataPassListener: OnDataPassListener? = null
@@ -84,6 +84,7 @@ class MainPageFragment : Fragment() {
         initBtFragment()
         initSearch()
         initRcView()
+        initSearchListRestaurant()
     }
 
     private fun initBtFragment() {
@@ -122,7 +123,11 @@ class MainPageFragment : Fragment() {
 
                     StatusRequest.DISH.statusRequest -> {
                         val intent = Intent("shake_event")
-                        val code: String = String.format("%s:%s", StatusCodeShakeRequest.ONLYONERESTAURANT.code, restaurantId)
+                        val code: String = String.format(
+                            "%s:%s",
+                            StatusCodeShakeRequest.ONLYONERESTAURANT.code,
+                            restaurantId
+                        )
                         dataPassListener!!.onDataPass(code)
                         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
                     }
@@ -142,7 +147,6 @@ class MainPageFragment : Fragment() {
         binding.idHeader.imSearch.setOnClickListener {
             binding.idHeader.imSearch.visibility = View.INVISIBLE
             binding.idHeader.idSearchView.visibility = View.VISIBLE
-            initSearchListRestaurant()
         }
 
         binding.idMainPageFragment.setOnClickListener {
@@ -171,9 +175,9 @@ class MainPageFragment : Fragment() {
                     binding.idListRestaurants.visibility = View.VISIBLE
                     binding.idButtonGetRandomDish.visibility = View.GONE
 
-                    val listRestaurants: List<RestaurantData> =
-                        listRestaurantsGlobal.stream().filter { restaurantData ->
-                            restaurantData.restaurantName.lowercase().contains(
+                    val listRestaurants: List<RestaurantAndPhotoData> =
+                        listRestaurantsGlobal.stream().filter { restaurantAndPhotoData ->
+                            restaurantAndPhotoData.restaurant.restaurantName.lowercase().contains(
                                 searchText
                             )
                         }.collect(Collectors.toList())
@@ -208,7 +212,8 @@ class MainPageFragment : Fragment() {
 
     private fun initSearchListRestaurant() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val response: Response<List<RestaurantAndPhotoData>> =
+                restorambaApiService.getListRestaurants()
             val message = response.errorBody()?.string()?.let {
                 JSONObject(it).getString("detail")
             }

@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
-import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.DishAndPhotoData
 import balacods.pp.restorambaapp.databinding.ItemListDishesBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
-class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
+class DishAdapter : ListAdapter<DishAndPhotoData, DishAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: DishAdapter.OnButtonClickListener
 
@@ -19,25 +21,43 @@ class DishAdapter : ListAdapter<MenuData, DishAdapter.Holder>(Comparator()) {
         private val binding = ItemListDishesBinding.bind(view)
 
         fun bind(
-            menuData: MenuData,
+            menuData: DishAndPhotoData,
             onButtonClickListener: DishAdapter.OnButtonClickListener
         ) = with(binding) {
-            tvTitleRestaurant.text = menuData.dishName
-            tvDesc.text = menuData.dishDescription
-            idButtonAgree.text = String.format("%s руб", menuData.dishPrice)
+
+            if (menuData.photo != null) {
+                imPhotoIcon.visibility = View.GONE
+                Glide.with(itemView.context)
+                    .load(menuData.photo.link1)
+                    .centerInside()
+                    .transform(RoundedCorners(20))
+                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(imPhoto)
+            }
+
+            tvTitleRestaurant.text = menuData.dish.dishName
+            tvDesc.text = menuData.dish.dishDescription
+            idButtonAgree.text = String.format("%s руб", menuData.dish.dishPrice)
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick(menuData.dishesId, menuData.restaurantId)
+                onButtonClickListener.onClick(menuData.dish.dishesId, menuData.dish.restaurantId)
             }
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<MenuData>() {
-        override fun areItemsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
+    class Comparator : DiffUtil.ItemCallback<DishAndPhotoData>() {
+        override fun areItemsTheSame(
+            oldItem: DishAndPhotoData,
+            newItem: DishAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: MenuData, newItem: MenuData): Boolean {
+        override fun areContentsTheSame(
+            oldItem: DishAndPhotoData,
+            newItem: DishAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 

@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusRequest
+import balacods.pp.restorambaapp.data.model.DishAndPhotoData
 import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
-import balacods.pp.restorambaapp.data.model.MenuData
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
@@ -42,7 +43,7 @@ class SearchFragment : Fragment() {
 
     private var searchText: String = ""
     private var isRestaurant: Boolean = true
-    private var listRestaurantsGlobal: List<RestaurantData> = emptyList()
+    private var listRestaurantsGlobal: List<RestaurantAndPhotoData> = emptyList()
     private var listDishesGlobal: List<MenuAndNameRestaurantData> = emptyList()
 
     private lateinit var restorambaApiService: RestorambaApiService
@@ -75,11 +76,12 @@ class SearchFragment : Fragment() {
 
     private fun searchListRestaurantsAndMenu() {
         CoroutineScope(Dispatchers.IO).launch {
-            val responseRestaurants: Response<List<RestaurantData>> = restorambaApiService.getListRestaurants()
+            val responseRestaurants: Response<List<RestaurantAndPhotoData>> =
+                restorambaApiService.getListRestaurants()
             val messageRestaurants = responseRestaurants.errorBody()?.string()?.let {
                 JSONObject(it).getString("detail")
             }
-            val responseMenu: Response<List<MenuData>> = restorambaApiService.getAllDishes()
+            val responseMenu: Response<List<DishAndPhotoData>> = restorambaApiService.getAllDishes()
             val messageMenu = responseRestaurants.errorBody()?.string()?.let {
                 JSONObject(it).getString("detail")
             }
@@ -89,19 +91,21 @@ class SearchFragment : Fragment() {
                 }
                 if (messageMenu.equals(null)) {
                     val mapRestaurantData: Map<Long, String> = responseRestaurants.body()!!.stream()
-                        .collect(Collectors.toMap(RestaurantData::customerId, RestaurantData::restaurantName))
-                    val listDishes: List<MenuData> = responseMenu.body()!!
+                        .map { x -> x.restaurant }
+                        .collect(
+                            Collectors.toMap(
+                                RestaurantData::customerId,
+                                RestaurantData::restaurantName
+                            )
+                        )
+                    val listDishes: List<DishAndPhotoData> = responseMenu.body()!!
                     listDishesGlobal = listDishes.stream()
-                        .map { dish -> MenuAndNameRestaurantData(
-                            dish.dishesId,
-                            dish.restaurantId,
-                            mapRestaurantData.getOrDefault(dish.restaurantId, null)!!,
-                            dish.dishName,
-                            dish.dishDescription,
-                            dish.dishPrice,
-                            dish.dishWeight,
-                            dish.dishType
-                        )}
+                        .map { dish ->
+                            MenuAndNameRestaurantData(
+                                dish,
+                                mapRestaurantData.getOrDefault(dish.dish.restaurantId, null)!!
+                            )
+                        }
                         .collect(Collectors.toList())
                 }
             }
@@ -123,8 +127,6 @@ class SearchFragment : Fragment() {
                         // Отправка сообщения с помощью LocalBroadcastManager
                         val intent = Intent("shake_event")
                         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
-                        // А тут бэк, в котором зарандомим блюдо для своего ресторана, у которого нажмем кнопку
-                        // ...
                     }
                 }
             }
@@ -193,14 +195,14 @@ class SearchFragment : Fragment() {
                 // Измените видимость ImageView в зависимости от того, пустой ли текст в AppCompatEditText
                 clearButton.visibility = if (searchText.isNotEmpty()) View.VISIBLE else View.GONE
 
-                var listRestaurants: List<RestaurantData> = ArrayList()
+                var listRestaurants: List<RestaurantAndPhotoData> = ArrayList()
                 var listDishes: List<MenuAndNameRestaurantData> = ArrayList()
                 // Если пользователь что-то ввел в поиск (сверху)
                 if (searchText.isNotEmpty()) {
                     if (isRestaurant) {
 
                         listRestaurants = listRestaurantsGlobal.stream().filter { restaurantData ->
-                            restaurantData.restaurantName.lowercase().contains(
+                            restaurantData.restaurant.restaurantName.lowercase().contains(
                                 searchText
                             )
                         }.collect(Collectors.toList())
@@ -210,7 +212,7 @@ class SearchFragment : Fragment() {
                     } else {
 
                         listDishes = listDishesGlobal.stream().filter { dishData ->
-                            dishData.dishName.lowercase().contains(
+                            dishData.dishAndPhotoData.dish.dishName.lowercase().contains(
                                 searchText
                             )
                         }.collect(Collectors.toList())

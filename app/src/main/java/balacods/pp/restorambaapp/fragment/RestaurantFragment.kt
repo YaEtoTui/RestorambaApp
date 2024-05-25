@@ -15,13 +15,15 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
-import balacods.pp.restorambaapp.data.model.MenuData
-import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.model.DishAndPhotoData
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,32 +73,51 @@ class RestaurantFragment : Fragment() {
     }
 
     private fun initRetrofitData() {
-        restaurantViewModel.restaurantId.observe(viewLifecycleOwner) {restaurantId ->
+        restaurantViewModel.restaurantId.observe(viewLifecycleOwner) { restaurantId ->
             CoroutineScope(Dispatchers.IO).launch {
-                val responseRestaurant: Response<List<RestaurantData>> = restorambaApiService.getRestaurantById(restaurantId)
+                val responseRestaurant: Response<RestaurantAndPhotoData> =
+                    restorambaApiService.getRestaurantById(restaurantId)
                 val messageRestaurant = responseRestaurant.errorBody()?.string()?.let {
                     JSONObject(it).getString("detail")
                 }
-                val responseMenu: Response<List<MenuData>> = restorambaApiService.getDishesByRestaurantId(restaurantId)
+                val responseMenu: Response<List<DishAndPhotoData>> =
+                    restorambaApiService.getDishesByRestaurantId(restaurantId)
                 val messageMenu = responseMenu.errorBody()?.string()?.let {
                     JSONObject(it).getString("detail")
                 }
                 requireActivity().runOnUiThread {
                     if (messageRestaurant.equals(null)) {
-                        val restaurantData: RestaurantData = responseRestaurant.body()!![0]
+                        val restaurantData: RestaurantAndPhotoData = responseRestaurant.body()!!
                         binding.apply {
-                            idNameRestaurant.text = restaurantData.restaurantName
-                            tvDesc.text = restaurantData.restaurantDescription
+
+                            if (restaurantData.photo != null) {
+                                imIconPhoto.visibility = View.GONE
+                                Glide.with(requireContext())
+                                    .load(restaurantData.photo.link1)
+                                    .centerCrop()
+                                    .transform(RoundedCorners(20))
+                                    .error(R.drawable.ic_launcher_foreground)
+                                    .placeholder(R.drawable.ic_launcher_foreground)
+                                    .into(idRectanglePhoto)
+                            }
+
+                            idNameRestaurant.text = restaurantData.restaurant.restaurantName
+                            tvDesc.text = restaurantData.restaurant.restaurantDescription
                             idButtonGetRandomDish.setOnClickListener {
                                 val intent = Intent("shake_event")
-                                val code: String = String.format("%s:%s", StatusCodeShakeRequest.ONLYONERESTAURANT.code, restaurantId)
+                                val code: String = String.format(
+                                    "%s:%s",
+                                    StatusCodeShakeRequest.ONLYONERESTAURANT.code,
+                                    restaurantId
+                                )
                                 dataPassListener!!.onDataPass(code)
-                                LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+                                LocalBroadcastManager.getInstance(requireContext())
+                                    .sendBroadcast(intent)
                             }
                         }
                     }
                     if (messageMenu.equals(null)) {
-                        val menuDataList: List<MenuData> = responseMenu.body()!!
+                        val menuDataList: List<DishAndPhotoData> = responseMenu.body()!!
                         adapter.submitList(menuDataList)
                     }
                 }
@@ -109,8 +130,6 @@ class RestaurantFragment : Fragment() {
             // Отправка сообщения с помощью LocalBroadcastManager
             val intent = Intent("shake_event")
             LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
-            // А тут бэк, в котором зарандомим блюдо для своего ресторана, у которого нажмем кнопку
-            // ...
         }
     }
 

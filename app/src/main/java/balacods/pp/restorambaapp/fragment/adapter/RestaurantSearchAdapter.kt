@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.enum.StatusRequest
-import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsSearchWhiteGreenBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class RestaurantSearchAdapter :
-    ListAdapter<RestaurantData, RestaurantSearchAdapter.Holder>(Comparator()) {
+    ListAdapter<RestaurantAndPhotoData, RestaurantSearchAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: RestaurantSearchAdapter.OnButtonClickListener
 
@@ -21,28 +23,39 @@ class RestaurantSearchAdapter :
         private val binding = ItemListRestaurantsSearchWhiteGreenBinding.bind(view)
 
         fun bind(
-            restaurantData: RestaurantData,
+            restaurantData: RestaurantAndPhotoData,
             onButtonClickListener: RestaurantSearchAdapter.OnButtonClickListener
         ) = with(binding) {
 
-            binding.tvTitleRestaurant.text = restaurantData.restaurantName
+            if (restaurantData.photo != null) {
+                imPhotoIcon.visibility = View.GONE
+                Glide.with(itemView.context)
+                    .load(restaurantData.photo.link1)
+                    .centerInside()
+                    .transform(RoundedCorners(20))
+                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(imPhoto)
+            }
+
+            binding.tvTitleRestaurant.text = restaurantData.restaurant.restaurantName
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest, restaurantData.customerId)
+                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest, restaurantData.restaurant.customerId)
             }
 
             binding.idBtRandom.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, restaurantData.customerId)
+                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, restaurantData.restaurant.customerId)
             }
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<RestaurantData>() {
-        override fun areItemsTheSame(oldItem: RestaurantData, newItem: RestaurantData): Boolean {
+    class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoData>() {
+        override fun areItemsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: RestaurantData, newItem: RestaurantData): Boolean {
+        override fun areContentsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
             return oldItem == newItem
         }
 

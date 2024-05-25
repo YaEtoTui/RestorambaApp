@@ -50,12 +50,17 @@
                     android:id="@+id/idPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="221dp"
-                    android:layout_marginTop="11dp"
                     android:layout_marginHorizontal="20dp"
-                    android:background="@drawable/rectangle_photo"
+                    android:layout_marginTop="11dp"
                     app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
                     app:layout_constraintStart_toStartOf="@+id/idNameRestaurant"
                     app:layout_constraintTop_toBottomOf="@+id/idNameRestaurant">
+
+                    <ImageView
+                        android:id="@+id/idRectanglePhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rectangle_photo" />
 
                     <ImageView
                         android:id="@+id/imIconPhoto"
@@ -122,8 +127,8 @@
                     android:id="@+id/tvMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
                     android:layout_marginStart="36dp"
+                    android:layout_marginTop="44dp"
                     android:text="@string/menu"
                     android:textAppearance="@style/title_restaurants"
                     app:layout_constraintStart_toStartOf="@+id/tvDesc"
@@ -162,6 +167,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/icon_search_25_25"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/black_green" />

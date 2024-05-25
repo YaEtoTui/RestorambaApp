@@ -9,11 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
-import balacods.pp.restorambaapp.data.model.MenuData
-import balacods.pp.restorambaapp.data.model.RestaurantData
+import balacods.pp.restorambaapp.data.model.DishAndPhotoData
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.databinding.FragmentDishBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,24 +49,38 @@ class DishFragment : Fragment() {
     private fun initRetrofitData() {
         restaurantAndDishViewModel.ids.observe(viewLifecycleOwner) { ids ->
             CoroutineScope(Dispatchers.IO).launch {
-                val responseMenuData: Response<List<MenuData>> = restorambaApiService.getDishByRestaurantAndDishId(ids[0], ids[1])
+                val responseMenuData: Response<DishAndPhotoData> =
+                    restorambaApiService.getDishByRestaurantAndDishId(ids[1], ids[0])
                 val messageMenuData = responseMenuData.errorBody()?.string()?.let {
                     JSONObject(it).getString("detail")
                 }
-                val responseRestaurant: Response<List<RestaurantData>> = restorambaApiService.getRestaurantById(ids[1])
+                val responseRestaurant: Response<RestaurantAndPhotoData> =
+                    restorambaApiService.getRestaurantById(ids[1])
                 val messageRestaurant = responseRestaurant.errorBody()?.string()?.let {
                     JSONObject(it).getString("detail")
                 }
                 requireActivity().runOnUiThread {
                     if (messageMenuData.equals(null) && messageRestaurant.equals(null)) {
-                        val menuData: MenuData = responseMenuData.body()!![0]
-                        val restaurantData: RestaurantData = responseRestaurant.body()!![0]
+                        val menuData: DishAndPhotoData = responseMenuData.body()!!
+                        val restaurantData: RestaurantAndPhotoData = responseRestaurant.body()!!
                         binding.apply {
-                            idNameDish.text = menuData.dishName
-                            idNameRestaurant.text = restaurantData.restaurantName
-                            tvDesc.text = menuData.dishDescription
-                            tvGr.text = String.format("%s гр", menuData.dishWeight.toInt())
-                            tvRub.text = String.format("%s руб", menuData.dishPrice)
+
+                            if (menuData.photo != null) {
+                                imIconPhoto.visibility = View.GONE
+                                Glide.with(requireContext())
+                                    .load(menuData.photo.link1)
+                                    .centerInside()
+                                    .transform(RoundedCorners(20))
+                                    .error(R.drawable.ic_launcher_foreground)
+                                    .placeholder(R.drawable.ic_launcher_foreground)
+                                    .into(idRectanglePhoto)
+                            }
+
+                            idNameDish.text = menuData.dish.dishName
+                            idNameRestaurant.text = restaurantData.restaurant.restaurantName
+                            tvDesc.text = menuData.dish.dishDescription
+                            tvGr.text = String.format("%s гр", menuData.dish.dishWeight.toInt())
+                            tvRub.text = String.format("%s руб", menuData.dish.dishPrice)
                         }
                     }
                 }

@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
 import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapter.Holder>(Comparator()) {
 
@@ -23,13 +25,24 @@ class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapt
             onButtonClickListener: DishSearchAdapter.OnButtonClickListener
         ) = with(binding) {
 
-            tvTitleDish.text = menuData.dishName
-            tvTitleRestaurant.text = menuData.restaurantName
-            tvDesc.text = menuData.dishDescription
-            idButtonAgree.text = String.format("%s руб", menuData.dishPrice)
+            if (menuData.dishAndPhotoData.photo != null) {
+                imPhotoIcon.visibility = View.GONE
+                Glide.with(itemView.context)
+                    .load(menuData.dishAndPhotoData.photo.link1)
+                    .centerInside()
+                    .transform(RoundedCorners(20))
+                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(imPhoto)
+            }
+
+            tvTitleDish.text = menuData.dishAndPhotoData.dish.dishName
+            tvTitleRestaurant.text = menuData.nameRestaurant
+            tvDesc.text = menuData.dishAndPhotoData.dish.dishDescription
+            idButtonAgree.text = String.format("%s руб", menuData.dishAndPhotoData.dish.dishPrice)
 
             cView.setOnClickListener {
-                onButtonClickListener.onClick(menuData.dishesId, menuData.restaurantId)
+                onButtonClickListener.onClick(menuData.dishAndPhotoData.dish.dishesId, menuData.dishAndPhotoData.dish.restaurantId)
             }
         }
     }

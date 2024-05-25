@@ -2,7 +2,7 @@ package balacods.pp.restorambaapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MenuData(
+data class DishData(
     @SerializedName("id")
     val dishesId: Long,
     @SerializedName("restaurant_id")

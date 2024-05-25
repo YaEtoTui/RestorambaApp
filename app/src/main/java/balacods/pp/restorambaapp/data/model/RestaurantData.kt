@@ -20,5 +20,5 @@ data class RestaurantData(
     @SerializedName("rating")
     val restaurantRating: Float,
     @SerializedName("type")
-    val restaurantType: String
+    val restaurantType: String,
 )

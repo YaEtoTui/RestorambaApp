@@ -60,13 +60,18 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/idPhoto"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_height="221dp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="11dp"
-                    android:background="@drawable/rectangle_photo"
                     app:layout_constraintEnd_toEndOf="@+id/idNameRestaurant"
                     app:layout_constraintStart_toStartOf="@+id/idNameRestaurant"
                     app:layout_constraintTop_toBottomOf="@+id/idNameRestaurant">
+
+                    <ImageView
+                        android:id="@+id/idRectanglePhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rectangle_photo" />
 
                     <ImageView
                         android:id="@+id/imIconPhoto"
@@ -96,8 +101,8 @@
                     android:id="@+id/tvGr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
                     android:layout_marginStart="107dp"
+                    android:layout_marginTop="26dp"
                     android:gravity="center"
                     android:text="@string/gr"
                     android:textAppearance="@style/kcal"
@@ -136,6 +141,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/icon_search_25_25"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white_green" />

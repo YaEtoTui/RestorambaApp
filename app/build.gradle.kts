@@ -43,6 +43,11 @@ dependencies {
 
     val koin_version = "3.3.2"
 
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.10.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.10.0")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.2.0")
+
     // LocalBroadcastManager
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 
