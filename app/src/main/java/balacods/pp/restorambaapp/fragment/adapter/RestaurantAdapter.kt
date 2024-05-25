@@ -13,7 +13,8 @@ import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
-class RestaurantAdapter : ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.Holder>(Comparator()) {
+class RestaurantAdapter :
+    ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
 
@@ -40,21 +41,33 @@ class RestaurantAdapter : ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.
             binding.tvTitleRestaurant.text = restaurantData.restaurant.restaurantName
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest, restaurantData.restaurant.customerId)
+                onButtonClickListener.onClick(
+                    StatusRequest.LIST_RESTAURANTS.statusRequest,
+                    restaurantData.restaurant.customerId
+                )
             }
 
             binding.idBtRandom.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, restaurantData.restaurant.customerId)
+                onButtonClickListener.onClick(
+                    StatusRequest.DISH.statusRequest,
+                    restaurantData.restaurant.customerId
+                )
             }
         }
     }
 
     class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoData>() {
-        override fun areItemsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
+        override fun areItemsTheSame(
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
+        override fun areContentsTheSame(
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 

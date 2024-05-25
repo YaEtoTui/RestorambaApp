@@ -1,7 +1,6 @@
 package balacods.pp.restorambaapp.data.api.retrofit
 
 import balacods.pp.restorambaapp.data.model.DishAndPhotoData
-import balacods.pp.restorambaapp.data.model.DishData
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import retrofit2.Response
 import retrofit2.http.GET
@@ -28,8 +27,8 @@ interface RestorambaApiService {
     suspend fun getAllDishes(): Response<List<DishAndPhotoData>>
 
     @GET("api/v1/dishes/random_dish")
-    suspend fun getRandomDish(): Response<List<DishData>>
+    suspend fun getRandomDish(): Response<DishAndPhotoData>
 
     @GET("api/v1/dishes/random_dish/{restaurant_id}")
-    suspend fun getRandomDishByRestaurantId(@Path("restaurant_id") restaurantId: Long): Response<List<DishData>>
+    suspend fun getRandomDishByRestaurantId(@Path("restaurant_id") restaurantId: Long): Response<DishAndPhotoData>
 }
