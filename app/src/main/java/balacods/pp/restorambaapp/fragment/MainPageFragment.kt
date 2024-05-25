@@ -103,7 +103,7 @@ class MainPageFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFrag_to_searchFrag)
         }
         binding.idNavMap.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
+            findNavController().navigate(R.id.action_mainFrag_to_mapFrag)
         }
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_questionsFrag)

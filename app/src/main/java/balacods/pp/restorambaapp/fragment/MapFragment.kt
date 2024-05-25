@@ -1,5 +1,4 @@
 package balacods.pp.restorambaapp.fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
+import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 
@@ -19,6 +21,7 @@ class MapFragment : Fragment() {
 
     private lateinit var mapView: MapView
     private lateinit var map: Map
+    private lateinit var point: Point
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,29 +40,29 @@ class MapFragment : Fragment() {
         mapView = binding.imCarteGeo
         map = mapView.mapWindow.map
 
-        searchGeo()
+        point = Point(55.751574, 37.573856)
+
+        mapView.map.move(
+            CameraPosition(point, 11.0f, 0.0f, 0.0f),
+            Animation(Animation.Type.SMOOTH, 0F),
+            null
+        )
+
+        val mappoint = Point(55.79, 37.57)
+        mapView.map.mapObjects.addPlacemark(mappoint)
+
     }
 
-    private fun searchGeo() {
-//        val locationManager = MapKitFactory.getInstance().createLocationManager()
-//        val locationListener = object : LocationListener {
-//            override fun onLocationUpdated(location: Location) {
-//                // Получение координат текущего местоположения
-//                val latitude = location.latitude
-//                val longitude = location.longitude
-//
-//                // Обновление положения карты при получении новых координат
-//                mapView.map.move(CameraPosition(Point(latitude, longitude), 15.0f, 0.0f, 0.0f), Animation(Animation.Type.SMOOTH, 0f), null)
-//            }
-//
-//            override fun onLocationStatusUpdated(status: LocationStatus) {}
-//        }
-//
-//        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-//        } else {
-//            locationManager.requestLocationUpdates(LocationRequest.create(), locationListener)
-//        }
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+        MapKitFactory.getInstance().onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MapKitFactory.getInstance().onStart()
+        mapView.onStart()
     }
 
     private fun init() {
@@ -76,17 +79,5 @@ class MapFragment : Fragment() {
         binding.idNavMain.setOnClickListener {
             findNavController().navigate(R.id.action_yandexCardFrag_to_mainFrag)
         }
-    }
-
-    override fun onStop() {
-        mapView.onStop()
-        MapKitFactory.getInstance().onStop()
-        super.onStop()
-    }
-
-    override fun onStart() {
-        mapView.onStart()
-        MapKitFactory.getInstance().onStart()
-        super.onStart()
     }
 }

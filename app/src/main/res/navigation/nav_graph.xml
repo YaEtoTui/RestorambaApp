@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFrag_to_questionsFrag"
             app:destination="@id/questionsFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
     </fragment>
 
     <fragment
