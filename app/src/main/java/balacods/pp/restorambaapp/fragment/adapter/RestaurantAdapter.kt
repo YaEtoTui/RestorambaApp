@@ -10,8 +10,10 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
+import balacods.pp.restorambaapp.distance.findShortestDistance
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.yandex.mapkit.geometry.Point
 
 class RestaurantAdapter :
     ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.Holder>(Comparator()) {
@@ -26,6 +28,12 @@ class RestaurantAdapter :
             restaurantData: RestaurantAndPhotoData,
             onButtonClickListener: RestaurantAdapter.OnButtonClickListener
         ) = with(binding) {
+
+            val pointRestaurant: Point = Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                restaurantData.restaurant.restaurantCoordinateX.toDouble()
+            )
+
+            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(Point(56.840823, 60.650763), pointRestaurant))
 
             if (restaurantData.photo != null) {
                 imPhotoIcon.visibility = View.GONE
