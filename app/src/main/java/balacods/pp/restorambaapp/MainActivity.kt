@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
             if (intent.action == "shake_event") {
                 Log.i("shakeReceiver", code)
                 // Действия после получения данных
-                showShake()
+//                showShake()
             }
         }
     }

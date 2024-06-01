@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.app.common.CommonColors
 import balacods.pp.restorambaapp.app.common.showToast
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint
@@ -36,6 +38,7 @@ import com.yandex.runtime.network.NetworkError
 class YandexCardFragment : Fragment() {
 
     private lateinit var binding: FragmentYandexCardBinding
+    private val pointsViewModel: PointsViewModel by activityViewModels()
 
     private lateinit var mapView: MapView
     private lateinit var map: Map
@@ -87,21 +90,42 @@ class YandexCardFragment : Fragment() {
         return binding.root
     }
 
-    private lateinit var pointStart: Point
-    private lateinit var pointEnd: Point
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         init()
 
-        pointStart = Point(56.797469, 60.714430)
-
         mapView = binding.imCarteGeo
         map = mapView.mapWindow.map
         map.addInputListener(inputListener)
-        showCardYandex()
 
+        // код - 1, значит показать кратчайший путь
+        if (pointsViewModel.code.value == 1) {
+            pointsViewModel.code.value = 0
+            showDistance()
+        } else {
+            val map = mapView.mapWindow.map
+            map.move(CameraPosition(Point(56.840823, 60.650763), 13.0f, 0f, 0f))
+//            showAllRestaurants()
+        }
+    }
+
+//    private fun showAllRestaurants() {
+//        TODO("Not yet implemented")
+//    }
+
+    private fun showDistance() {
+
+        placemarksCollection = map.mapObjects.addCollection()
+        routesCollection = map.mapObjects.addCollection()
+
+        drivingRouter =
+            DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
+
+        val map = mapView.mapWindow.map
+        map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
+
+        routePoints = pointsViewModel.allPoints.value!!
     }
 
     private fun init() {
@@ -135,24 +159,6 @@ class YandexCardFragment : Fragment() {
         super.onStart()
     }
 
-    private fun showCardYandex() {
-
-        placemarksCollection = map.mapObjects.addCollection()
-        routesCollection = map.mapObjects.addCollection()
-
-        drivingRouter =
-            DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
-
-//        binding.buttonClearRoute.setOnClickListener {
-//            routePoints = emptyList()
-//        }
-
-        val map = mapView.mapWindow.map
-        map.move(START_POSITION)
-
-        routePoints = DEFAULT_POINTS
-    }
-
     private fun onRoutePointsUpdated() {
         placemarksCollection.clear()
 
@@ -162,13 +168,13 @@ class YandexCardFragment : Fragment() {
             return
         }
 
-        val imageProvider = ImageProvider.fromResource(requireContext(), R.drawable.bullet)
+        val imageProvider = ImageProvider.fromResource(requireContext(), R.drawable.location)
         routePoints.forEach {
             placemarksCollection.addPlacemark(
                 it,
                 imageProvider,
                 IconStyle().apply {
-                    scale = 0.5f
+                    scale = 0.6f
                     zIndex = 20f
                 }
             )
@@ -211,10 +217,10 @@ class YandexCardFragment : Fragment() {
 
     private fun PolylineMapObject.styleMainRoute() {
         zIndex = 10f
-        setStrokeColor(ContextCompat.getColor(requireContext(), CommonColors.green))
-        strokeWidth = 5f
-        outlineColor = ContextCompat.getColor(requireContext(), CommonColors.white)
-        outlineWidth = 3f
+        setStrokeColor(ContextCompat.getColor(requireContext(), CommonColors.green_path))
+        strokeWidth = 3f
+        outlineColor = ContextCompat.getColor(requireContext(), CommonColors.black)
+        outlineWidth = 0.2f
     }
 
 
@@ -222,9 +228,6 @@ class YandexCardFragment : Fragment() {
 
         private val START_POSITION = CameraPosition(Point(56.840823, 60.650763), 13.0f, 0f, 0f)
 
-        private val DEFAULT_POINTS = listOf(
-            Point(56.840823, 60.650763),
-            Point(56.815546, 60.605954),
-        )
+        private val DEFAULT_POINTS = emptyList<Point>()
     }
 }

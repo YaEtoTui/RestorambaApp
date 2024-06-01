@@ -51,14 +51,30 @@ class RestaurantAdapter :
             binding.cView.setOnClickListener {
                 onButtonClickListener.onClick(
                     StatusRequest.LIST_RESTAURANTS.statusRequest,
-                    restaurantData.restaurant.customerId
+                    restaurantData.restaurant.customerId,
+                    Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
                 )
             }
 
             binding.idBtRandom.setOnClickListener {
                 onButtonClickListener.onClick(
                     StatusRequest.DISH.statusRequest,
-                    restaurantData.restaurant.customerId
+                    restaurantData.restaurant.customerId,
+                    Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
+                )
+            }
+
+            binding.idBtMap.setOnClickListener {
+                onButtonClickListener.onClick(
+                    StatusRequest.MAP_DISTANCE.statusRequest,
+                    restaurantData.restaurant.customerId,
+                    Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
                 )
             }
         }
@@ -92,7 +108,7 @@ class RestaurantAdapter :
     }
 
     interface OnButtonClickListener {
-        fun onClick(text: String, restaurantId: Long?)
+        fun onClick(text: String, restaurantId: Long?, point: Point)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {

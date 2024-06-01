@@ -22,9 +22,11 @@ import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantsBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantAdapter
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +39,7 @@ class RestaurantsFragment : Fragment() {
 
     private lateinit var adapter: RestaurantAdapter
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
+    private val pointsViewModel: PointsViewModel by activityViewModels()
     private lateinit var binding: FragmentRestaurantsBinding
     private lateinit var restorambaApiService: RestorambaApiService
     private var searchText: String = ""
@@ -94,7 +97,7 @@ class RestaurantsFragment : Fragment() {
     private fun initRcView() {
         adapter = RestaurantAdapter()
         adapter.setOnButtonClickListener(object : RestaurantAdapter.OnButtonClickListener {
-            override fun onClick(text: String, restaurantId: Long?) {
+            override fun onClick(text: String, restaurantId: Long?, point: Point) {
                 when (text) {
                     StatusRequest.LIST_RESTAURANTS.statusRequest -> {
                         restaurantViewModel.restaurantId.value = restaurantId
@@ -110,6 +113,18 @@ class RestaurantsFragment : Fragment() {
                         )
                         dataPassListener!!.onDataPass(code)
                         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+                    }
+
+                    StatusRequest.MAP_DISTANCE.statusRequest -> {
+                        val pointStart = Point(56.840823, 60.650763)
+                        val listPoints: MutableList<Point> = mutableListOf(
+                            pointStart, // по умолчанию это наше гео
+                            point // ресторана
+                        )
+                        pointsViewModel.code.value = 1
+                        pointsViewModel.startPoints.value = pointStart
+                        pointsViewModel.allPoints.value = listPoints
+                        findNavController().navigate(R.id.action_restaurantsFrag_to_yandexCardFrag)
                     }
                 }
             }
