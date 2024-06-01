@@ -1,6 +1,7 @@
 package balacods.pp.restorambaapp.distance
 
 import com.yandex.mapkit.geometry.Point
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -15,6 +16,6 @@ fun findShortestDistance(pointGeo: Point, pointRestaurant: Point): String {
     // Доработать
     val dx = pointRestaurant.latitude - pointGeo.latitude
     val dy = pointRestaurant.longitude - pointGeo.longitude
-    val distance = sqrt(dx * dx + dy * dy) // как будто в метрах
+    val distance = sqrt(dx.pow(2) + dy.pow(2)) // как будто в метрах
     return String.format("%.2fкм", distance)
 }
