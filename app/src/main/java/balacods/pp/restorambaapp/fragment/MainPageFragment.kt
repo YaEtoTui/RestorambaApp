@@ -31,7 +31,6 @@ import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Response
 import java.util.stream.Collectors
 
@@ -103,7 +102,7 @@ class MainPageFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFrag_to_searchFrag)
         }
         binding.idNavMap.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFrag_to_mapFrag)
+            findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
         }
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_mainFrag_to_questionsFrag)
@@ -212,14 +211,20 @@ class MainPageFragment : Fragment() {
 
     private fun initSearchListRestaurant() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<List<RestaurantAndPhotoData>> =
+            val response: Response<List<RestaurantAndPhotoData>> = try {
                 restorambaApiService.getListRestaurants()
-            val message = response.errorBody()?.string()?.let {
-                JSONObject(it).getString("detail")
+            } catch (e: Exception) {
+                return@launch
             }
+
             requireActivity().runOnUiThread {
-                if (message.equals(null)) {
-                    listRestaurantsGlobal = response.body()!!
+
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    // обработка успешного ответа
+                    listRestaurantsGlobal = data!!
+                } else {
+                    // обработка ошибки с кодом состояния HTTP
                 }
             }
         }

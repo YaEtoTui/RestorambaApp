@@ -19,6 +19,8 @@
             android:id="@+id/tvTitleRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:gravity="center"
             android:text="@string/name_dish"
             android:textAppearance="@style/title_dishes"
             app:layout_constraintEnd_toEndOf="parent"
