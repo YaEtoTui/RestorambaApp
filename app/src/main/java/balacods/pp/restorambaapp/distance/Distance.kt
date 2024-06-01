@@ -15,6 +15,6 @@ fun findShortestDistance(pointGeo: Point, pointRestaurant: Point): String {
     // Доработать
     val dx = pointRestaurant.latitude - pointGeo.latitude
     val dy = pointRestaurant.longitude - pointGeo.longitude
-    val distance = sqrt(dx * dx + dy * dy) * 10
+    val distance = sqrt(dx * dx + dy * dy) // как будто в метрах
     return String.format("%.2fм", distance)
 }
