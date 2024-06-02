@@ -98,8 +98,8 @@ class RestaurantFragment : Fragment() {
                                 imIconPhoto.visibility = View.GONE
                                 Glide.with(requireContext())
                                     .load(restaurantData.photo.link1)
-                                    .centerCrop()
-                                    .transform(RoundedCorners(20))
+                                    .centerInside()
+                                    .transform(RoundedCorners(45))
                                     .error(R.drawable.ic_launcher_foreground)
                                     .placeholder(R.drawable.ic_launcher_foreground)
                                     .into(idRectanglePhoto)

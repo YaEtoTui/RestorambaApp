@@ -30,7 +30,7 @@ class DishAdapter : ListAdapter<DishAndPhotoData, DishAdapter.Holder>(Comparator
                 Glide.with(itemView.context)
                     .load(menuData.photo.link1)
                     .centerInside()
-                    .transform(RoundedCorners(20))
+                    .transform(RoundedCorners(45))
                     .error(R.drawable.ic_launcher_foreground)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .into(imPhoto)

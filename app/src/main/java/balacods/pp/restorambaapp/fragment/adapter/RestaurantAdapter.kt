@@ -40,7 +40,7 @@ class RestaurantAdapter :
                 Glide.with(itemView.context)
                     .load(restaurantData.photo.link1)
                     .centerInside()
-                    .transform(RoundedCorners(20))
+                    .transform(RoundedCorners(45))
                     .error(R.drawable.ic_launcher_foreground)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .into(imPhoto)
