@@ -59,6 +59,8 @@ class RestaurantsFragment : Fragment() {
 
         restorambaApiService = Common.retrofitService
 
+        binding.idListRestaurants.visibility = View.INVISIBLE
+        binding.idProgressBar.visibility = View.VISIBLE
         init()
     }
 
@@ -82,6 +84,9 @@ class RestaurantsFragment : Fragment() {
                 if (message.equals(null)) {
                     listRestaurantsGlobal = response.body()!!
                     adapter.submitList(listRestaurantsGlobal)
+
+                    binding.idListRestaurants.visibility = View.VISIBLE
+                    binding.idProgressBar.visibility = View.GONE
                 }
             }
         }
@@ -202,7 +207,6 @@ class RestaurantsFragment : Fragment() {
                     binding.tvEmptySearchResult.visibility = View.GONE
                     adapter.submitList(emptyList())
                 }
-
             }
 
             override fun afterTextChanged(s: Editable) {
