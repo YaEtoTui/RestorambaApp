@@ -1,7 +1,6 @@
 package balacods.pp.restorambaapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.app.common.CommonColors
 import balacods.pp.restorambaapp.app.common.showToast
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
-import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
@@ -38,19 +36,12 @@ import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Response
-import java.util.stream.Collectors
 
 class YandexCardFragment : Fragment() {
 
     private lateinit var binding: FragmentYandexCardBinding
     private val pointsViewModel: PointsViewModel by activityViewModels()
     private lateinit var restorambaApiService: RestorambaApiService
-    private var listRestaurantsGlobalPoints: List<Point> = emptyList()
-    private var pointGeo: Point = Point(56.840823, 60.650763)
 
     private lateinit var mapView: MapView
     private lateinit var map: Map
@@ -116,58 +107,6 @@ class YandexCardFragment : Fragment() {
         if (pointsViewModel.code.value == 1) {
             pointsViewModel.code.value = 0
             showDistance()
-        } else {
-            val map = mapView.mapWindow.map
-            Log.i("CameraPosition", String.format("%S %s", pointsViewModel.startPoints.value!!.latitude, pointsViewModel.startPoints.value!!.longitude) )
-            map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
-            showAllRestaurants()
-        }
-    }
-
-    private fun showAllRestaurants() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<List<RestaurantAndPhotoData>> = try {
-                restorambaApiService.getListRestaurants()
-            } catch (e: Exception) {
-                return@launch
-            }
-
-            requireActivity().runOnUiThread {
-
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    // обработка успешного ответа
-                    listRestaurantsGlobalPoints = data!!.stream().map { rest ->
-                        Point(
-                            rest.restaurant.restaurantCoordinateX.toDouble(),
-                            rest.restaurant.restaurantCoordinateY.toDouble()
-                        )
-                    }.collect(Collectors.toList())
-
-                    val imageProvider =
-                        ImageProvider.fromResource(requireContext(), R.drawable.location)
-                    val placemarkObject = map.mapObjects.addPlacemark().apply {
-                        geometry = pointsViewModel.startPoints.value!!
-                        setIcon(imageProvider)
-                    }
-
-                    placemarksCollection = map.mapObjects.addCollection()
-
-                    // Отображаем точки на карте
-                    listRestaurantsGlobalPoints.forEach {
-                        placemarksCollection.addPlacemark(
-                            it,
-                            ImageProvider.fromResource(requireContext(), R.drawable.icon_loc),
-                            IconStyle().apply {
-                                scale = 1.3f
-                                zIndex = 20f
-                            }
-                        )
-                    }
-                } else {
-                    // обработка ошибки с кодом состояния HTTP
-                }
-            }
         }
     }
 

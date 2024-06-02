@@ -29,11 +29,15 @@ class RestaurantSearchAdapter :
             onButtonClickListener: RestaurantSearchAdapter.OnButtonClickListener
         ) = with(binding) {
 
-            val pointRestaurant: Point = Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+            val pointRestaurant: Point = Point(
+                restaurantData.restaurant.restaurantCoordinateX.toDouble(),
                 restaurantData.restaurant.restaurantCoordinateX.toDouble()
             )
 
-            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(Point(56.840823, 60.650763), pointRestaurant))
+            tvPath.text = String.format(
+                "Расстояние до вас: %s",
+                findShortestDistance(Point(56.840823, 60.650763), pointRestaurant)
+            )
 
             if (restaurantData.photo != null) {
                 imPhotoIcon.visibility = View.GONE
@@ -49,21 +53,50 @@ class RestaurantSearchAdapter :
             binding.tvTitleRestaurant.text = restaurantData.restaurant.restaurantName
 
             binding.cView.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.LIST_RESTAURANTS.statusRequest, restaurantData.restaurant.customerId)
+                onButtonClickListener.onClick(
+                    StatusRequest.LIST_RESTAURANTS.statusRequest,
+                    restaurantData.restaurant.customerId,
+                    Point(
+                        restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
+                )
             }
 
             binding.idBtRandom.setOnClickListener {
-                onButtonClickListener.onClick(StatusRequest.DISH.statusRequest, restaurantData.restaurant.customerId)
+                onButtonClickListener.onClick(
+                    StatusRequest.DISH.statusRequest, restaurantData.restaurant.customerId,
+                    Point(
+                        restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
+                )
+            }
+
+            binding.idBtMap.setOnClickListener {
+                onButtonClickListener.onClick(
+                    StatusRequest.MAP_DISTANCE.statusRequest,
+                    restaurantData.restaurant.customerId,
+                    Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                    )
+                )
             }
         }
     }
 
     class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoData>() {
-        override fun areItemsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
+        override fun areItemsTheSame(
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: RestaurantAndPhotoData, newItem: RestaurantAndPhotoData): Boolean {
+        override fun areContentsTheSame(
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
+        ): Boolean {
             return oldItem == newItem
         }
 
@@ -80,7 +113,7 @@ class RestaurantSearchAdapter :
     }
 
     interface OnButtonClickListener {
-        fun onClick(text: String, restId: Long)
+        fun onClick(text: String, restaurantId: Long?, point: Point)
     }
 
     fun setOnButtonClickListener(listener: OnButtonClickListener) {
