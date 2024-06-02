@@ -158,6 +158,18 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                             )
                         bindingActivity.apply {
                             idShake.apply {
+
+                                if (menuData.photo != null) {
+                                    imPhotoIcon.visibility = View.GONE
+                                    Glide.with(applicationContext)
+                                        .load(menuData.photo.link1)
+                                        .centerCrop()
+                                        .transform(RoundedCorners(20))
+                                        .error(R.drawable.ic_launcher_foreground)
+                                        .placeholder(R.drawable.ic_launcher_foreground)
+                                        .into(imPhoto)
+                                }
+
                                 tvTitleDish.text = menuData.dish.dishName
                                 tvTitleRestaurant.text =
                                     mapRest.getOrDefault(menuData.dish.restaurantId, null)
@@ -195,6 +207,18 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                             )
                         bindingActivity.apply {
                             idShake.apply {
+
+                                if (menuData.photo != null) {
+                                    imPhotoIcon.visibility = View.GONE
+                                    Glide.with(applicationContext)
+                                        .load(menuData.photo.link1)
+                                        .centerCrop()
+                                        .transform(RoundedCorners(20))
+                                        .error(R.drawable.ic_launcher_foreground)
+                                        .placeholder(R.drawable.ic_launcher_foreground)
+                                        .into(imPhoto)
+                                }
+
                                 tvTitleDish.text = menuData.dish.dishName
                                 tvTitleRestaurant.text =
                                     mapRest.getOrDefault(menuData.dish.restaurantId, null)
