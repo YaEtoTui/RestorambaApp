@@ -3,13 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 android {
     namespace = "balacods.pp.restorambaapp"
     compileSdk = 33
@@ -44,39 +37,13 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-    flavorDimensions("versionName")
-    productFlavors {
-        create("full") {
-            dimension = "versionName"
-        }
-        create("lite") {
-            dimension = "versionName"
-        }
-    }
-
-    sourceSets {
-        getByName("full") {
-            manifest.srcFile("src/full/AndroidManifest.xml")
-            java.srcDirs("src/main/java", "src/full/java")
-            res.srcDirs("src/main/res", "src/full/res")
-        }
-        getByName("lite") {
-            java.srcDirs("src/main/java")
-            res.srcDirs("src/main/res", "src/lite/res")
-        }
-    }
 }
 
 dependencies {
 
     val koin_version = "3.3.2"
 
-    // lite version provides only map and some core services.
-    "liteImplementation"("com.yandex.android:maps.mobile:4.5.1-lite")
-    // full version provides the rest of maps API routing, panoramas, search and etc.
-    "fullImplementation"("com.yandex.android:maps.mobile:4.5.1-full")
-
+    // Google
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
     //Glide
@@ -97,8 +64,8 @@ dependencies {
     // ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-//    // MapKit / Yandex Map
-//    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
+    // MapKit / Yandex Map
+    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
 
     // Add MapKit SDK full dependency
     implementation("com.yandex.android:maps.mobile:4.5.1-full")
@@ -117,6 +84,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
     implementation("com.squareup.okhttp3:okhttp:4.7.2")
 
+    // Остальное
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
