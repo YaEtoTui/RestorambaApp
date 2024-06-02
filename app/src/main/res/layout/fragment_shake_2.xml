@@ -23,6 +23,8 @@
         android:id="@+id/tvText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
         android:text="Текст pop up 2"
         android:textAppearance="@style/title_restaurants"
         app:layout_constraintBottom_toBottomOf="@+id/idRect"
