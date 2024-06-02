@@ -47,8 +47,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.10.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.10.0")
+    implementation("com.github.bumptech.glide:glide:4.10.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.10.0")
     implementation("com.github.bumptech.glide:okhttp3-integration:4.2.0")
 
     // LocalBroadcastManager
@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // MapKit / Yandex Map
-    implementation ("com.yandex.android:maps.mobile:4.2.2-full")
+    implementation("com.yandex.android:maps.mobile:4.2.2-full")
 
     // Add MapKit SDK full dependency
     implementation("com.yandex.android:maps.mobile:4.5.1-full")

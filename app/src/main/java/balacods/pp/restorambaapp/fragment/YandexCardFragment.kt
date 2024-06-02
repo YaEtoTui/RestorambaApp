@@ -96,7 +96,6 @@ class YandexCardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MapKitFactory.initialize(this.context)
         binding = FragmentYandexCardBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -143,7 +142,8 @@ class YandexCardFragment : Fragment() {
                         )
                     }.collect(Collectors.toList())
 
-                    val imageProvider = ImageProvider.fromResource(requireContext(), R.drawable.location)
+                    val imageProvider =
+                        ImageProvider.fromResource(requireContext(), R.drawable.location)
                     val placemarkObject = map.mapObjects.addPlacemark().apply {
                         geometry = pointGeo
                         setIcon(imageProvider)
