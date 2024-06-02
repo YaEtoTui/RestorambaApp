@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     imPhotoIcon.visibility = View.GONE
                                     Glide.with(applicationContext)
                                         .load(menuData.photo.link1)
-                                        .centerCrop()
-                                        .transform(RoundedCorners(20))
+                                        .centerInside()
+                                        .transform(RoundedCorners(45))
                                         .error(R.drawable.ic_launcher_foreground)
                                         .placeholder(R.drawable.ic_launcher_foreground)
                                         .into(imPhoto)
