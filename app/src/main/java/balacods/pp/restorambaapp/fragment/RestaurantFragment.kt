@@ -18,12 +18,14 @@ import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.model.DishAndPhotoData
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentRestaurantBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class RestaurantFragment : Fragment() {
 
     private lateinit var adapter: DishAdapter
     private lateinit var binding: FragmentRestaurantBinding
+    private val pointsViewModel: PointsViewModel by activityViewModels()
 
     private lateinit var restorambaApiService: RestorambaApiService
     private val restaurantViewModel: RestaurantViewModel by activityViewModels()
@@ -53,6 +56,8 @@ class RestaurantFragment : Fragment() {
 
         restorambaApiService = Common.retrofitService
 
+        binding.idScroll.visibility = View.INVISIBLE
+        binding.idProgressBar.visibility = View.VISIBLE
         init()
     }
 
@@ -101,6 +106,21 @@ class RestaurantFragment : Fragment() {
                                     .into(idRectanglePhoto)
                             }
 
+                            binding.idBtMap.setOnClickListener {
+                                val pointStart = Point(56.840823, 60.650763)
+                                val listPoints: MutableList<Point> = mutableListOf(
+                                    pointStart, // по умолчанию это наше гео
+                                    Point(
+                                        restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+                                        restaurantData.restaurant.restaurantCoordinateY.toDouble()
+                                    ) // ресторана
+                                )
+                                pointsViewModel.code.value = 1
+                                pointsViewModel.startPoints.value = pointStart
+                                pointsViewModel.allPoints.value = listPoints
+                                findNavController().navigate(R.id.action_restaurantFrag_to_yandexCardFrag)
+                            }
+
                             idNameRestaurant.text = restaurantData.restaurant.restaurantName
                             tvDesc.text = restaurantData.restaurant.restaurantDescription
                             idButtonGetRandomDish.setOnClickListener {
@@ -120,17 +140,20 @@ class RestaurantFragment : Fragment() {
                         val menuDataList: List<DishAndPhotoData> = responseMenu.body()!!
                         adapter.submitList(menuDataList)
                     }
+
+                    binding.idScroll.visibility = View.VISIBLE
+                    binding.idProgressBar.visibility = View.GONE
                 }
             }
         }
     }
 
     private fun initBtPage() {
-        binding.idButtonGetRandomDish.setOnClickListener {
-            // Отправка сообщения с помощью LocalBroadcastManager
-            val intent = Intent("shake_event")
-            LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
-        }
+//        binding.idButtonGetRandomDish.setOnClickListener {
+//            // Отправка сообщения с помощью LocalBroadcastManager
+//            val intent = Intent("shake_event")
+//            LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
+//        }
     }
 
     private fun initRcView() {
