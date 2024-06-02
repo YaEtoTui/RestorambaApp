@@ -12,7 +12,8 @@ import balacods.pp.restorambaapp.databinding.ItemListDishesSearchWhiteGreenBindi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
-class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapter.Holder>(Comparator()) {
+class DishSearchAdapter :
+    ListAdapter<MenuAndNameRestaurantData, DishSearchAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: DishSearchAdapter.OnButtonClickListener
 
@@ -36,23 +37,49 @@ class DishSearchAdapter : ListAdapter<MenuAndNameRestaurantData, DishSearchAdapt
                     .into(imPhoto)
             }
 
-            tvTitleDish.text = menuData.dishAndPhotoData.dish.dishName
+            if (menuData.dishAndPhotoData.dish.dishName.length < 30) {
+                tvTitleDish.text = menuData.dishAndPhotoData.dish.dishName
+            } else {
+                tvTitleDish.text = String.format(
+                    "%s...",
+                    menuData.dishAndPhotoData.dish.dishName.substring(0, 30)
+                )
+            }
+
             tvTitleRestaurant.text = menuData.nameRestaurant
-            tvDesc.text = menuData.dishAndPhotoData.dish.dishDescription
+
+            if (menuData.dishAndPhotoData.dish.dishDescription.length < 100) {
+                tvDesc.text = menuData.dishAndPhotoData.dish.dishDescription
+            } else {
+                tvDesc.text = String.format(
+                    "%s...",
+                    menuData.dishAndPhotoData.dish.dishDescription.substring(0, 100)
+                )
+            }
+
             idButtonAgree.text = String.format("%s руб", menuData.dishAndPhotoData.dish.dishPrice)
 
             cView.setOnClickListener {
-                onButtonClickListener.onClick(menuData.dishAndPhotoData.dish.dishesId, menuData.dishAndPhotoData.dish.restaurantId)
+                onButtonClickListener.onClick(
+                    menuData.dishAndPhotoData.dish.dishesId,
+                    menuData.dishAndPhotoData.dish.restaurantId
+                )
             }
         }
     }
 
     class Comparator : DiffUtil.ItemCallback<MenuAndNameRestaurantData>() {
-        override fun areItemsTheSame(oldItem: MenuAndNameRestaurantData, newItem: MenuAndNameRestaurantData): Boolean {
+        override fun areItemsTheSame(
+            oldItem: MenuAndNameRestaurantData,
+            newItem: MenuAndNameRestaurantData
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: MenuAndNameRestaurantData, newItem: MenuAndNameRestaurantData): Boolean {
+        override fun areContentsTheSame(
+            oldItem: MenuAndNameRestaurantData,
+            newItem: MenuAndNameRestaurantData
+        ): Boolean {
             return oldItem == newItem
         }
 

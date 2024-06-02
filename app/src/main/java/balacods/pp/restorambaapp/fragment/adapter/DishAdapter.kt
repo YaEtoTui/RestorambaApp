@@ -37,7 +37,13 @@ class DishAdapter : ListAdapter<DishAndPhotoData, DishAdapter.Holder>(Comparator
             }
 
             tvTitleRestaurant.text = menuData.dish.dishName
-            tvDesc.text = menuData.dish.dishDescription
+            if (menuData.dish.dishDescription.length < 100) {
+                tvDesc.text = menuData.dish.dishDescription
+
+            } else {
+                tvDesc.text = String.format("%s...", menuData.dish.dishDescription.substring(0, 100))
+            }
+
             idButtonAgree.text = String.format("%s руб", menuData.dish.dishPrice)
 
             binding.cView.setOnClickListener {

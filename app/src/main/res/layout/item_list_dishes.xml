@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cView"
     android:layout_width="match_parent"
-    android:minWidth="355dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="33dp"
+    android:minWidth="355dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +19,8 @@
             android:id="@+id/tvTitleRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="200dp"
             android:gravity="center"
+            android:maxWidth="200dp"
             android:text="@string/name_dish"
             android:textAppearance="@style/title_dishes"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,16 +47,15 @@
 
         <TextView
             android:id="@+id/tvDesc"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="17dp"
             android:gravity="center"
+            android:maxWidth="200dp"
             android:text="@string/text_dish_example"
             android:textAppearance="@style/show_on_map"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imPhoto"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitleRestaurant"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleRestaurant"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleRestaurant" />
 
         <TextView

@@ -91,6 +91,7 @@ class MapFragment : Fragment(), UserLocationObjectListener {
 
         userLocationLayer.setObjectListener(this)
         showAllRestaurants()
+        binding.idProgressBar.visibility = View.GONE
     }
 
     private fun showAllRestaurants() {
@@ -148,6 +149,7 @@ class MapFragment : Fragment(), UserLocationObjectListener {
     }
 
     private fun init() {
+        binding.idProgressBar.visibility = View.VISIBLE
         initBtNav()
     }
 
