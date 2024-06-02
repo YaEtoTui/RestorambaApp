@@ -4,12 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import balacods.pp.restorambaapp.R
@@ -25,6 +23,7 @@ import balacods.pp.restorambaapp.databinding.ContentBaseBinding
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetectionService
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MapKitFactory.initialize(this)
         bindingActivity = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivity.root)
 
@@ -59,21 +59,6 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
 
         init()
     }
-    private val PERMISSIONS_REQUEST_FINE_LOCATION = 1
-
-    fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                "android.permission.ACCESS_FINE_LOCATION"
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
 
     private val shakeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -81,7 +66,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
             if (intent.action == "shake_event") {
                 Log.i("shakeReceiver", code)
                 // Действия после получения данных
-//                showShake()
+                showShake()
             }
         }
     }
@@ -228,7 +213,6 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
     }
 
     private fun init() {
-        initSwipe()
         initBt()
     }
 
@@ -256,40 +240,5 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
             code = ""
             bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
         }
-    }
-
-    private fun initSwipe() {
-        // Здесь код для свайпа, но пока все сыро((
-
-//        val viewPager = bindingActivity.viewPager
-//        val tabLayout = bindingActivity.tabLayout
-//
-//        viewPager.adapter = ViewPagerAdapter(this)
-//
-//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            when (position) {
-//                0 -> tab.text = "First"
-//                1 -> tab.text = "Second"
-//                else -> tab.text = "Third"
-//            }
-//        }.attach()
-//
-//        val navController = findNavController(R.id.nav_host_fragment_content_base)
-//        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.let {
-//                    when (tab.position) {
-//                        0 -> navController.navigate(R.id.mainFrag)
-//                        1 -> navController.navigate(R.id.searchFrag)
-//                        2 -> navController.navigate(R.id.restaurantsFrag)
-//                        else -> throw IllegalArgumentException()
-//                    }
-//                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {}
-//        })
     }
 }
