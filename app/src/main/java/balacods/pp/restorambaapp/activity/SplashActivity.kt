@@ -1,10 +1,11 @@
-package balacods.pp.restorambaapp
+package balacods.pp.restorambaapp.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import balacods.pp.restorambaapp.R
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
