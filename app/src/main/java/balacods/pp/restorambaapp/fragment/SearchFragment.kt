@@ -22,11 +22,13 @@ import balacods.pp.restorambaapp.data.model.MenuAndNameRestaurantData
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantAndDishViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentSearchBinding
 import balacods.pp.restorambaapp.fragment.adapter.DishSearchAdapter
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +42,7 @@ class SearchFragment : Fragment() {
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
     private lateinit var adapterDish: DishSearchAdapter
     private lateinit var binding: FragmentSearchBinding
+    private val pointsViewModel: PointsViewModel by activityViewModels()
 
     private var searchText: String = ""
     private var isRestaurant: Boolean = true
@@ -116,10 +119,10 @@ class SearchFragment : Fragment() {
         adapterRestaurant = RestaurantSearchAdapter()
         adapterRestaurant.setOnButtonClickListener(object :
             RestaurantSearchAdapter.OnButtonClickListener {
-            override fun onClick(text: String, restId: Long) {
+            override fun onClick(text: String, restaurantId: Long?, point: Point) {
                 when (text) {
                     StatusRequest.LIST_RESTAURANTS.statusRequest -> {
-                        restaurantViewModel.restaurantId.value = restId
+                        restaurantViewModel.restaurantId.value = restaurantId
                         findNavController().navigate(R.id.action_searchFrag_to_restaurantFrag)
                     }
 
@@ -127,6 +130,18 @@ class SearchFragment : Fragment() {
                         // Отправка сообщения с помощью LocalBroadcastManager
                         val intent = Intent("shake_event")
                         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+                    }
+
+                    StatusRequest.MAP_DISTANCE.statusRequest -> {
+                        val pointStart = Point(56.840823, 60.650763)
+                        val listPoints: MutableList<Point> = mutableListOf(
+                            pointStart, // по умолчанию это наше гео
+                            point // ресторана
+                        )
+                        pointsViewModel.code.value = 1
+                        pointsViewModel.startPoints.value = pointStart
+                        pointsViewModel.allPoints.value = listPoints
+                        findNavController().navigate(R.id.action_searchFrag_to_yandexCardFrag)
                     }
                 }
             }

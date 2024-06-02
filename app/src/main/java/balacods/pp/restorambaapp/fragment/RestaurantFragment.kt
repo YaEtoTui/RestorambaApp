@@ -74,7 +74,6 @@ class RestaurantFragment : Fragment() {
         initRetrofitData()
         initBtNav()
         initRcView()
-        initBtPage()
     }
 
     private fun initRetrofitData() {
@@ -146,14 +145,6 @@ class RestaurantFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun initBtPage() {
-//        binding.idButtonGetRandomDish.setOnClickListener {
-//            // Отправка сообщения с помощью LocalBroadcastManager
-//            val intent = Intent("shake_event")
-//            LocalBroadcastManager.getInstance(this.requireContext()).sendBroadcast(intent)
-//        }
     }
 
     private fun initRcView() {

@@ -42,6 +42,8 @@ class DishFragment : Fragment() {
 
         restorambaApiService = Common.retrofitService
 
+        binding.idProgressBar.visibility = View.VISIBLE
+        binding.idScroll.visibility = View.INVISIBLE
         onClick()
         initRetrofitData()
     }
@@ -82,6 +84,9 @@ class DishFragment : Fragment() {
                             tvGr.text = String.format("%s гр", menuData.dish.dishWeight.toInt())
                             tvRub.text = String.format("%s руб", menuData.dish.dishPrice)
                         }
+
+                        binding.idProgressBar.visibility = View.GONE
+                        binding.idScroll.visibility = View.VISIBLE
                     }
                 }
             }
