@@ -44,7 +44,7 @@ class QuestionsFragment : Fragment() {
                 findNavController().navigate(R.id.action_questionsFrag_to_mainFrag)
             }
             idNavMap.setOnClickListener {
-                findNavController().navigate(R.id.action_questionsFrag_to_yandexCardFrag)
+                findNavController().navigate(R.id.action_questionsFrag_to_mapFrag)
             }
         }
     }

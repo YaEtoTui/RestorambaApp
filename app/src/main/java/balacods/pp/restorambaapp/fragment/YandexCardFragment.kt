@@ -1,6 +1,7 @@
 package balacods.pp.restorambaapp.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,7 +118,8 @@ class YandexCardFragment : Fragment() {
             showDistance()
         } else {
             val map = mapView.mapWindow.map
-            map.move(CameraPosition(Point(56.840823, 60.650763), 13.0f, 0f, 0f))
+            Log.i("CameraPosition", String.format("%S %s", pointsViewModel.startPoints.value!!.latitude, pointsViewModel.startPoints.value!!.longitude) )
+            map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
             showAllRestaurants()
         }
     }
@@ -145,7 +147,7 @@ class YandexCardFragment : Fragment() {
                     val imageProvider =
                         ImageProvider.fromResource(requireContext(), R.drawable.location)
                     val placemarkObject = map.mapObjects.addPlacemark().apply {
-                        geometry = pointGeo
+                        geometry = pointsViewModel.startPoints.value!!
                         setIcon(imageProvider)
                     }
 

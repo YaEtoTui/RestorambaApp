@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
+import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -19,11 +22,18 @@ import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.CompositeIcon
 import com.yandex.mapkit.map.IconStyle
+import com.yandex.mapkit.map.Map
+import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.util.stream.Collectors
 
 
 class MapFragment : Fragment(), UserLocationObjectListener {
@@ -31,7 +41,12 @@ class MapFragment : Fragment(), UserLocationObjectListener {
     private lateinit var binding: FragmentYandexCardBinding
 
     private lateinit var mapView: MapView
+    private lateinit var map: Map
     private lateinit var userLocationLayer: UserLocationLayer
+    private lateinit var placemarksCollection: MapObjectCollection
+
+    private lateinit var restorambaApiService: RestorambaApiService
+    private var listRestaurantsGlobalPoints: List<Point> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +76,7 @@ class MapFragment : Fragment(), UserLocationObjectListener {
 
         init()
         mapView = binding.imCarteGeo
+        map = mapView.mapWindow.map
 
         mapView.map.isRotateGesturesEnabled = false
         mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
@@ -74,7 +90,49 @@ class MapFragment : Fragment(), UserLocationObjectListener {
         userLocationLayer.isHeadingEnabled = true
 
         userLocationLayer.setObjectListener(this)
+        showAllRestaurants()
+    }
 
+    private fun showAllRestaurants() {
+        restorambaApiService = Common.retrofitService
+        CoroutineScope(Dispatchers.IO).launch {
+            val response: Response<List<RestaurantAndPhotoData>> = try {
+                restorambaApiService.getListRestaurants()
+            } catch (e: Exception) {
+                return@launch
+            }
+
+            requireActivity().runOnUiThread {
+
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    // обработка успешного ответа
+                    listRestaurantsGlobalPoints = data!!.stream().map { rest ->
+                        Point(
+                            rest.restaurant.restaurantCoordinateX.toDouble(),
+                            rest.restaurant.restaurantCoordinateY.toDouble()
+                        )
+                    }.collect(Collectors.toList())
+
+
+                    placemarksCollection = map.mapObjects.addCollection()
+
+                    // Отображаем точки на карте
+                    listRestaurantsGlobalPoints.forEach {
+                        placemarksCollection.addPlacemark(
+                            it,
+                            ImageProvider.fromResource(requireContext(), R.drawable.icon_loc),
+                            IconStyle().apply {
+                                scale = 1.3f
+                                zIndex = 20f
+                            }
+                        )
+                    }
+                } else {
+                    // обработка ошибки с кодом состояния HTTP
+                }
+            }
+        }
     }
 
     override fun onStop() {
@@ -95,13 +153,16 @@ class MapFragment : Fragment(), UserLocationObjectListener {
 
     private fun initBtNav() {
         binding.idNavRestaurants.setOnClickListener {
-            findNavController().navigate(R.id.action_yandexCardFrag_to_restaurantsFrag)
+            findNavController().navigate(R.id.action_mapFrag_to_restaurantsFrag)
         }
         binding.idNavSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_yandexCardFrag_to_searchFrag)
+            findNavController().navigate(R.id.action_mapFrag_to_searchFrag)
         }
         binding.idNavMain.setOnClickListener {
-            findNavController().navigate(R.id.action_yandexCardFrag_to_mainFrag)
+            findNavController().navigate(R.id.action_mapFrag_to_mainFrag)
+        }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_mapFrag_to_questionsFrag)
         }
     }
 
@@ -124,7 +185,7 @@ class MapFragment : Fragment(), UserLocationObjectListener {
         userLocationView.accuracyCircle.fillColor = Color.BLUE and -0x66000001
 
 
-        val pinIcon: CompositeIcon = userLocationView.getPin().useCompositeIcon()
+        val pinIcon: CompositeIcon = userLocationView.pin.useCompositeIcon()
 
         pinIcon.setIcon(
             "pin",

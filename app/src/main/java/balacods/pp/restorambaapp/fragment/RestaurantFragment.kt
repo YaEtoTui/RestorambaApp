@@ -156,7 +156,7 @@ class RestaurantFragment : Fragment() {
             findNavController().navigate(R.id.action_restaurantFrag_to_mainFrag)
         }
         binding.idNavMap.setOnClickListener {
-            findNavController().navigate(R.id.action_restaurantFrag_to_yandexCardFrag)
+            findNavController().navigate(R.id.action_restaurantFrag_to_mapFrag)
         }
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_restaurantFrag_to_questionsFrag)

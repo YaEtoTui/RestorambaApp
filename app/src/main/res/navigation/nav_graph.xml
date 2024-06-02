@@ -58,6 +58,15 @@
         <action
             android:id="@+id/action_mapFrag_to_questionsFrag"
             app:destination="@id/questionsFrag" />
+        <action
+            android:id="@+id/action_mapFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_mapFrag_to_restaurantsFrag"
+            app:destination="@id/restaurantsFrag" />
+        <action
+            android:id="@+id/action_mapFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
     </fragment>
 
     <fragment
@@ -111,6 +120,9 @@
         <action
             android:id="@+id/action_restaurantFrag_to_questionsFrag"
             app:destination="@id/questionsFrag" />
+        <action
+            android:id="@+id/action_restaurantFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
     </fragment>
 
     <fragment
@@ -136,6 +148,9 @@
         <action
             android:id="@+id/action_dishFrag_to_yandexCardFrag"
             app:destination="@id/yandexCardFrag" />
+        <action
+            android:id="@+id/action_dishFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
     </fragment>
 
     <fragment
@@ -161,6 +176,9 @@
         <action
             android:id="@+id/action_searchFrag_to_questionsFrag"
             app:destination="@id/questionsFrag" />
+        <action
+            android:id="@+id/action_searchFrag_to_mapFrag"
+            app:destination="@id/mapFrag" />
     </fragment>
 
     <fragment

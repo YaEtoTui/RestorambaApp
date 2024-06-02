@@ -99,7 +99,7 @@ class DishFragment : Fragment() {
             findNavController().navigate(R.id.action_dishFrag_to_mainFrag)
         }
         binding.idNavMap.setOnClickListener {
-            findNavController().navigate(R.id.action_dishFrag_to_yandexCardFrag)
+            findNavController().navigate(R.id.action_dishFrag_to_mapFrag)
         }
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_dishFrag_to_questionsFrag)
