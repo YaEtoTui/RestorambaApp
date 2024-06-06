@@ -36,7 +36,6 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.util.stream.Collectors
 
-
 class SearchFragment : Fragment() {
 
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
@@ -133,13 +132,12 @@ class SearchFragment : Fragment() {
                     }
 
                     StatusRequest.MAP_DISTANCE.statusRequest -> {
-                        val pointStart = Point(56.840823, 60.650763)
+                        val pointStart =  pointsViewModel.startPoints.value!!
                         val listPoints: MutableList<Point> = mutableListOf(
                             pointStart, // по умолчанию это наше гео
                             point // ресторана
                         )
                         pointsViewModel.code.value = 1
-                        pointsViewModel.startPoints.value = pointStart
                         pointsViewModel.allPoints.value = listPoints
                         findNavController().navigate(R.id.action_searchFrag_to_yandexCardFrag)
                     }

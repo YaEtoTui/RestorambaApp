@@ -17,6 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/imCarteGeo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_marginVertical="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/idNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
     <Button
         android:id="@+id/idButtonGetRandomDish"
         android:layout_width="255dp"

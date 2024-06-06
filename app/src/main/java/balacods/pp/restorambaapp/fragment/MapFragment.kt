@@ -4,17 +4,20 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -33,6 +36,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.Objects.nonNull
 import java.util.stream.Collectors
 
 
@@ -47,6 +51,8 @@ class MapFragment : Fragment(), UserLocationObjectListener {
 
     private lateinit var restorambaApiService: RestorambaApiService
     private var listRestaurantsGlobalPoints: List<Point> = emptyList()
+
+    private val pointsViewModel: PointsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,19 +83,33 @@ class MapFragment : Fragment(), UserLocationObjectListener {
         init()
         mapView = binding.imCarteGeo
         map = mapView.mapWindow.map
+        if (nonNull(pointsViewModel.startPoints)) {
+            mapView.map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
+            placemarksCollection = map.mapObjects.addCollection()
+            placemarksCollection.addPlacemark(
+                pointsViewModel.startPoints.value!!,
+                ImageProvider.fromResource(requireContext(), R.drawable.location),
+                IconStyle().apply {
+                    scale = 1.3f
+                    zIndex = 20f
+                }
+            )
+        }
+//        else {
+//            mapView.map.isRotateGesturesEnabled = true
+//            mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
+//
+//            requestLocationPermission()
+//
+//            val mapKit = MapKitFactory.getInstance()
+//            mapKit.resetLocationManagerToDefault()
+//            userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
+//            userLocationLayer.isVisible = true
+//            userLocationLayer.isHeadingEnabled = true
+//
+//            userLocationLayer.setObjectListener(this)
+//        }
 
-        mapView.map.isRotateGesturesEnabled = false
-        mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
-
-        requestLocationPermission()
-
-        val mapKit = MapKitFactory.getInstance()
-        mapKit.resetLocationManagerToDefault()
-        userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-        userLocationLayer.isVisible = true
-        userLocationLayer.isHeadingEnabled = true
-
-        userLocationLayer.setObjectListener(this)
         showAllRestaurants()
         binding.idProgressBar.visibility = View.GONE
     }
@@ -203,6 +223,12 @@ class MapFragment : Fragment(), UserLocationObjectListener {
     }
 
     override fun onObjectUpdated(userLocationView: UserLocationView, p1: ObjectEvent) {
+        // Получение текущего местоположения пользователя
+        val userLocation = userLocationLayer.cameraPosition()!!.target
+
+        // Доступ к координатам широты и долготы текущего местоположения
+        val currentLocationPoint = Point(userLocation.latitude, userLocation.longitude)
+        Log.i("currentLocationPoint", String.format("%s %s", currentLocationPoint.longitude, currentLocationPoint.latitude))
     }
 
     companion object {

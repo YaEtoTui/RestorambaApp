@@ -106,7 +106,7 @@ class RestaurantFragment : Fragment() {
                             }
 
                             binding.idBtMap.setOnClickListener {
-                                val pointStart = Point(56.840823, 60.650763)
+                                val pointStart = pointsViewModel.startPoints.value!!
                                 val listPoints: MutableList<Point> = mutableListOf(
                                     pointStart, // по умолчанию это наше гео
                                     Point(
@@ -115,7 +115,6 @@ class RestaurantFragment : Fragment() {
                                     ) // ресторана
                                 )
                                 pointsViewModel.code.value = 1
-                                pointsViewModel.startPoints.value = pointStart
                                 pointsViewModel.allPoints.value = listPoints
                                 findNavController().navigate(R.id.action_restaurantFrag_to_yandexCardFrag)
                             }
