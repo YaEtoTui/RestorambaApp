@@ -3,12 +3,15 @@ package balacods.pp.restorambaapp.fragment.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.enum.StatusRequest
+import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoDTO
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
+import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
 import balacods.pp.restorambaapp.distance.findShortestDistance
 import com.bumptech.glide.Glide
@@ -16,7 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yandex.mapkit.geometry.Point
 
 class RestaurantAdapter :
-    ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.Holder>(Comparator()) {
+    ListAdapter<RestaurantAndPhotoDTO, RestaurantAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
 
@@ -25,7 +28,7 @@ class RestaurantAdapter :
         private val binding = ItemListRestaurantsBinding.bind(view)
 
         fun bind(
-            restaurantData: RestaurantAndPhotoData,
+            restaurantData: RestaurantAndPhotoDTO,
             onButtonClickListener: RestaurantAdapter.OnButtonClickListener
         ) = with(binding) {
 
@@ -33,7 +36,7 @@ class RestaurantAdapter :
                 restaurantData.restaurant.restaurantCoordinateX.toDouble()
             )
 
-            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(Point(56.840823, 60.650763), pointRestaurant))
+            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(restaurantData.point, pointRestaurant))
 
             if (restaurantData.photo != null) {
                 imPhotoIcon.visibility = View.GONE
@@ -80,17 +83,17 @@ class RestaurantAdapter :
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoData>() {
+    class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoDTO>() {
         override fun areItemsTheSame(
-            oldItem: RestaurantAndPhotoData,
-            newItem: RestaurantAndPhotoData
+            oldItem: RestaurantAndPhotoDTO,
+            newItem: RestaurantAndPhotoDTO
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: RestaurantAndPhotoData,
-            newItem: RestaurantAndPhotoData
+            oldItem: RestaurantAndPhotoDTO,
+            newItem: RestaurantAndPhotoDTO
         ): Boolean {
             return oldItem == newItem
         }

@@ -101,23 +101,27 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        restorambaApiService = Common.retrofitService
+        try {
+            restorambaApiService = Common.retrofitService
 
-        mapView = binding.imCarteGeo
-        map = mapView.mapWindow.map
+            mapView = binding.imCarteGeo
+            map = mapView.mapWindow.map
 
-        mapView.map.isRotateGesturesEnabled = true
-        mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
+            mapView.map.isRotateGesturesEnabled = true
+            mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
 
-        requestLocationPermission()
+            requestLocationPermission()
 
-        val mapKit = MapKitFactory.getInstance()
-        mapKit.resetLocationManagerToDefault()
-        userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-        userLocationLayer.isVisible = true
-        userLocationLayer.isHeadingEnabled = true
+            val mapKit = MapKitFactory.getInstance()
+            mapKit.resetLocationManagerToDefault()
+            userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
+            userLocationLayer.isVisible = true
+            userLocationLayer.isHeadingEnabled = true
 
-        userLocationLayer.setObjectListener(this)
+            userLocationLayer.setObjectListener(this)
+        } catch (exc: Exception) {
+            Log.i("ExceptionMainPage", exc.message.toString())
+        }
 
         init()
     }
@@ -363,7 +367,7 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
             ImageProvider.fromResource(context, R.drawable.location),
             IconStyle().apply {
                 scale = 1f
-                zIndex = 20f
+                zIndex = 14f
             }
         )
     }
@@ -373,12 +377,14 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
 
     override fun onObjectUpdated(userLocationView: UserLocationView, p1: ObjectEvent) {
         // Получение текущего местоположения пользователя
-        val userLocation = userLocationLayer.cameraPosition()!!.target
-
+        val userLocation: Point = userLocationLayer.cameraPosition()!!.target
         // Доступ к координатам широты и долготы текущего местоположения
         val currentLocationPoint = Point(userLocation.latitude, userLocation.longitude)
         pointsViewModel.startPoints.value = currentLocationPoint
-        Log.i("currentLocationPoint", String.format("%s %s", currentLocationPoint.longitude, currentLocationPoint.latitude))
+        Log.i(
+            "currentLocationPoint",
+            String.format("%s %s", currentLocationPoint.longitude, currentLocationPoint.latitude)
+        )
     }
 
     companion object {
