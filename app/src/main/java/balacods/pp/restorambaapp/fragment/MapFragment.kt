@@ -46,7 +46,6 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MapKitFactory.initialize(this.context)
         binding = FragmentYandexCardBinding.inflate(inflater, container, false)
         return binding.root
     }

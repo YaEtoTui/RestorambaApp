@@ -35,7 +35,6 @@ import java.util.stream.Collectors
 
 class MainActivity : AppCompatActivity(), OnDataPassListener {
 
-    private lateinit var binding: ContentBaseBinding
     private lateinit var bindingActivity: ActivityMainBinding
 
     private lateinit var restorambaApiService: RestorambaApiService
