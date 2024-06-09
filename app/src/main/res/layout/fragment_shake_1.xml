@@ -33,6 +33,7 @@
             android:id="@+id/tvTitleDish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="250dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/dish"
@@ -91,6 +92,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/price_sum"
             android:textAppearance="@style/style_14sp_black_green_medium"
+            app:layout_constraintBottom_toTopOf="@+id/idButtonContinue"
             app:layout_constraintEnd_toEndOf="@+id/imPhoto"
             app:layout_constraintStart_toStartOf="@+id/imPhoto"
             app:layout_constraintTop_toBottomOf="@+id/imPhoto" />
@@ -101,13 +103,14 @@
             android:layout_height="39dp"
             android:layout_marginStart="75dp"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@drawable/button_bg_color_main_page"
             android:text="@string/another"
             android:textAppearance="@style/title_dishes"
             android:textColor="@drawable/button_text_color_main_page"
             app:cornerRadius="15dp"
-            app:layout_constraintStart_toEndOf="@+id/idButtonMoreDetails"
-            app:layout_constraintTop_toBottomOf="@+id/idSumDish" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/idButtonMoreDetails" />
 
         <Button
             android:id="@+id/idButtonMoreDetails"

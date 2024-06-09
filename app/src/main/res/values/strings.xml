@@ -43,6 +43,7 @@
     <string name="empty_result_search">Извините, ничего не найдено</string>
     <string name="another">Ещё одно!</string>
     <string name="more_details">Подробнее</string>
+    <string name="return_shake">Вернуться</string>
     <string name="desc_question">Ответы на популярные вопросы</string>
     <string name="question_1">Как пользоваться нашим приложением?</string>
     <string name="question_2">Что еще я могу сделать?</string>

@@ -261,12 +261,25 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
         bindingActivity.idShake.idButtonMoreDetails.setOnClickListener {
             bindingActivity.apply {
                 idShake.shakePopUp.visibility = View.GONE
-                idShake2.shakePopUp2.visibility = View.VISIBLE // Не заверстан
+                idShake2.shakePopUp2.visibility = View.VISIBLE
             }
         }
         bindingActivity.idShake2.btClose.setOnClickListener {
             code = ""
             bindingActivity.idShake2.shakePopUp2.visibility = View.GONE
+        }
+        bindingActivity.idShake2.idBtReturn.setOnClickListener {
+            bindingActivity.apply {
+                idShake.shakePopUp.visibility = View.VISIBLE
+                idShake2.shakePopUp2.visibility = View.GONE
+            }
+        }
+        bindingActivity.idShake2.idButtonContinue.setOnClickListener {
+            showShake()
+            bindingActivity.apply {
+                idShake.shakePopUp.visibility = View.VISIBLE
+                idShake2.shakePopUp2.visibility = View.GONE
+            }
         }
     }
 }

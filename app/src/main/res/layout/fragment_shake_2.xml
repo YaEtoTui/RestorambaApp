@@ -24,13 +24,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="28dp"
+        android:maxWidth="300dp"
         android:text="Текст pop up 2"
         android:textAppearance="@style/title_restaurants"
-        app:layout_constraintBottom_toBottomOf="@+id/idRect"
+        app:layout_constraintBottom_toTopOf="@+id/idBtReturn"
         app:layout_constraintEnd_toEndOf="@+id/idRect"
         app:layout_constraintStart_toStartOf="@+id/idRect"
         app:layout_constraintTop_toBottomOf="@+id/btClose" />
+
+    <Button
+        android:id="@+id/idButtonContinue"
+        android:layout_width="102dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@drawable/button_bg_color_main_page"
+        android:text="@string/another"
+        android:textAppearance="@style/title_dishes"
+        android:textColor="@drawable/button_text_color_main_page"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintStart_toEndOf="@+id/idBtReturn" />
+
+    <Button
+        android:id="@+id/idBtReturn"
+        android:layout_width="107dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="40dp"
+        android:backgroundTint="@drawable/button_bg_color_instructions"
+        android:text="@string/return_shake"
+        android:textAppearance="@style/title_dishes"
+        android:textColor="@drawable/button_text_color_instructions"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/idButtonContinue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/idButtonContinue"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/btClose"
