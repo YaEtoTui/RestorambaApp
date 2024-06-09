@@ -23,7 +23,7 @@ class ShakeDetector() : SensorEventListener {
 
     companion object {
         private const val SHAKE_THRESHOLD = 35.0f
-        private const val SHAKE_TIME_INTERVAL = 5000 // Время в миллисекундах между потрясениями
+        private const val SHAKE_TIME_INTERVAL = 1000 // Время в миллисекундах между потрясениями
         private const val MAX_TILT_ANGLE =
             45.0f // Максимальный угол наклона для обнаружения потрясения
         private const val MIN_SHAKE_DURATION =

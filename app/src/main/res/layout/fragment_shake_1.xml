@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:maxWidth="250dp"
+            android:maxWidth="280dp"
             android:text="@string/dish"
             android:textAppearance="@style/title_restaurants"
             app:layout_constraintEnd_toEndOf="@+id/idBody"

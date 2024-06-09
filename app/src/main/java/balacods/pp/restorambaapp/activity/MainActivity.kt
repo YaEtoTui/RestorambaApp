@@ -19,7 +19,6 @@ import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.model.RestaurantData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.databinding.ActivityMainBinding
-import balacods.pp.restorambaapp.databinding.ContentBaseBinding
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetectionService
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -167,8 +166,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     imPhotoIcon.visibility = View.GONE
                                     Glide.with(applicationContext)
                                         .load(menuData.photo.link1)
-                                        .centerCrop()
-                                        .transform(RoundedCorners(20))
+                                        .centerInside()
+                                        .transform(RoundedCorners(45))
                                         .error(R.drawable.ic_launcher_foreground)
                                         .placeholder(R.drawable.ic_launcher_foreground)
                                         .into(imPhoto)
@@ -218,8 +217,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     imPhotoIcon.visibility = View.GONE
                                     Glide.with(applicationContext)
                                         .load(menuData.photo.link1)
-                                        .centerCrop()
-                                        .transform(RoundedCorners(20))
+                                        .centerInside()
+                                        .transform(RoundedCorners(45))
                                         .error(R.drawable.ic_launcher_foreground)
                                         .placeholder(R.drawable.ic_launcher_foreground)
                                         .into(imPhoto)
@@ -232,7 +231,11 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     String.format("Цена: %s руб", menuData.dish.dishPrice)
                             }
                             idShake2.apply {
-                                tvText.text = menuData.dish.dishDescription
+                                if (menuData.dish.dishDescription != "") {
+                                    tvText.text = menuData.dish.dishDescription
+                                } else {
+                                    tvText.text = "Извините, ничего не найдено"
+                                }
                             }
                         }
                     }

@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
+        android:gravity="center"
         android:maxWidth="300dp"
         android:text="Текст pop up 2"
         android:textAppearance="@style/title_restaurants"
