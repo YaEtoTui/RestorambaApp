@@ -1,15 +1,9 @@
 package balacods.pp.restorambaapp.fragment
 
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.PointF
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,16 +15,11 @@ import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.CompositeIcon
 import com.yandex.mapkit.map.IconStyle
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.mapview.MapView
-import com.yandex.mapkit.user_location.UserLocationLayer
-import com.yandex.mapkit.user_location.UserLocationObjectListener
-import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,13 +29,12 @@ import java.util.Objects.nonNull
 import java.util.stream.Collectors
 
 
-class MapFragment : Fragment(), UserLocationObjectListener {
+class MapFragment : Fragment() {
 
     private lateinit var binding: FragmentYandexCardBinding
 
     private lateinit var mapView: MapView
     private lateinit var map: Map
-    private lateinit var userLocationLayer: UserLocationLayer
     private lateinit var placemarksCollection: MapObjectCollection
 
     private lateinit var restorambaApiService: RestorambaApiService
@@ -63,20 +51,6 @@ class MapFragment : Fragment(), UserLocationObjectListener {
         return binding.root
     }
 
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                "android.permission.ACCESS_FINE_LOCATION"
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -90,25 +64,11 @@ class MapFragment : Fragment(), UserLocationObjectListener {
                 pointsViewModel.startPoints.value!!,
                 ImageProvider.fromResource(requireContext(), R.drawable.location),
                 IconStyle().apply {
-                    scale = 1.3f
+                    scale = 0.6f
                     zIndex = 20f
                 }
             )
         }
-//        else {
-//            mapView.map.isRotateGesturesEnabled = true
-//            mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
-//
-//            requestLocationPermission()
-//
-//            val mapKit = MapKitFactory.getInstance()
-//            mapKit.resetLocationManagerToDefault()
-//            userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-//            userLocationLayer.isVisible = true
-//            userLocationLayer.isHeadingEnabled = true
-//
-//            userLocationLayer.setObjectListener(this)
-//        }
 
         showAllRestaurants()
         binding.idProgressBar.visibility = View.GONE
@@ -186,52 +146,5 @@ class MapFragment : Fragment(), UserLocationObjectListener {
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_mapFrag_to_questionsFrag)
         }
-    }
-
-    override fun onObjectAdded(userLocationView: UserLocationView) {
-        userLocationLayer.setAnchor(
-            PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.5).toFloat()),
-            PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.83).toFloat())
-        )
-
-        userLocationView.arrow.setIcon(
-            ImageProvider.fromResource(
-                context, R.drawable.location
-            ),
-            IconStyle().apply {
-                scale = 1f
-                zIndex = 20f
-            }
-        )
-
-        userLocationView.accuracyCircle.fillColor = Color.BLUE and -0x66000001
-
-
-        val pinIcon: CompositeIcon = userLocationView.pin.useCompositeIcon()
-
-        pinIcon.setIcon(
-            "pin",
-            ImageProvider.fromResource(context, R.drawable.location),
-            IconStyle().apply {
-                scale = 1f
-                zIndex = 20f
-            }
-        )
-    }
-
-    override fun onObjectRemoved(userLocationView: UserLocationView) {
-    }
-
-    override fun onObjectUpdated(userLocationView: UserLocationView, p1: ObjectEvent) {
-        // Получение текущего местоположения пользователя
-        val userLocation = userLocationLayer.cameraPosition()!!.target
-
-        // Доступ к координатам широты и долготы текущего местоположения
-        val currentLocationPoint = Point(userLocation.latitude, userLocation.longitude)
-        Log.i("currentLocationPoint", String.format("%s %s", currentLocationPoint.longitude, currentLocationPoint.latitude))
-    }
-
-    companion object {
-        private const val PERMISSIONS_REQUEST_FINE_LOCATION = 1
     }
 }

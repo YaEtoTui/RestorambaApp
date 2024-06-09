@@ -6,7 +6,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="17dp"
-    android:background="@drawable/rect_pop_up_white">
+    android:background="@drawable/rect_pop_up_white"
+    android:minWidth="372dp"
+    android:minHeight="370dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/idBody"
@@ -19,27 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/idRect"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/rect_pop_up_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tvTitleDish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="250dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:maxWidth="250dp"
             android:text="@string/dish"
             android:textAppearance="@style/title_restaurants"
-            app:layout_constraintEnd_toEndOf="@+id/idRect"
-            app:layout_constraintStart_toStartOf="@+id/idRect"
+            app:layout_constraintEnd_toEndOf="@+id/idBody"
+            app:layout_constraintStart_toStartOf="@+id/idBody"
             app:layout_constraintTop_toTopOf="@+id/btClose" />
 
         <TextView
@@ -81,8 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="@+id/idRect"
-            app:layout_constraintTop_toTopOf="@+id/idRect"
+            app:layout_constraintEnd_toEndOf="@+id/idBody"
+            app:layout_constraintTop_toTopOf="@+id/idBody"
             app:srcCompat="@drawable/icon_close_20_20" />
 
         <TextView

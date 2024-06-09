@@ -66,12 +66,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
             if (intent.action == "shake_event") {
                 Log.i("shakeReceiver", code)
                 // Действия после получения данных
-                bindingActivity.idShake.idBody.visibility = View.INVISIBLE
-                bindingActivity.idShake.idProgressBar.visibility = View.VISIBLE
                 showShake()
-                bindingActivity.idShake.idBody.visibility = View.VISIBLE
-                bindingActivity.idShake.idProgressBar.visibility = View.GONE
-                bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
             }
         }
     }
@@ -88,6 +83,9 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
     }
 
     private fun showShake() {
+        bindingActivity.idShake.idBody.visibility = View.INVISIBLE
+        bindingActivity.idShake.idProgressBar.visibility = View.VISIBLE
+        bindingActivity.idShake.shakePopUp.visibility = View.VISIBLE
         if (code == StatusCodeShakeRequest.All.code) {
             CoroutineScope(Dispatchers.IO).launch {
                 val response: Response<DishAndPhotoData> = restorambaApiService.getRandomDish()
@@ -134,6 +132,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                 tvText.text = menuData.dish.dishDescription
                             }
                         }
+                        bindingActivity.idShake.idBody.visibility = View.VISIBLE
+                        bindingActivity.idShake.idProgressBar.visibility = View.GONE
                     }
                 }
             }
@@ -185,6 +185,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                 tvText.text = menuData.dish.dishDescription
                             }
                         }
+                        bindingActivity.idShake.idBody.visibility = View.VISIBLE
+                        bindingActivity.idShake.idProgressBar.visibility = View.GONE
                     }
                 }
             }
@@ -235,6 +237,8 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                             }
                         }
                     }
+                    bindingActivity.idShake.idBody.visibility = View.VISIBLE
+                    bindingActivity.idShake.idProgressBar.visibility = View.GONE
                 }
             }
         }
