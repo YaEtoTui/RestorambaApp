@@ -33,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
+import java.util.Objects.nonNull
 import java.util.stream.Collectors
 
 
@@ -84,12 +85,16 @@ class RestaurantsFragment : Fragment() {
             }
             requireActivity().runOnUiThread {
                 if (message.equals(null)) {
+                    var point: Point = Point(56.840823, 60.650763)
+                    if (nonNull(pointsViewModel.startPoints.value)) {
+                        point = pointsViewModel.startPoints.value!!
+                    }
                     listRestaurantsGlobal = response.body()!!
                     listRestaurantsGl = listRestaurantsGlobal.stream().map {
                         return@map RestaurantAndPhotoDTO(
                             it.restaurant,
                             it.photo,
-                            pointsViewModel.startPoints.value!!
+                            point
                         )
                     }.collect(Collectors.toList())
                     adapter.submitList(listRestaurantsGl)

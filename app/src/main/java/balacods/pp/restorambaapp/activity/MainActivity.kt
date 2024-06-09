@@ -22,7 +22,6 @@ import balacods.pp.restorambaapp.databinding.ActivityMainBinding
 import balacods.pp.restorambaapp.shakeDetector.ShakeDetectionService
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MapKitFactory.initialize(this)
         bindingActivity = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivity.root)
 

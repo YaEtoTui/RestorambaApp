@@ -30,6 +30,7 @@ import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
+import balacods.pp.restorambaapp.data.viewModel.LogoLoadModel
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
@@ -48,6 +49,7 @@ import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.stream.Collectors
@@ -63,6 +65,7 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
     private var searchText: String = ""
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
     private val pointsViewModel: PointsViewModel by activityViewModels()
+    private val logoLoadModel: LogoLoadModel by activityViewModels()
 
     private lateinit var mapView: MapView
     private lateinit var map: Map
@@ -100,30 +103,51 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requestLocationPermission()
 
-        try {
-            restorambaApiService = Common.retrofitService
-
-            mapView = binding.imCarteGeo
-            map = mapView.mapWindow.map
-
-            mapView.map.isRotateGesturesEnabled = true
-            mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
-
-            requestLocationPermission()
-
-            val mapKit = MapKitFactory.getInstance()
-            mapKit.resetLocationManagerToDefault()
-            userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-            userLocationLayer.isVisible = true
-            userLocationLayer.isHeadingEnabled = true
-
-            userLocationLayer.setObjectListener(this)
-        } catch (exc: Exception) {
-            Log.i("ExceptionMainPage", exc.message.toString())
+        if (logoLoadModel.isLogoLoad.value == null) {
+            binding.idTexThread.visibility = View.VISIBLE
+            binding.idProgressBar.visibility = View.VISIBLE
+            binding.idBody.visibility = View.INVISIBLE
+            doOperationsWithUserLocation()
+            logoLoadModel.isLogoLoad.value = true
         }
 
+        mapView = binding.imCarteGeo
+        map = mapView.mapWindow.map
+
+        mapView.map.isRotateGesturesEnabled = true
+        mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
+
+        val mapKit = MapKitFactory.getInstance()
+        mapKit.resetLocationManagerToDefault()
+        userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
+        userLocationLayer.isVisible = true
+        userLocationLayer.isHeadingEnabled = true
+
+        userLocationLayer.setObjectListener(this)
+
+        restorambaApiService = Common.retrofitService
+
         init()
+    }
+
+    private fun doOperationsWithUserLocation() {
+        mSettings = activity?.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE) ?: return
+
+        if (mSettings!!.contains(APP_PREFERENCES)) {
+            Log.i("contains", mSettings!!.contains(APP_PREFERENCES).toString())
+            APP_PREFERENCES_INSTRUCTIONS =
+                mSettings!!.getBoolean(APP_PREFERENCES, APP_PREFERENCES.toBoolean())
+        }
+
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000L) // задержка в 3 секунды
+            binding.idProgressBar.visibility = View.GONE
+            binding.idTexThread.visibility = View.GONE
+            binding.idBody.visibility = View.VISIBLE
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -137,8 +161,8 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
         MapKitFactory.getInstance().onStop()
+        mapView.onStop()
     }
 
     override fun onStart() {
@@ -342,6 +366,7 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
     }
 
     override fun onObjectAdded(userLocationView: UserLocationView) {
+        Log.i("TagTagTagTag", "tag")
         userLocationLayer.setAnchor(
             PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.5).toFloat()),
             PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.83).toFloat())

@@ -8,142 +8,173 @@
     android:background="@color/black_green"
     tools:context=".fragment.MainPageFragment">
 
-    <include
-        android:id="@+id/idHeader"
-        layout="@layout/header_project"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/idBody"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/idHeader"
+            layout="@layout/header_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/imCarteGeo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="22dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/idNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <Button
+            android:id="@+id/idButtonGetRandomDish"
+            android:layout_width="255dp"
+            android:layout_height="113dp"
+            android:backgroundTint="@drawable/button_bg_color_main_page"
+            android:text="@string/get_random_dish"
+            android:textAppearance="@style/button_main_page"
+            android:textColor="@drawable/button_text_color_main_page"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/idNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idListRestaurants"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginVertical="29dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/idNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idHeader"
+            tools:listitem="@layout/item_list_restaurants_search_white_green" />
+
+        <TextView
+            android:id="@+id/tvEmptySearchResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="@string/empty_result_search"
+            android:textAppearance="@style/empty_result_search"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idHeader" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/idNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/idNavRestaurants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginBottom="34dp"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/restaurants"
+                android:textAppearance="@style/nav_text"
+                app:drawableTopCompat="@drawable/food_restaurants_25_25"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/idNavSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:gravity="center|top"
+                android:text="@string/search_nav"
+                android:textAppearance="@style/nav_text"
+                app:drawableTopCompat="@drawable/icon_search_25_25"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
+                app:layout_constraintEnd_toStartOf="@+id/idNavMain"
+                app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+            <TextView
+                android:id="@+id/idNavMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/main_nav"
+                android:textAppearance="@style/nav_text"
+                android:textColor="@color/orange"
+                app:drawableTint="@color/orange"
+                app:drawableTopCompat="@drawable/icon_main_home_25_25"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
+                app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+                app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
+
+            <TextView
+                android:id="@+id/idNavMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/maps_nav"
+                android:textAppearance="@style/nav_text"
+                app:drawableTopCompat="@drawable/icon_location_25_25"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
+                app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
+                app:layout_constraintStart_toEndOf="@+id/idNavMain" />
+
+            <TextView
+                android:id="@+id/idNavQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:drawablePadding="8dp"
+                android:gravity="center|top"
+                android:text="@string/question"
+                android:textAppearance="@style/nav_text"
+                app:drawableTopCompat="@drawable/icon_question_25_25"
+                app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/idProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/milk"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/imCarteGeo"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_marginVertical="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/idNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/idButtonGetRandomDish"
-        android:layout_width="255dp"
-        android:layout_height="113dp"
-        android:backgroundTint="@drawable/button_bg_color_main_page"
-        android:text="@string/get_random_dish"
-        android:textAppearance="@style/button_main_page"
-        android:textColor="@drawable/button_text_color_main_page"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/idNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idHeader" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idListRestaurants"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginVertical="29dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/idNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idHeader"
-        tools:listitem="@layout/item_list_restaurants_search_white_green" />
-
     <TextView
-        android:id="@+id/tvEmptySearchResult"
+        android:id="@+id/idTexThread"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/empty_result_search"
-        android:textAppearance="@style/empty_result_search"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Ищем вашу геолокацию. Подождите..."
+        android:textAppearance="@style/restoramba"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idHeader" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/idNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/idNavRestaurants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginBottom="34dp"
-            android:drawablePadding="8dp"
-            android:gravity="center|top"
-            android:text="@string/restaurants"
-            android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/food_restaurants_25_25"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/idNavSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:gravity="center|top"
-            android:text="@string/search_nav"
-            android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_search_25_25"
-            app:layout_constraintBottom_toBottomOf="@+id/idNavRestaurants"
-            app:layout_constraintEnd_toStartOf="@+id/idNavMain"
-            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
-
-        <TextView
-            android:id="@+id/idNavMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:gravity="center|top"
-            android:text="@string/main_nav"
-            android:textAppearance="@style/nav_text"
-            android:textColor="@color/orange"
-            app:drawableTint="@color/orange"
-            app:drawableTopCompat="@drawable/icon_main_home_25_25"
-            app:layout_constraintBottom_toBottomOf="@+id/idNavSearch"
-            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-            app:layout_constraintStart_toEndOf="@+id/idNavRestaurants" />
-
-        <TextView
-            android:id="@+id/idNavMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:gravity="center|top"
-            android:text="@string/maps_nav"
-            android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_location_25_25"
-            app:layout_constraintBottom_toBottomOf="@+id/idNavMain"
-            app:layout_constraintEnd_toStartOf="@+id/idNavQuestions"
-            app:layout_constraintStart_toEndOf="@+id/idNavMain" />
-
-        <TextView
-            android:id="@+id/idNavQuestions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="22dp"
-            android:drawablePadding="8dp"
-            android:gravity="center|top"
-            android:text="@string/question"
-            android:textAppearance="@style/nav_text"
-            app:drawableTopCompat="@drawable/icon_question_25_25"
-            app:layout_constraintBottom_toBottomOf="@+id/idNavMap"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintBottom_toTopOf="@+id/idProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/idProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/idProgressBar" />
 
     <include
         android:id="@+id/idInstructions"
