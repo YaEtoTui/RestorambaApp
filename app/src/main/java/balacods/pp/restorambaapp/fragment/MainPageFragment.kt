@@ -353,7 +353,7 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
             ),
             IconStyle().apply {
                 scale = 1f
-                zIndex = 20f
+                zIndex = 14f
             }
         )
 
