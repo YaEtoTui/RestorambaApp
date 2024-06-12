@@ -20,7 +20,6 @@ import balacods.pp.restorambaapp.app.OnDataPassListener
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
-import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoDTO
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
@@ -47,7 +46,6 @@ class RestaurantsFragment : Fragment() {
     private var searchText: String = ""
 
     private var listRestaurantsGlobal: List<RestaurantAndPhotoData> = emptyList()
-    private var listRestaurantsGl: List<RestaurantAndPhotoDTO> = emptyList()
     private var dataPassListener: OnDataPassListener? = null
 
     override fun onCreateView(
@@ -90,14 +88,7 @@ class RestaurantsFragment : Fragment() {
                         point = pointsViewModel.startPoints.value!!
                     }
                     listRestaurantsGlobal = response.body()!!
-                    listRestaurantsGl = listRestaurantsGlobal.stream().map {
-                        return@map RestaurantAndPhotoDTO(
-                            it.restaurant,
-                            it.photo,
-                            point
-                        )
-                    }.collect(Collectors.toList())
-                    adapter.submitList(listRestaurantsGl)
+                    adapter.submitList(listRestaurantsGlobal)
 
                     binding.idListRestaurants.visibility = View.VISIBLE
                     binding.idProgressBar.visibility = View.GONE
@@ -182,7 +173,7 @@ class RestaurantsFragment : Fragment() {
             binding.idHeader.imSearch.visibility = View.VISIBLE
             binding.tvEmptySearchResult.visibility = View.GONE
             editText.setText("")
-            adapter.submitList(listRestaurantsGl)
+            adapter.submitList(listRestaurantsGlobal)
         }
 
         // Добавьте обработчик текстовых изменений для AppCompatEditText
@@ -215,7 +206,7 @@ class RestaurantsFragment : Fragment() {
                         binding.tvEmptySearchResult.visibility = View.GONE
                     }
 
-                    adapter.submitList(listRestaurantsGl)
+                    adapter.submitList(listRestaurants)
                 } else {
                     binding.tvEmptySearchResult.visibility = View.GONE
                     adapter.submitList(emptyList())
@@ -231,7 +222,7 @@ class RestaurantsFragment : Fragment() {
         // Добавляет OnClickListener для ImageView
         clearButton.setOnClickListener { // Очистите текст в AppCompatEditText
             editText.setText("")
-            adapter.submitList(listRestaurantsGl)
+            adapter.submitList(listRestaurantsGlobal)
         }
     }
 }

@@ -3,23 +3,19 @@ package balacods.pp.restorambaapp.fragment.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import balacods.pp.restorambaapp.R
 import balacods.pp.restorambaapp.data.enum.StatusRequest
-import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoDTO
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
-import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.ItemListRestaurantsBinding
-import balacods.pp.restorambaapp.distance.findShortestDistance
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yandex.mapkit.geometry.Point
 
 class RestaurantAdapter :
-    ListAdapter<RestaurantAndPhotoDTO, RestaurantAdapter.Holder>(Comparator()) {
+    ListAdapter<RestaurantAndPhotoData, RestaurantAdapter.Holder>(Comparator()) {
 
     private lateinit var onButtonClickListener: RestaurantAdapter.OnButtonClickListener
 
@@ -28,15 +24,17 @@ class RestaurantAdapter :
         private val binding = ItemListRestaurantsBinding.bind(view)
 
         fun bind(
-            restaurantData: RestaurantAndPhotoDTO,
+            restaurantData: RestaurantAndPhotoData,
             onButtonClickListener: RestaurantAdapter.OnButtonClickListener
         ) = with(binding) {
 
-            val pointRestaurant: Point = Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
-                restaurantData.restaurant.restaurantCoordinateX.toDouble()
-            )
+//            val pointRestaurant: Point = Point(restaurantData.restaurant.restaurantCoordinateX.toDouble(),
+//                restaurantData.restaurant.restaurantCoordinateX.toDouble()
+//            )
 
-            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(restaurantData.point, pointRestaurant))
+//            tvPath.text = String.format("Расстояние до вас: %s", findShortestDistance(restaurantData.point, pointRestaurant))
+
+            tvPath.text = restaurantData.restaurant.restaurantLocation
 
             if (restaurantData.photo != null) {
                 imPhotoIcon.visibility = View.GONE
@@ -83,17 +81,17 @@ class RestaurantAdapter :
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoDTO>() {
+    class Comparator : DiffUtil.ItemCallback<RestaurantAndPhotoData>() {
         override fun areItemsTheSame(
-            oldItem: RestaurantAndPhotoDTO,
-            newItem: RestaurantAndPhotoDTO
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: RestaurantAndPhotoDTO,
-            newItem: RestaurantAndPhotoDTO
+            oldItem: RestaurantAndPhotoData,
+            newItem: RestaurantAndPhotoData
         ): Boolean {
             return oldItem == newItem
         }
