@@ -125,7 +125,11 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     String.format("Цена: %s руб", menuData.dish.dishPrice)
                             }
                             idShake2.apply {
-                                tvText.text = menuData.dish.dishDescription
+                                if (menuData.dish.dishDescription != "") {
+                                    tvText.text = menuData.dish.dishDescription
+                                } else {
+                                    tvText.text = "Скоро здесь будет описание :)"
+                                }
                             }
                         }
                         bindingActivity.idShake.idBody.visibility = View.VISIBLE
@@ -178,7 +182,11 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                     String.format("Цена: %s руб", menuData.dish.dishPrice)
                             }
                             idShake2.apply {
-                                tvText.text = menuData.dish.dishDescription
+                                if (menuData.dish.dishDescription != "") {
+                                    tvText.text = menuData.dish.dishDescription
+                                } else {
+                                    tvText.text = "Скоро здесь будет описание :)"
+                                }
                             }
                         }
                         bindingActivity.idShake.idBody.visibility = View.VISIBLE
@@ -232,7 +240,7 @@ class MainActivity : AppCompatActivity(), OnDataPassListener {
                                 if (menuData.dish.dishDescription != "") {
                                     tvText.text = menuData.dish.dishDescription
                                 } else {
-                                    tvText.text = "Извините, ничего не найдено"
+                                    tvText.text = "Скоро здесь будет описание :)"
                                 }
                             }
                         }
