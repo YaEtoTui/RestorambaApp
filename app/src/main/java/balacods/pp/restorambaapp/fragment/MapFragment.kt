@@ -1,8 +1,12 @@
 package balacods.pp.restorambaapp.fragment
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.DialogManager
 import balacods.pp.restorambaapp.app.isPermissionGranted
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
@@ -69,8 +74,13 @@ class MapFragment : Fragment() {
         mapView = binding.imCarteGeo
         fLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         init()
-        getLocation()
+        checkLocation()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLocation()
     }
 
     override fun onStop() {
@@ -104,6 +114,18 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun checkLocation() {
+        if (isLocationEnabled()) {
+            getLocation()
+        } else {
+            DialogManager.locationSettingsDialog(requireContext(), object : DialogManager.Listener {
+                override fun onClick() {
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            })
+        }
+    }
+
     private fun checkPermission() {
         if (!isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             permissionListener()
@@ -119,7 +141,16 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun isLocationEnabled(): Boolean {
+        val lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
     private fun getLocation() {
+        if (!isLocationEnabled()) {
+            Toast.makeText(requireContext(), "Location disabled!", Toast.LENGTH_LONG).show()
+            return
+        }
         val ct = CancellationTokenSource()
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
