@@ -99,9 +99,9 @@ class YandexCardFragment : Fragment() {
 
         init()
 
-        mapView = binding.imCarteGeo
-        map = mapView.mapWindow.map
-        map.addInputListener(inputListener)
+//        mapView = binding.imCarteGeo
+//        map = mapView.mapWindow.map
+//        map.addInputListener(inputListener)
 
         // код - 1, значит показать кратчайший путь
         if (pointsViewModel.code.value == 1) {

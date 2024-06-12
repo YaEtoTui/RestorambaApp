@@ -3,9 +3,6 @@ package balacods.pp.restorambaapp.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.PointF
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,8 +13,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -30,32 +25,18 @@ import balacods.pp.restorambaapp.data.enum.StatusCodeShakeRequest
 import balacods.pp.restorambaapp.data.enum.StatusRequest
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
-import balacods.pp.restorambaapp.data.viewModel.LogoLoadModel
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.data.viewModel.RestaurantViewModel
 import balacods.pp.restorambaapp.databinding.FragmentMainBinding
 import balacods.pp.restorambaapp.fragment.adapter.RestaurantSearchAdapter
-import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.CompositeIcon
-import com.yandex.mapkit.map.IconStyle
-import com.yandex.mapkit.map.Map
-import com.yandex.mapkit.mapview.MapView
-import com.yandex.mapkit.user_location.UserLocationLayer
-import com.yandex.mapkit.user_location.UserLocationObjectListener
-import com.yandex.mapkit.user_location.UserLocationView
-import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.stream.Collectors
 
-
-class MainPageFragment : Fragment(), UserLocationObjectListener {
+class MainPageFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
 
@@ -65,11 +46,6 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
     private var searchText: String = ""
     private lateinit var adapterRestaurant: RestaurantSearchAdapter
     private val pointsViewModel: PointsViewModel by activityViewModels()
-    private val logoLoadModel: LogoLoadModel by activityViewModels()
-
-    private lateinit var mapView: MapView
-    private lateinit var map: Map
-    private lateinit var userLocationLayer: UserLocationLayer
 
     private var listRestaurantsGlobal: List<RestaurantAndPhotoData> = emptyList()
     private lateinit var restorambaApiService: RestorambaApiService
@@ -82,72 +58,16 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MapKitFactory.initialize(this.context)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                "android.permission.ACCESS_FINE_LOCATION"
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestLocationPermission()
-
-        if (logoLoadModel.isLogoLoad.value == null) {
-            binding.idTexThread.visibility = View.VISIBLE
-            binding.idProgressBar.visibility = View.VISIBLE
-            binding.idBody.visibility = View.INVISIBLE
-            doOperationsWithUserLocation()
-            logoLoadModel.isLogoLoad.value = true
-        }
-
-        mapView = binding.imCarteGeo
-        map = mapView.mapWindow.map
-
-        mapView.map.isRotateGesturesEnabled = true
-        mapView.map.move(CameraPosition(Point(0.0, 0.0), 14f, 0f, 0f))
-
-        val mapKit = MapKitFactory.getInstance()
-        mapKit.resetLocationManagerToDefault()
-        userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-        userLocationLayer.isVisible = true
-        userLocationLayer.isHeadingEnabled = true
-
-        userLocationLayer.setObjectListener(this)
 
         restorambaApiService = Common.retrofitService
 
         init()
-    }
-
-    private fun doOperationsWithUserLocation() {
-        mSettings = activity?.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE) ?: return
-
-        if (mSettings!!.contains(APP_PREFERENCES)) {
-            Log.i("contains", mSettings!!.contains(APP_PREFERENCES).toString())
-            APP_PREFERENCES_INSTRUCTIONS =
-                mSettings!!.getBoolean(APP_PREFERENCES, APP_PREFERENCES.toBoolean())
-        }
-
-
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(3000L) // задержка в 3 секунды
-            binding.idProgressBar.visibility = View.GONE
-            binding.idTexThread.visibility = View.GONE
-            binding.idBody.visibility = View.VISIBLE
-        }
     }
 
     override fun onAttach(context: Context) {
@@ -157,18 +77,6 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
         } catch (e: ClassCastException) {
             throw ClassCastException("$context must implement OnDataPassListener")
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        MapKitFactory.getInstance().onStop()
-        mapView.onStop()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        MapKitFactory.getInstance().onStart()
-        mapView.onStart()
     }
 
     private fun init() {
@@ -363,56 +271,5 @@ class MainPageFragment : Fragment(), UserLocationObjectListener {
                 apply()
             }
         }
-    }
-
-    override fun onObjectAdded(userLocationView: UserLocationView) {
-        Log.i("TagTagTagTag", "tag")
-        userLocationLayer.setAnchor(
-            PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.5).toFloat()),
-            PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.83).toFloat())
-        )
-
-        userLocationView.arrow.setIcon(
-            ImageProvider.fromResource(
-                context, R.drawable.location
-            ),
-            IconStyle().apply {
-                scale = 1f
-                zIndex = 14f
-            }
-        )
-
-        userLocationView.accuracyCircle.fillColor = Color.BLUE and -0x66000001
-
-
-        val pinIcon: CompositeIcon = userLocationView.pin.useCompositeIcon()
-
-        pinIcon.setIcon(
-            "pin",
-            ImageProvider.fromResource(context, R.drawable.location),
-            IconStyle().apply {
-                scale = 1f
-                zIndex = 14f
-            }
-        )
-    }
-
-    override fun onObjectRemoved(userLocationView: UserLocationView) {
-    }
-
-    override fun onObjectUpdated(userLocationView: UserLocationView, p1: ObjectEvent) {
-        // Получение текущего местоположения пользователя
-        val userLocation: Point = userLocationLayer.cameraPosition()!!.target
-        // Доступ к координатам широты и долготы текущего местоположения
-        val currentLocationPoint = Point(userLocation.latitude, userLocation.longitude)
-        pointsViewModel.startPoints.value = currentLocationPoint
-        Log.i(
-            "currentLocationPoint",
-            String.format("%s %s", currentLocationPoint.longitude, currentLocationPoint.latitude)
-        )
-    }
-
-    companion object {
-        private const val PERMISSIONS_REQUEST_FINE_LOCATION = 1
     }
 }

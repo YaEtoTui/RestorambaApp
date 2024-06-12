@@ -1,18 +1,30 @@
 package balacods.pp.restorambaapp.fragment
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.isPermissionGranted
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.model.RestaurantAndPhotoData
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
@@ -25,12 +37,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.util.Objects.nonNull
 import java.util.stream.Collectors
-
 
 class MapFragment : Fragment() {
 
+    private lateinit var fLocationClient: FusedLocationProviderClient
+    private lateinit var pLauncher: ActivityResultLauncher<String>
     private lateinit var binding: FragmentYandexCardBinding
 
     private lateinit var mapView: MapView
@@ -46,31 +58,99 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        MapKitFactory.initialize(this.context)
         binding = FragmentYandexCardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
+        checkPermission()
         mapView = binding.imCarteGeo
-        map = mapView.mapWindow.map
-        if (nonNull(pointsViewModel.startPoints)) {
-            mapView.map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
-            placemarksCollection = map.mapObjects.addCollection()
-            placemarksCollection.addPlacemark(
-                pointsViewModel.startPoints.value!!,
-                ImageProvider.fromResource(requireContext(), R.drawable.location),
-                IconStyle().apply {
-                    scale = 0.6f
-                    zIndex = 20f
-                }
-            )
-        }
+        fLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        init()
+        getLocation()
 
-        showAllRestaurants()
-        binding.idProgressBar.visibility = View.GONE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+        MapKitFactory.getInstance().onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MapKitFactory.getInstance().onStart()
+        mapView.onStart()
+    }
+
+    private fun init() {
+        initBtNav()
+    }
+
+    private fun initBtNav() {
+        binding.idNavRestaurants.setOnClickListener {
+            findNavController().navigate(R.id.action_mapFrag_to_restaurantsFrag)
+        }
+        binding.idNavSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_mapFrag_to_searchFrag)
+        }
+        binding.idNavMain.setOnClickListener {
+            findNavController().navigate(R.id.action_mapFrag_to_mainFrag)
+        }
+        binding.idNavQuestions.setOnClickListener {
+            findNavController().navigate(R.id.action_mapFrag_to_questionsFrag)
+        }
+    }
+
+    private fun checkPermission() {
+        if (!isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            permissionListener()
+            pLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    private fun permissionListener() {
+        pLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) {
+            Toast.makeText(activity, "Permission is $it", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun getLocation() {
+        val ct = CancellationTokenSource()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fLocationClient
+            .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, ct.token)
+            .addOnCompleteListener {
+                val point = Point(it.result.latitude, it.result.longitude)
+                pointsViewModel.startPoints.value = point
+                Log.i("CurrentLocation", "${it.result.latitude}, ${it.result.longitude}")
+                map = mapView.mapWindow.map
+                mapView.map.move(CameraPosition(point, 13.0f, 0f, 0f))
+                placemarksCollection = map.mapObjects.addCollection()
+                placemarksCollection.addPlacemark(
+                    pointsViewModel.startPoints.value!!,
+                    ImageProvider.fromResource(requireContext(), R.drawable.location),
+                    IconStyle().apply {
+                        scale = 0.6f
+                        zIndex = 20f
+                    }
+                )
+
+                showAllRestaurants()
+            }
     }
 
     private fun showAllRestaurants() {
@@ -112,38 +192,6 @@ class MapFragment : Fragment() {
                     // обработка ошибки с кодом состояния HTTP
                 }
             }
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-        MapKitFactory.getInstance().onStop()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        MapKitFactory.getInstance().onStart()
-        mapView.onStart()
-    }
-
-    private fun init() {
-        binding.idProgressBar.visibility = View.VISIBLE
-        initBtNav()
-    }
-
-    private fun initBtNav() {
-        binding.idNavRestaurants.setOnClickListener {
-            findNavController().navigate(R.id.action_mapFrag_to_restaurantsFrag)
-        }
-        binding.idNavSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_mapFrag_to_searchFrag)
-        }
-        binding.idNavMain.setOnClickListener {
-            findNavController().navigate(R.id.action_mapFrag_to_mainFrag)
-        }
-        binding.idNavQuestions.setOnClickListener {
-            findNavController().navigate(R.id.action_mapFrag_to_questionsFrag)
         }
     }
 }

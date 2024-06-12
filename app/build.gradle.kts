@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    val koin_version = "3.3.2"
+//    val koin_version = "3.3.2"
 
     // Google
     implementation("com.google.android.gms:play-services-location:21.3.0")
@@ -58,11 +58,11 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
 
     //Koin DI
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation("io.insert-koin:koin-android:$koin_version")
+//    implementation("io.insert-koin:koin-core:$koin_version")
+//    implementation("io.insert-koin:koin-android:$koin_version")
 
     // ViewPager2
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+//    implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // MapKit / Yandex Map
     implementation("com.yandex.android:maps.mobile:4.2.2-full")
