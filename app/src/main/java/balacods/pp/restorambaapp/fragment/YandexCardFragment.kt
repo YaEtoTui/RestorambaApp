@@ -1,20 +1,37 @@
 package balacods.pp.restorambaapp.fragment
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import balacods.pp.restorambaapp.R
+import balacods.pp.restorambaapp.app.DialogManager
 import balacods.pp.restorambaapp.app.common.CommonColors
 import balacods.pp.restorambaapp.app.common.showToast
+import balacods.pp.restorambaapp.app.isPermissionGranted
 import balacods.pp.restorambaapp.data.api.retrofit.RestorambaApiService
 import balacods.pp.restorambaapp.data.module.Common
 import balacods.pp.restorambaapp.data.viewModel.PointsViewModel
 import balacods.pp.restorambaapp.databinding.FragmentYandexCardBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint
 import com.yandex.mapkit.RequestPointType
@@ -38,6 +55,9 @@ import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
 
 class YandexCardFragment : Fragment() {
+
+    private lateinit var fLocationClient: FusedLocationProviderClient
+    private lateinit var pLauncher: ActivityResultLauncher<String>
 
     private lateinit var binding: FragmentYandexCardBinding
     private val pointsViewModel: PointsViewModel by activityViewModels()
@@ -95,22 +115,17 @@ class YandexCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkPermission()
         restorambaApiService = Common.retrofitService
-
+        mapView = binding.imCarteGeo
+        map = mapView.mapWindow.map
+        map.addInputListener(inputListener)
+        fLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         init()
-
-//        mapView = binding.imCarteGeo
-//        map = mapView.mapWindow.map
-//        map.addInputListener(inputListener)
-
-        // код - 1, значит показать кратчайший путь
-        if (pointsViewModel.code.value == 1) {
-            pointsViewModel.code.value = 0
-            showDistance()
-        }
+        checkLocation()
     }
 
-    private fun showDistance() {
+    private fun showDistance(point: Point) {
 
         placemarksCollection = map.mapObjects.addCollection()
         routesCollection = map.mapObjects.addCollection()
@@ -119,9 +134,9 @@ class YandexCardFragment : Fragment() {
             DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED)
 
         val map = mapView.mapWindow.map
-        map.move(CameraPosition(pointsViewModel.startPoints.value!!, 13.0f, 0f, 0f))
+        map.move(CameraPosition(point, 13.0f, 0f, 0f))
 
-        routePoints = pointsViewModel.allPoints.value!!
+        routePoints = listOf(point, pointsViewModel.endPoint.value!!)
     }
 
     private fun init() {
@@ -141,6 +156,80 @@ class YandexCardFragment : Fragment() {
         binding.idNavQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_yandexCardFrag_to_questionsFrag)
         }
+    }
+
+    private fun checkLocation() {
+        if (isLocationEnabled()) {
+            getLocation()
+        } else {
+            DialogManager.locationSettingsDialog(requireContext(), object : DialogManager.Listener {
+                override fun onClick() {
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            })
+        }
+    }
+
+    private fun checkPermission() {
+        if (!isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            permissionListener()
+            pLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    private fun permissionListener() {
+        pLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) {
+            Toast.makeText(activity, "Permission is $it", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+    private fun getLocation() {
+        if (!isLocationEnabled()) {
+            Toast.makeText(requireContext(), "Location disabled!", Toast.LENGTH_LONG).show()
+            return
+        }
+        val ct = CancellationTokenSource()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fLocationClient
+            .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, ct.token)
+            .addOnCompleteListener {
+                val point = Point(it.result.latitude, it.result.longitude)
+                Log.i("CurrentLocation", "${it.result.latitude}, ${it.result.longitude}")
+                map = mapView.mapWindow.map
+                mapView.map.move(CameraPosition(point, 13.0f, 0f, 0f))
+                placemarksCollection = map.mapObjects.addCollection()
+                placemarksCollection.addPlacemark(
+                    point,
+                    ImageProvider.fromResource(requireContext(), R.drawable.location),
+                    IconStyle().apply {
+                        scale = 0.6f
+                        zIndex = 20f
+                    }
+                )
+
+                showDistance(point)
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLocation()
     }
 
     override fun onStop() {

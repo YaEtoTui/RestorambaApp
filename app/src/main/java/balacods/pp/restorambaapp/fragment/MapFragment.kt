@@ -70,6 +70,7 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         checkPermission()
         mapView = binding.imCarteGeo
         fLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -166,13 +167,12 @@ class MapFragment : Fragment() {
             .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, ct.token)
             .addOnCompleteListener {
                 val point = Point(it.result.latitude, it.result.longitude)
-                pointsViewModel.startPoints.value = point
                 Log.i("CurrentLocation", "${it.result.latitude}, ${it.result.longitude}")
                 map = mapView.mapWindow.map
                 mapView.map.move(CameraPosition(point, 13.0f, 0f, 0f))
                 placemarksCollection = map.mapObjects.addCollection()
                 placemarksCollection.addPlacemark(
-                    pointsViewModel.startPoints.value!!,
+                    point,
                     ImageProvider.fromResource(requireContext(), R.drawable.location),
                     IconStyle().apply {
                         scale = 0.6f

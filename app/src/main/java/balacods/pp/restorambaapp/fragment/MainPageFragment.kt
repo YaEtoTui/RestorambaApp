@@ -134,13 +134,7 @@ class MainPageFragment : Fragment() {
                     }
 
                     StatusRequest.MAP_DISTANCE.statusRequest -> {
-                        val pointStart = pointsViewModel.startPoints.value!!
-                        val listPoints: MutableList<Point> = mutableListOf(
-                            pointStart, // по умолчанию это наше гео
-                            point // ресторана
-                        )
-                        pointsViewModel.code.value = 1
-                        pointsViewModel.allPoints.value = listPoints
+                        pointsViewModel.endPoint.value = point
                         findNavController().navigate(R.id.action_mainFrag_to_yandexCardFrag)
                     }
                 }
